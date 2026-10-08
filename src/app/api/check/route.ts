@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { applicants, critiqueEdit, fixEdit } from "@/lib/closure";
 
-const Body = z.object({ applicantId: z.string(), note: z.string().optional(), message: z.string().min(1), fix: z.boolean().optional() });
+const Body = z.object({ applicantId: z.string(), note: z.string().optional(), message: z.string().min(1), fix: z.boolean().optional(), criticFast: z.boolean().optional() });
 
 /**
  * POST /api/check { applicantId, message, note?, fix? }
@@ -17,7 +17,7 @@ export async function POST(req: Request) {
   const a = { ...found, note: parsed.data.note ?? found.note };
   let message = parsed.data.message;
 
-  let crit = await critiqueEdit(a, message);
+  let crit = await critiqueEdit(a, message, parsed.data.criticFast);
   if (!crit) return NextResponse.json({ error: "Critic unavailable, try again" }, { status: 503 });
   const before = crit.problems;
   if (parsed.data.fix && before.length) {

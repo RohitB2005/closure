@@ -134,6 +134,7 @@ async function check(draft: Draft, a: Applicant, trace: TraceStep[]) {
       system: CRITIC_SYSTEM,
       user: JSON.stringify({ cv: a.cv, recruiterPrivateNote: a.note || null, message: draft.message }),
       temperature: 0,
+      fast: true, // eval: no-thinking critic matched/beat the thinking critic (27/27 vs 26/27) at ~3x lower latency
     }),
   );
   if (!crit) throw new Error("Critic unavailable");
@@ -192,12 +193,13 @@ export async function runClosure(a: Applicant): Promise<ClosureResult> {
 // Recruiters will edit drafts, and edits are where risky wording actually creeps in.
 // Every edited message is re-critiqued before it can be sent.
 
-export async function critiqueEdit(a: Applicant, message: string) {
+export async function critiqueEdit(a: Applicant, message: string, fast = true) {
   const crit = await generateObject({
     schema: Critique,
     system: CRITIC_SYSTEM,
     user: JSON.stringify({ cv: a.cv, recruiterPrivateNote: a.note || null, message }),
     temperature: 0,
+    fast, // the eval compares the critic with and without thinking
   });
   if (!crit) return null;
   const problems: Problem[] = crit.data.issues.map((i) => ({ source: "critic" as const, ...i }));

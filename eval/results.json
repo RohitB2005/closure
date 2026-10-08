@@ -1,0 +1,1227 @@
+{
+  "base": "http://localhost:3000",
+  "at": "2026-10-08T22:01:18.296Z",
+  "results": {
+    "fast": {
+      "summary": {
+        "passed": "27/27",
+        "messageProblemsCaught": "14/14",
+        "cleanMessagesLeftAlone": "13/13",
+        "badNotesCaught": "5/5",
+        "lawfulNotesLeftAlone": "22/22",
+        "avgSeconds": 2.9
+      },
+      "rows": [
+        {
+          "id": "clean-aroha",
+          "label": "Clean: specific, job-related reason",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2346,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "clean-priya-workrights",
+          "label": "Clean (tricky): lawful NZ work-rights requirement",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 3188,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "clean-daniel",
+          "label": "Clean: genuine skill gap",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2521,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "clean-liam",
+          "label": "Clean: different field, kind redirect",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 1906,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "clean-mere",
+          "label": "Clean (tricky): mentions recent work, not the break",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 12507,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-sam-overqualified",
+          "label": "Age proxy: overqualified + young team",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "age"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 3453,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "age",
+              "excerpt": "With 26 years behind you, you may be a bit overqualified for a junior role",
+              "explanation": "Referencing decades of experience and being 'overqualified' acts as a proxy for age discrimination under s21 of the Human Rights Act 1993.",
+              "fix": "Remove references to length of previous career and terms like 'overqualified', focusing strictly on current technical competencies required for the role."
+            },
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "age",
+              "excerpt": "our young team might not be the right fit",
+              "explanation": "Contrasting the applicant's experience against a 'young team' directly implicates age as a protected ground under s21 of the Human Rights Act 1993.",
+              "fix": "Remove references to team age demographics and cultural 'fit'."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-sam-career-stage",
+          "label": "Age proxy (subtle): earlier career stage",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "age"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2402,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "age",
+              "excerpt": "someone at an earlier stage of their career who will grow with us long term",
+              "explanation": "Stating a preference for someone at an earlier stage of their career or who will grow long-term acts as a proxy for age discrimination under s21 of the Human Rights Act 1993.",
+              "fix": "Focus strictly on the specific technical or job-related skills required for the role rather than career stage."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-mere-children",
+          "label": "Family status: children",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "family_status"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2524,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "family_status",
+              "excerpt": "we felt the hours might be hard to manage with young children at home. Maybe once the kids are a bit older!",
+              "explanation": "Assuming an applicant cannot manage work hours due to childcare responsibilities discriminates against them based on family status under section 21 of the Human Rights Act 1993.",
+              "fix": "Remove all references to the applicant's children or family situation, and focus strictly on job-relevant skills and requirements."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-mere-gap",
+          "label": "Caring-related career break held against her (subtle)",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "family_status",
+              "employment_status"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 1977,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "family_status",
+              "excerpt": "Your four-year break from work since 2021 was a concern for us, as we need someone who is current and committed.",
+              "explanation": "Questioning commitment due to a career break taken for childcare acts as a proxy for family status and employment status discrimination under the NZ Human Rights Act 1993.",
+              "fix": "Focus objectively on specific technical skills or experience depth required for the role rather than referencing the career break or questioning commitment."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-ahmed-wheelchair",
+          "label": "Disability: office access",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "disability"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2602,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "disability",
+              "excerpt": "our office has stairs and isn't set up for wheelchair users, so we don't think this role would work for you",
+              "explanation": "The employer is declining the applicant based on physical disability and office accessibility/mobility rather than assessing reasonable accommodation or qualifications under the NZ Human Rights Act 1993 s21.",
+              "fix": "Remove any reference to the candidate's disability, mobility, or office accessibility, and evaluate the application strictly on job-related skills and qualifications."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-grace-young",
+          "label": "Age: too young",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "age"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 3231,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "age",
+              "excerpt": "You're very young for a full-time developer role, so come back in a few years once you've grown up a bit.",
+              "explanation": "The message explicitly cites the applicant's age ('very young', 'grown up a bit') as the reason for rejection, which is unlawful discrimination under the NZ Human Rights Act 1993 s21.",
+              "fix": "Focus feedback purely on the required technical experience, skills, or job competencies rather than the candidate's age."
+            },
+            {
+              "source": "critic",
+              "type": "harsh",
+              "ground": null,
+              "excerpt": "once you've grown up a bit",
+              "explanation": "Telling an applicant to come back once they have 'grown up a bit' is patronising and needlessly belittling.",
+              "fix": "Remove the patronising comment and offer constructive, professional feedback regarding experience or apprenticeship opportunities."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-priya-kiwi",
+          "label": "National origin: 'Kiwi' preference",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "ethnic_or_national_origins",
+              "race"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2775,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "ethnic_or_national_origins",
+              "excerpt": "we're really after a Kiwi developer who understands our local culture and customers",
+              "explanation": "Specifying a requirement for a 'Kiwi developer' discriminates on the prohibited ground of national origins, race, or ethnic origins under the NZ Human Rights Act 1993 s21. While requiring legal NZ work rights is lawful, limiting selection based on national identity or origin is unlawful.",
+              "fix": "Focus solely on role-specific requirements, such as familiarity with local market regulatory environments or existing valid work entitlements, rather than specifying nationality or cultural background."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "unsupported-aroha-ts",
+          "label": "Unsupported: contradicts CV (TypeScript)",
+          "expect": {
+            "clean": false,
+            "types": [
+              "unsupported_claim"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 3055,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "unsupported_claim",
+              "ground": null,
+              "excerpt": "your CV shows no TypeScript experience",
+              "explanation": "The candidate's CV explicitly lists TypeScript under Skills and mentions building a React + TypeScript app ('FlatMate'). Claiming they have no TypeScript experience contradicts the CV.",
+              "fix": "Remove or correct the claim regarding lack of TypeScript experience, specifying instead what level or depth of commercial experience was required if applicable."
+            },
+            {
+              "source": "critic",
+              "type": "unsupported_claim",
+              "ground": null,
+              "excerpt": "Learning TypeScript would make you a stronger candidate.",
+              "explanation": "The applicant already knows and has used TypeScript according to their CV. Suggesting they learn it misrepresents their qualifications.",
+              "fix": "Remove the advice to learn TypeScript, or clarify what advanced skills or production experience the team is seeking."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "unsupported-daniel-react",
+          "label": "Unsupported: praises experience he doesn't have",
+          "expect": {
+            "clean": false,
+            "types": [
+              "unsupported_claim"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2636,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "unsupported_claim",
+              "ground": null,
+              "excerpt": "Your three years of production React work at Harbour Payments is impressive",
+              "explanation": "Daniel's CV states he is a backend developer working with Java and Spring Boot at Harbour Payments, and that he has only just started a React course; he does not have three years of production React work.",
+              "fix": "Accurately reference Daniel's background in backend engineering and Java/Spring Boot rather than misstating his frontend experience."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "generic-tane",
+          "label": "Generic template",
+          "expect": {
+            "clean": false,
+            "types": [
+              "generic"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2669,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "generic",
+              "ground": null,
+              "excerpt": "We received a large number of strong applications and, after careful consideration, have decided to proceed with candidates whose experience more closely matches our requirements. We wish you every success in your future endeavours.",
+              "explanation": "The message is entirely generic boilerplate that contains no specific details relevant to the applicant's experience, background, or the role itself.",
+              "fix": "Personalise the message with the applicant's name and include specific, job-related feedback explaining what skills or experience were sought."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "promise-jess",
+          "label": "False promise: CV on file",
+          "expect": {
+            "clean": false,
+            "types": [
+              "false_promise"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 3148,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "false_promise",
+              "ground": null,
+              "excerpt": "will be in touch as soon as a design role opens up",
+              "explanation": "Promising that the company definitely will contact the applicant as soon as a future role opens sets a firm expectation that recruiters rarely guarantee or maintain reliably.",
+              "fix": "Change to a non-committal phrasing like 'We encourage you to apply for future design openings that match your skills' or 'We'll keep your details on file should a suitable design opportunity arise'."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "note-ahmed",
+          "label": "Note: disability (message itself clean)",
+          "expect": {
+            "clean": true,
+            "noteFlag": true,
+            "noteGrounds": [
+              "disability"
+            ]
+          },
+          "pass": true,
+          "why": "",
+          "ms": 1964,
+          "problems": [],
+          "noteIssue": {
+            "ground": "disability",
+            "explanation": "The recruiter rejects the candidate based on his use of a wheelchair and office accessibility ('he uses a wheelchair and our office has stairs, so probably not a fit'), which directly discriminates on the prohibited ground of disability under the NZ Human Rights Act 1993."
+          }
+        },
+        {
+          "id": "note-grace",
+          "label": "Note: age",
+          "expect": {
+            "clean": true,
+            "noteFlag": true,
+            "noteGrounds": [
+              "age"
+            ]
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2272,
+          "problems": [],
+          "noteIssue": {
+            "ground": "age",
+            "explanation": "The recruiter's private note rejects the applicant explicitly based on age ('Way too young for this'), which is a prohibited ground of discrimination under s21 of the Human Rights Act 1993."
+          }
+        },
+        {
+          "id": "note-mere",
+          "label": "Note: family status",
+          "expect": {
+            "clean": true,
+            "noteFlag": true,
+            "noteGrounds": [
+              "family_status"
+            ]
+          },
+          "pass": true,
+          "why": "",
+          "ms": 1976,
+          "problems": [],
+          "noteIssue": {
+            "ground": "family_status",
+            "explanation": "The recruiter's private note expresses concern regarding availability due to having young children at home, which discriminates on the ground of family status under section 21 of the Human Rights Act 1993."
+          }
+        },
+        {
+          "id": "note-ben-culture",
+          "label": "Note: unexplained 'culture fit'",
+          "expect": {
+            "clean": true,
+            "noteFlag": true
+          },
+          "pass": true,
+          "why": "",
+          "ms": 1989,
+          "problems": [],
+          "noteIssue": {
+            "ground": null,
+            "explanation": "The private note cites 'Not a culture fit' without any objective, job-related justification, which is an unexplained 'fit' judgment that risks masking unconscious bias or unlawful discrimination."
+          }
+        },
+        {
+          "id": "note-chloe-lawful",
+          "label": "Note: lawful, job-related",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2107,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "hard-digital-native",
+          "label": "Hard: 'digital native' (age proxy)",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "age"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2906,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "age",
+              "excerpt": "a true digital native who has grown up with modern web tools",
+              "explanation": "Phrases like 'digital native' and 'grown up with modern web tools' serve as direct proxies for age, implying a preference for younger applicants and potentially breaching s21 of the Human Rights Act 1993.",
+              "fix": "Focus on the specific technical skills or hands-on experience required rather than generational characteristics, e.g., 'For this role we were looking for more extensive practical experience building production applications with modern web tools.'"
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "hard-fresh-energy",
+          "label": "Hard: 'fresh energy' (age proxy)",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "age"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2536,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "age",
+              "excerpt": "someone who brings a bit more fresh energy to our small team",
+              "explanation": "Phrases like 'fresh energy' are commonly understood proxies for youth or age, which is a prohibited ground under the NZ Human Rights Act 1993 s21. Given the candidate's 26-year career history, this can easily be interpreted as age discrimination.",
+              "fix": "Remove references to 'fresh energy' and focus feedback on specific technical skills, experience, or role requirements."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "hard-accessibility-skill",
+          "label": "Hard clean: praising accessibility SKILL is not disability",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2700,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "hard-english",
+          "label": "Hard: unsupported 'English' concern (origin proxy)",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground",
+              "unsupported_claim"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 2743,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "unsupported_claim",
+              "ground": null,
+              "excerpt": "we had some concerns about your English communication for client-facing work",
+              "explanation": "The CV does not show any evidence or indication of poor English communication skills; this claim assumes communication deficiencies without having interviewed the candidate. In this context, questioning English proficiency based purely on a paper application from an international student/migrant background also acts as a potential proxy for race or ethnic/national origins.",
+              "fix": "Base feedback only on demonstrated qualifications or application materials, or omit assumptions regarding communication skills unless assessed during an interview."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "hard-note-maternity",
+          "label": "Hard note: pregnancy speculation",
+          "expect": {
+            "clean": true,
+            "noteFlag": true,
+            "noteGrounds": [
+              "marital_status",
+              "family_status",
+              "sex"
+            ]
+          },
+          "pass": true,
+          "why": "",
+          "ms": 4059,
+          "problems": [],
+          "noteIssue": {
+            "ground": "family_status",
+            "explanation": "The recruiter's note unlawfully discriminates based on marital and family status ('just got married, probably planning a family soon'), assuming future pregnancy or parental responsibilities."
+          }
+        },
+        {
+          "id": "hard-note-lawful-sensitive",
+          "label": "Hard note: lawful but sounds sensitive (relocation timing)",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 1276,
+          "problems": [],
+          "noteIssue": null
+        }
+      ]
+    },
+    "think": {
+      "summary": {
+        "passed": "26/27",
+        "messageProblemsCaught": "14/14",
+        "cleanMessagesLeftAlone": "12/13",
+        "badNotesCaught": "5/5",
+        "lawfulNotesLeftAlone": "22/22",
+        "avgSeconds": 9
+      },
+      "rows": [
+        {
+          "id": "clean-aroha",
+          "label": "Clean: specific, job-related reason",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 4095,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "clean-priya-workrights",
+          "label": "Clean (tricky): lawful NZ work-rights requirement",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 5117,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "clean-daniel",
+          "label": "Clean: genuine skill gap",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 7165,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "clean-liam",
+          "label": "Clean: different field, kind redirect",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 6166,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "clean-mere",
+          "label": "Clean (tricky): mentions recent work, not the break",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 14761,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-sam-overqualified",
+          "label": "Age proxy: overqualified + young team",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "age"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 13615,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "age",
+              "excerpt": "With 26 years behind you, you may be a bit overqualified for a junior role, and our young team might not be the right fit.",
+              "explanation": "Citing career length ('26 years behind you'), labelling the applicant 'overqualified', and referring to a 'young team' and team fit directly references and uses proxies for age, which is a prohibited ground of discrimination under section 21 of the Human Rights Act 1993.",
+              "fix": "Remove references to the candidate's previous career length, overqualification, and the age composition of the team. Focus feedback solely on objective, role-related technical skills."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-sam-career-stage",
+          "label": "Age proxy (subtle): earlier career stage",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "age"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 6324,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "age",
+              "excerpt": "someone at an earlier stage of their career who will grow with us long term",
+              "explanation": "Referring to 'career stage' and seeking someone who will 'grow with us long term' operates as a proxy for age discrimination under s 21 of the Human Rights Act 1993.",
+              "fix": "Focus on the specific technical competencies or experience levels required for the role rather than career stage."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-mere-children",
+          "label": "Family status: children",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "family_status"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 6981,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "family_status",
+              "excerpt": "we felt the hours might be hard to manage with young children at home. Maybe once the kids are a bit older!",
+              "explanation": "The message bases the rejection on assumptions about the applicant's childcare responsibilities and family circumstances. Family status (including having responsibility for the care of children) is a prohibited ground of discrimination under section 21 of the NZ Human Rights Act 1993.",
+              "fix": "Remove all assumptions and remarks about the applicant's children and family status, and evaluate the candidate strictly on job-relevant skills and requirements."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-mere-gap",
+          "label": "Caring-related career break held against her (subtle)",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "family_status",
+              "employment_status"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 13654,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "family_status",
+              "excerpt": "Your four-year break from work since 2021 was a concern for us, as we need someone who is current and committed.",
+              "explanation": "Questioning an applicant's commitment or rejecting them due to a career break taken for childcare unlawfully penalises family status under the Human Rights Act 1993.",
+              "fix": "Focus evaluation on current technical capabilities and project experience rather than gaps in employment or assumptions about commitment."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-ahmed-wheelchair",
+          "label": "Disability: office access",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "disability"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 6448,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "disability",
+              "excerpt": "our office has stairs and isn't set up for wheelchair users, so we don't think this role would work for you",
+              "explanation": "Declining an applicant because of their physical disability and the office's physical accessibility directly breaches the Human Rights Act 1993 s21 (disability). Employers must assess candidates on their merits and explore reasonable accommodations rather than disqualifying them due to wheelchair access.",
+              "fix": "Remove any reference to wheelchair access or physical premises limitations, and base the hiring decision strictly on job-related skills and qualifications."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-grace-young",
+          "label": "Age: too young",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "age"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 8709,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "age",
+              "excerpt": "You're very young for a full-time developer role",
+              "explanation": "Age discrimination is prohibited under the NZ Human Rights Act 1993 for anyone aged 16 or over. Making hiring decisions or comments based on youth is unlawful.",
+              "fix": "Focus strictly on the required skills, experience, or technical competencies needed for the role rather than the applicant's age."
+            },
+            {
+              "source": "critic",
+              "type": "harsh",
+              "ground": null,
+              "excerpt": "once you've grown up a bit",
+              "explanation": "Telling an applicant to 'grown up a bit' is dismissive, patronising, and unnecessarily belittling.",
+              "fix": "Remove the condescending phrasing and provide constructive, professional feedback about commercial experience or technical development."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "pg-priya-kiwi",
+          "label": "National origin: 'Kiwi' preference",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "ethnic_or_national_origins",
+              "race"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 4529,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "ethnic_or_national_origins",
+              "excerpt": "we're really after a Kiwi developer who understands our local culture and customers",
+              "explanation": "Requiring a 'Kiwi developer' discriminates on the basis of national origins or citizenship under section 21 of the NZ Human Rights Act 1993. Stating a requirement for valid NZ work rights is lawful, but specifying nationality or local cultural background is unlawful discrimination.",
+              "fix": "Focus solely on job-related skills and qualifications or legitimate work eligibility requirements rather than nationality or cultural background."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "unsupported-aroha-ts",
+          "label": "Unsupported: contradicts CV (TypeScript)",
+          "expect": {
+            "clean": false,
+            "types": [
+              "unsupported_claim"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 5401,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "unsupported_claim",
+              "ground": null,
+              "excerpt": "your CV shows no TypeScript experience",
+              "explanation": "The applicant's CV explicitly lists TypeScript under Skills and details a project ('FlatMate') built with React and TypeScript.",
+              "fix": "Acknowledge the applicant's existing TypeScript experience or clarify the specific level of commercial or production TypeScript experience required for the role."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "unsupported-daniel-react",
+          "label": "Unsupported: praises experience he doesn't have",
+          "expect": {
+            "clean": false,
+            "types": [
+              "unsupported_claim"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 5812,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "unsupported_claim",
+              "ground": null,
+              "excerpt": "Your three years of production React work at Harbour Payments is impressive",
+              "explanation": "Daniel's CV shows he worked on Java and Spring Boot microservices at Harbour Payments, and has only recently started an introductory course in React. He does not have three years of production React experience.",
+              "fix": "Accurately reflect his actual background in Java/Spring Boot backend engineering rather than attributing production React experience to him."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "generic-tane",
+          "label": "Generic template",
+          "expect": {
+            "clean": false,
+            "types": [
+              "generic"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 8702,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "generic",
+              "ground": null,
+              "excerpt": "We received a large number of strong applications and, after careful consideration, have decided to proceed with candidates whose experience more closely matches our requirements.",
+              "explanation": "This is generic boilerplate rejection phrasing that provides no specific, actionable feedback relevant to the applicant's background or the role.",
+              "fix": "Personalise the message and specify which qualifications, skills, or specific areas of experience were prioritised or missing."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "promise-jess",
+          "label": "False promise: CV on file",
+          "expect": {
+            "clean": false,
+            "types": [
+              "false_promise"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 10608,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "false_promise",
+              "ground": null,
+              "excerpt": "will be in touch as soon as a design role opens up",
+              "explanation": "Making a definitive commitment to contact the applicant when a future vacancy arises creates an expectation that employers frequently fail to track and fulfill.",
+              "fix": "Soften the commitment to an invitation to apply in the future or state that you may reach out if a suitable opportunity arises."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "note-ahmed",
+          "label": "Note: disability (message itself clean)",
+          "expect": {
+            "clean": true,
+            "noteFlag": true,
+            "noteGrounds": [
+              "disability"
+            ]
+          },
+          "pass": true,
+          "why": "",
+          "ms": 5222,
+          "problems": [],
+          "noteIssue": {
+            "ground": "disability",
+            "explanation": "The recruiter's note indicates that the applicant is being rejected because he uses a wheelchair ('he uses a wheelchair and our office has stairs, so probably not a fit'). Under the NZ Human Rights Act 1993, disability is a prohibited ground of discrimination, and employers are generally expected to consider reasonable accommodation."
+          }
+        },
+        {
+          "id": "note-grace",
+          "label": "Note: age",
+          "expect": {
+            "clean": true,
+            "noteFlag": true,
+            "noteGrounds": [
+              "age"
+            ]
+          },
+          "pass": true,
+          "why": "",
+          "ms": 5601,
+          "problems": [],
+          "noteIssue": {
+            "ground": "age",
+            "explanation": "The recruiter's private note explicitly rejects the applicant on the basis of age ('Way too young'), which is a prohibited ground of discrimination under section 21 of the NZ Human Rights Act 1993 (protecting individuals aged 16 and older)."
+          }
+        },
+        {
+          "id": "note-mere",
+          "label": "Note: family status",
+          "expect": {
+            "clean": true,
+            "noteFlag": true,
+            "noteGrounds": [
+              "family_status"
+            ]
+          },
+          "pass": false,
+          "why": "false positive: protected_ground",
+          "ms": 41120,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "family_status",
+              "excerpt": "Kōwhai Software's paid returners programme could be a great fit.",
+              "explanation": "Suggesting a returners programme references the applicant's career break and caring duties, which act as proxies for family status under the Human Rights Act 1993.",
+              "fix": "Remove the suggestion about the returners programme and keep the feedback focused solely on job-related technical requirements."
+            }
+          ],
+          "noteIssue": {
+            "ground": "family_status",
+            "explanation": "The recruiter's decision is influenced by concerns regarding the applicant's availability due to having young children at home, which constitutes unlawful discrimination on the ground of family status under s 21 of the Human Rights Act 1993."
+          }
+        },
+        {
+          "id": "note-ben-culture",
+          "label": "Note: unexplained 'culture fit'",
+          "expect": {
+            "clean": true,
+            "noteFlag": true
+          },
+          "pass": true,
+          "why": "",
+          "ms": 4243,
+          "problems": [],
+          "noteIssue": {
+            "ground": null,
+            "explanation": "The note relies on an unexplained 'culture fit' judgement without objective or job-related justification, which risks disguising unlawful discrimination or bias under the NZ Human Rights Act."
+          }
+        },
+        {
+          "id": "note-chloe-lawful",
+          "label": "Note: lawful, job-related",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 3859,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "hard-digital-native",
+          "label": "Hard: 'digital native' (age proxy)",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "age"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 6109,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "age",
+              "excerpt": "true digital native who has grown up with modern web tools",
+              "explanation": "Describing the ideal candidate as a 'digital native who has grown up with modern web tools' directly discriminates on the basis of age under s21 of the Human Rights Act 1993.",
+              "fix": "Focus objectively on the specific technical skills and practical experience required with modern web tools, without referencing the candidate's age or generation."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "hard-fresh-energy",
+          "label": "Hard: 'fresh energy' (age proxy)",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground"
+            ],
+            "grounds": [
+              "age"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 4206,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "age",
+              "excerpt": "brings a bit more fresh energy",
+              "explanation": "The term 'fresh energy' commonly functions as a proxy for age, which is a prohibited ground under section 21 of the NZ Human Rights Act 1993.",
+              "fix": "Focus feedback on objective, job-related qualifications or specific technical competencies rather than perceived energy or dynamism."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "hard-accessibility-skill",
+          "label": "Hard clean: praising accessibility SKILL is not disability",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 5119,
+          "problems": [],
+          "noteIssue": null
+        },
+        {
+          "id": "hard-english",
+          "label": "Hard: unsupported 'English' concern (origin proxy)",
+          "expect": {
+            "clean": false,
+            "types": [
+              "protected_ground",
+              "unsupported_claim"
+            ],
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 27684,
+          "problems": [
+            {
+              "source": "critic",
+              "type": "protected_ground",
+              "ground": "ethnic_or_national_origins",
+              "excerpt": "we had some concerns about your English communication for client-facing work",
+              "explanation": "Questioning an applicant's English communication at the CV screening stage—particularly for a candidate with overseas background or an Indian name—acts as a proxy for ethnic or national origins under the NZ Human Rights Act 1993. Communication competencies should only be evaluated through fair, objective, role-specific assessments.",
+              "fix": "Remove the remark about English communication and evaluate communication skills objectively through interviews or assessments rather than assuming language capability from CV details."
+            }
+          ],
+          "noteIssue": null
+        },
+        {
+          "id": "hard-note-maternity",
+          "label": "Hard note: pregnancy speculation",
+          "expect": {
+            "clean": true,
+            "noteFlag": true,
+            "noteGrounds": [
+              "marital_status",
+              "family_status",
+              "sex"
+            ]
+          },
+          "pass": true,
+          "why": "",
+          "ms": 7163,
+          "problems": [],
+          "noteIssue": {
+            "ground": "family_status",
+            "explanation": "The recruiter's note unlawfully discriminates against the candidate based on marital status and anticipated family status ('she just got married, probably planning a family soon'), which are prohibited grounds under the Human Rights Act 1993."
+          }
+        },
+        {
+          "id": "hard-note-lawful-sensitive",
+          "label": "Hard note: lawful but sounds sensitive (relocation timing)",
+          "expect": {
+            "clean": true,
+            "noteFlag": false
+          },
+          "pass": true,
+          "why": "",
+          "ms": 5226,
+          "problems": [],
+          "noteIssue": null
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,385 @@
+[
+ {
+  "id": "clean-aroha",
+  "label": "Clean: specific, job-related reason",
+  "applicantId": "a1",
+  "note": "Went with someone with commercial React experience.",
+  "message": "Kia ora Aroha,\n\nThanks for applying for the Junior Frontend Developer role. We're not progressing your application: we chose someone with commercial React experience. Your FlatMate app, built in React and TypeScript and used by 40 students, was a real strength. Next step: put your Pōhutukawa Digital internship work into a short case study, and consider the Frontend Developer (Vue) role at Pūriri Software, which matches your Vue experience.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "clean-priya-workrights",
+  "label": "Clean (tricky): lawful NZ work-rights requirement",
+  "applicantId": "a5",
+  "note": "She'd need visa sponsorship and we can't sponsor right now.",
+  "message": "Kia ora Priya,\n\nThank you for applying. This role needs existing NZ work rights and we can't offer visa sponsorship at the moment, so we can't progress your application. Your React and TypeScript work on a payments dashboard used by 10,000 merchants is impressive. Pōhutukawa Payments is an accredited employer hiring a Frontend Developer and sponsors work visas, so we'd encourage you to apply there.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "clean-daniel",
+  "label": "Clean: genuine skill gap",
+  "applicantId": "a4",
+  "note": "",
+  "message": "Kia ora Daniel,\n\nThanks for applying. We're not progressing your application because this role needs hands-on React experience, which your CV doesn't show yet. Your three years building Java and Spring Boot services at Harbour Payments is solid engineering. If frontend is where you want to go, finishing your React course with a small deployed project would make a big difference. Meanwhile, Kererū Bank's Backend Developer (Java) role is a strong match.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "clean-liam",
+  "label": "Clean: different field, kind redirect",
+  "applicantId": "a6",
+  "note": "",
+  "message": "Kia ora Liam,\n\nThanks for your interest in Kauri Labs. This role needs React and TypeScript experience, so we can't progress your application. Training six new baristas and running opening, cash-up and stock orders at Little Bird Café shows real responsibility. If tech is your goal, a free intro course like freeCodeCamp is a good first step. Right now, Flat White Co.'s Café Supervisor role looks like a great fit.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "clean-mere",
+  "label": "Clean (tricky): mentions recent work, not the break",
+  "applicantId": "a3",
+  "note": "Chose someone with more recent React production experience.",
+  "message": "Kia ora Mere,\n\nThank you for applying. We chose a candidate with more recent React production experience, so we're not progressing your application. Your AngularJS dashboard work at Tui Software and the accessible React site you rebuilt for your local kindergarten both stood out. Adding a link to that React site on your CV would show your current skills clearly. Kōwhai Software's paid returners programme for frontend developers could be a great fit.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "pg-sam-overqualified",
+  "label": "Age proxy: overqualified + young team",
+  "applicantId": "a2",
+  "note": "",
+  "message": "Kia ora Sam,\n\nThanks for applying. With 26 years behind you, you may be a bit overqualified for a junior role, and our young team might not be the right fit. Your bootcamp dashboard project was well done.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "protected_ground"
+   ],
+   "grounds": [
+    "age"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "pg-sam-career-stage",
+  "label": "Age proxy (subtle): earlier career stage",
+  "applicantId": "a2",
+  "note": "",
+  "message": "Kia ora Sam,\n\nThank you for applying. For this role we were looking for someone at an earlier stage of their career who will grow with us long term. Your stock-tracking dashboard in React was a good team project, and the Customer Success Lead role at Rimu Retail Tech could suit your retail background.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "protected_ground"
+   ],
+   "grounds": [
+    "age"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "pg-mere-children",
+  "label": "Family status: children",
+  "applicantId": "a3",
+  "note": "",
+  "message": "Kia ora Mere,\n\nThanks for applying. Your AngularJS experience is solid, but we felt the hours might be hard to manage with young children at home. Maybe once the kids are a bit older! The returners programme at Kōwhai Software could suit you.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "protected_ground"
+   ],
+   "grounds": [
+    "family_status"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "pg-mere-gap",
+  "label": "Caring-related career break held against her (subtle)",
+  "applicantId": "a3",
+  "note": "",
+  "message": "Kia ora Mere,\n\nThank you for applying. Your four-year break from work since 2021 was a concern for us, as we need someone who is current and committed. Your recent React kindergarten site was a nice project.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "protected_ground"
+   ],
+   "grounds": [
+    "family_status",
+    "employment_status"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "pg-ahmed-wheelchair",
+  "label": "Disability: office access",
+  "applicantId": "a10",
+  "note": "",
+  "message": "Kia ora Ahmed,\n\nThanks for applying. Your WCAG auditing work is impressive, but our office has stairs and isn't set up for wheelchair users, so we don't think this role would work for you. The Accessibility Engineer role at Tōtara Government Digital is remote-friendly.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "protected_ground"
+   ],
+   "grounds": [
+    "disability"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "pg-grace-young",
+  "label": "Age: too young",
+  "applicantId": "a11",
+  "note": "",
+  "message": "Kia ora Grace,\n\nYour sports results app is a great effort for someone still at school! You're very young for a full-time developer role, so come back in a few years once you've grown up a bit. Rātā Digital's Software Apprentice role might suit you.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "protected_ground"
+   ],
+   "grounds": [
+    "age"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "pg-priya-kiwi",
+  "label": "National origin: 'Kiwi' preference",
+  "applicantId": "a5",
+  "note": "",
+  "message": "Kia ora Priya,\n\nThanks for applying. Your payments dashboard work is strong, but we're really after a Kiwi developer who understands our local culture and customers. All the best with your search.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "protected_ground"
+   ],
+   "grounds": [
+    "ethnic_or_national_origins",
+    "race"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "unsupported-aroha-ts",
+  "label": "Unsupported: contradicts CV (TypeScript)",
+  "applicantId": "a1",
+  "note": "",
+  "message": "Kia ora Aroha,\n\nThanks for applying. Unfortunately your CV shows no TypeScript experience, which this role needs. Your volunteer tutoring is great to see. Learning TypeScript would make you a stronger candidate.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "unsupported_claim"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "unsupported-daniel-react",
+  "label": "Unsupported: praises experience he doesn't have",
+  "applicantId": "a4",
+  "note": "",
+  "message": "Kia ora Daniel,\n\nThanks for applying. Your three years of production React work at Harbour Payments is impressive, but we went with someone with more TypeScript. Kererū Bank's Backend Developer role could suit you.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "unsupported_claim"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "generic-tane",
+  "label": "Generic template",
+  "applicantId": "a8",
+  "note": "",
+  "message": "Dear Applicant,\n\nThank you for your interest in this position. We received a large number of strong applications and, after careful consideration, have decided to proceed with candidates whose experience more closely matches our requirements. We wish you every success in your future endeavours.\n\nKind regards,\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "generic"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "promise-jess",
+  "label": "False promise: CV on file",
+  "applicantId": "a7",
+  "note": "",
+  "message": "Kia ora Jess,\n\nThanks for applying. This role needs React and TypeScript, which your CV doesn't show, though your Figma design system work at Fern Studio is excellent. We'll keep your CV on file and will be in touch as soon as a design role opens up. Harakeke Studio's UI/UX Designer role is a strong match.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "false_promise"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "note-ahmed",
+  "label": "Note: disability (message itself clean)",
+  "applicantId": "a10",
+  "note": "Great on paper but he uses a wheelchair and our office has stairs, so probably not a fit.",
+  "message": "Kia ora Ahmed,\n\nThank you for applying for the Junior Frontend Developer role. We're not progressing your application at this stage. Your React and TypeScript work for five clients at Kowhai Agency and your WCAG auditing stood out. Tōtara Government Digital's Accessibility Engineer role is a strong match for your skills.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": true,
+   "noteGrounds": [
+    "disability"
+   ]
+  }
+ },
+ {
+  "id": "note-grace",
+  "label": "Note: age",
+  "applicantId": "a11",
+  "note": "Way too young for this.",
+  "message": "Kia ora Grace,\n\nThanks for applying. This role needs experience working in a team codebase, which your CV doesn't show yet. Your React app used by your school's sports department is a great start. Rātā Digital's two-year Software Apprentice role starts in January and could be a great next step.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": true,
+   "noteGrounds": [
+    "age"
+   ]
+  }
+ },
+ {
+  "id": "note-mere",
+  "label": "Note: family status",
+  "applicantId": "a3",
+  "note": "Strong-ish but worried about her availability with young kids at home.",
+  "message": "Kia ora Mere,\n\nThank you for applying. We chose a candidate with more recent React production experience. Your AngularJS dashboards at Tui Software and the accessible React site you built recently stood out. Kōwhai Software's paid returners programme could be a great fit.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": true,
+   "noteGrounds": [
+    "family_status"
+   ]
+  }
+ },
+ {
+  "id": "note-ben-culture",
+  "label": "Note: unexplained 'culture fit'",
+  "applicantId": "a12",
+  "note": "Not a culture fit.",
+  "message": "Kia ora Ben,\n\nThank you for applying. We're not progressing your application at this stage. Your React and TypeScript work on Totara Tech's HR platform, including pair programming, was a real strength.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": true
+  }
+ },
+ {
+  "id": "note-chloe-lawful",
+  "label": "Note: lawful, job-related",
+  "applicantId": "a9",
+  "note": "Went with someone with React production experience.",
+  "message": "Kia ora Chloe,\n\nThanks for applying. We chose someone with React production experience. Your Vue 3 and TypeScript work on patient-facing features at Rimu Health is strong, and Pūriri Software's Frontend Developer (Vue) role, with relocation support, looks like an excellent match.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "hard-digital-native",
+  "label": "Hard: 'digital native' (age proxy)",
+  "applicantId": "a2",
+  "note": "",
+  "message": "Kia ora Sam,\n\nThanks for applying. For this role we wanted a true digital native who has grown up with modern web tools. Your React dashboard bootcamp project was solid, and Rimu Retail Tech's Customer Success Lead role could suit your retail leadership.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "protected_ground"
+   ],
+   "grounds": [
+    "age"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "hard-fresh-energy",
+  "label": "Hard: 'fresh energy' (age proxy)",
+  "applicantId": "a2",
+  "note": "",
+  "message": "Kia ora Sam,\n\nThank you for applying. We went with someone who brings a bit more fresh energy to our small team. We appreciated your team project with Git pull requests during the Dev Academy bootcamp.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "protected_ground"
+   ],
+   "grounds": [
+    "age"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "hard-accessibility-skill",
+  "label": "Hard clean: praising accessibility SKILL is not disability",
+  "applicantId": "a10",
+  "note": "Went with someone with more React experience in a product team.",
+  "message": "Kia ora Ahmed,\n\nThanks for applying. We chose someone with more React experience inside a single product team. Your WCAG 2.2 auditing and screen-reader testing across five client sites is genuinely strong, and Tōtara Government Digital's Accessibility Engineer role is an excellent match for it.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "hard-english",
+  "label": "Hard: unsupported 'English' concern (origin proxy)",
+  "applicantId": "a5",
+  "note": "",
+  "message": "Kia ora Priya,\n\nThanks for applying. Your React work is strong, but we had some concerns about your English communication for client-facing work. Practising presenting your projects could help.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": false,
+   "types": [
+    "protected_ground",
+    "unsupported_claim"
+   ],
+   "noteFlag": false
+  }
+ },
+ {
+  "id": "hard-note-maternity",
+  "label": "Hard note: pregnancy speculation",
+  "applicantId": "a9",
+  "note": "Good dev but she just got married, probably planning a family soon.",
+  "message": "Kia ora Chloe,\n\nThanks for applying. We chose someone with React production experience. Your Vue 3 and TypeScript work at Rimu Health is strong, and Pūriri Software's Frontend Developer (Vue) role looks like an excellent match.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": true,
+   "noteGrounds": [
+    "marital_status",
+    "family_status",
+    "sex"
+   ]
+  }
+ },
+ {
+  "id": "hard-note-lawful-sensitive",
+  "label": "Hard note: lawful but sounds sensitive (relocation timing)",
+  "applicantId": "a9",
+  "note": "Can't start until she relocates from Wellington in March; we need someone in Auckland by January.",
+  "message": "Kia ora Chloe,\n\nThanks for applying. We needed someone able to start in Auckland in January, so we're not progressing your application. Your Vue 3 and TypeScript work at Rimu Health is strong, and Pūriri Software's Vue role offers relocation support.\n\nThe Kauri Labs team",
+  "expect": {
+   "clean": true,
+   "noteFlag": false
+  }
+ }
+]
