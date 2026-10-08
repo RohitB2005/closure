@@ -10,6 +10,7 @@ const Body = z.object({
   // ...or the recruiter's own role and applicant
   role: Role.optional(),
   applicant: Applicant.extend({ cv: z.string().min(20).max(20000) }).optional(),
+  stream: z.boolean().optional(), // NDJSON: {stage} lines while working, then {result}
 });
 
 /**
@@ -20,11 +21,22 @@ const Body = z.object({
 export async function POST(req: Request) {
   const parsed = Body.safeParse(await req.json());
   if (!parsed.success) return NextResponse.json({ error: parsed.error.message }, { status: 400 });
-  const { applicantId, applicant, note, role } = parsed.data;
-  const a = applicant ?? applicants.find((x) => x.id === applicantId);
-  if (!a) return NextResponse.json({ error: "Unknown applicant" }, { status: 404 });
-  const result = await runClosure({ ...a, note: note ?? a.note }, role ?? demoRole);
-  return NextResponse.json(result);
+  const { applicantId, applicant, note, role, stream } = parsed.data;
+  const found = applicant ?? applicants.find((x) => x.id === applicantId);
+  if (!found) return NextResponse.json({ error: "Unknown applicant" }, { status: 404 });
+  const a = { ...found, note: note ?? found.note };
+  if (!stream) return NextResponse.json(await runClosure(a, role ?? demoRole));
+
+  const enc = new TextEncoder();
+  const body = new ReadableStream({
+    async start(controller) {
+      const send = (o: object) => controller.enqueue(enc.encode(JSON.stringify(o) + "\n"));
+      const result = await runClosure(a, role ?? demoRole, (stage) => send({ stage }));
+      send({ result });
+      controller.close();
+    },
+  });
+  return new Response(body, { headers: { "Content-Type": "application/x-ndjson", "Cache-Control": "no-cache" } });
 }
 
 export const maxDuration = 60;

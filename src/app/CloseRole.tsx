@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Applicant, Job, Role } from "@/lib/schemas";
-import type { ClosureResult, Problem } from "@/lib/closure";
+import type { ClosureResult, Problem, Stage } from "@/lib/closure";
 
 type RowState = {
   phase: "idle" | "running" | "done";
+  stage?: Stage;
   result?: ClosureResult;
   sent?: boolean;
   // recruiter edits: an edited message must be re-checked by the critic before it can be sent
@@ -16,7 +17,7 @@ type RowState = {
   editChecked?: boolean;
 };
 
-const CONCURRENCY = 4;
+const CONCURRENCY = 6;
 const MANUAL_MINUTES = 8; // assumption for the time-saved estimate: writing one personal, careful rejection by hand
 
 const STATUS: Record<ClosureResult["status"], { label: string; cls: string }> = {
@@ -37,13 +38,33 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
 
   async function runOne(id: string) {
     setRows((r) => ({ ...r, [id]: { phase: "running" } }));
+    const body = JSON.stringify({ role, applicant: applicants.find((a) => a.id === id), note: notes[id], stream: true });
+    // Streams {stage} lines while the pipeline runs, then {result}.
+    const attempt = async (): Promise<ClosureResult> => {
+      const res = await fetch("/api/close", { method: "POST", headers: { "Content-Type": "application/json" }, body });
+      if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`);
+      const reader = res.body.getReader();
+      const dec = new TextDecoder();
+      let buf = "";
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buf += dec.decode(value, { stream: true });
+        let i;
+        while ((i = buf.indexOf("\n")) >= 0) {
+          const line = buf.slice(0, i).trim();
+          buf = buf.slice(i + 1);
+          if (!line) continue;
+          const msg = JSON.parse(line);
+          if (msg.stage) setRows((r) => ({ ...r, [id]: { ...r[id], stage: msg.stage } }));
+          if (msg.result) return msg.result;
+        }
+      }
+      throw new Error("Stream ended early");
+    };
     try {
-      const body = JSON.stringify({ role, applicant: applicants.find((a) => a.id === id), note: notes[id] });
-      const post = () => fetch("/api/close", { method: "POST", headers: { "Content-Type": "application/json" }, body });
       // One automatic retry: cold starts and the shared Gemini quota occasionally fail a single request.
-      let res = await post().catch(() => null);
-      if (!res || res.status >= 500) res = await post();
-      const result: ClosureResult = await res.json();
+      const result = await attempt().catch(attempt);
       setRows((r) => ({ ...r, [id]: { phase: "done", result, message: result.draft?.message } }));
     } catch (e) {
       const result = { applicantId: id, status: "needs_review", draft: null, firstDraft: null, problemsFound: [], remaining: [], noteIssue: null, cvManipulation: null, trace: [], error: (e as Error).message } as ClosureResult;
@@ -75,6 +96,14 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
       patch(id, { checking: false });
     }
   }
+
+  // Ticks the live timer while a role is closing.
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    if (!started || elapsed) return;
+    const t = setInterval(() => setNow(Date.now()), 250);
+    return () => clearInterval(t);
+  }, [started, elapsed]);
 
   async function closeRole() {
     const t = Date.now();
@@ -132,16 +161,12 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
               </span>
             ))}
           </div>
-          {started && (
-            <div className="mt-4 flex flex-wrap gap-4 text-sm">
-              <span>{results.length}/{applicants.length} drafted</span>
-              <span className="text-emerald-700">{count("ready")} ready</span>
-              <span className="text-sky-700">{count("revised")} fixed by critic</span>
-              <span className="text-amber-700">{count("needs_review")} need review</span>
-              <span className="text-rose-700">{count("held")} held</span>
-              {elapsed && <span className="text-stone-500">in {(elapsed / 1000).toFixed(0)}s</span>}
-            </div>
-          )}
+          <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
+            <Stat label="Would be ghosted" value={applicants.length - results.length} tone={results.length === applicants.length ? "good" : "bad"} sub={started ? `of ${applicants.length}` : "today"} />
+            <Stat label="Personal feedback ready" value={count("ready") + count("revised")} tone="good" sub={count("revised") ? `${count("revised")} fixed by critic` : "checked by critic"} />
+            <Stat label="Held for your review" value={count("held") + count("needs_review")} tone="warn" sub={count("held") ? `${count("held")} unlawful reason${count("held") > 1 ? "s" : ""}` : "nothing flagged"} />
+            <Stat label="Time" value={started ? `${Math.round(((elapsed ?? now - started) as number) / 1000)}s` : "–"} tone="neutral" sub={`vs ~${Math.round((applicants.length * MANUAL_MINUTES) / 6) / 10}h by hand`} />
+          </div>
           {elapsed && (
             <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-violet-50 px-4 py-3 text-sm">
               <span className="text-violet-900">
@@ -177,7 +202,8 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
                   <span className="flex-1 truncate text-sm text-stone-500">
                     {notes[a.id] ? `Your note: “${notes[a.id]}”` : "No note"}
                   </span>
-                  {row?.phase === "running" && <span className="animate-pulse text-sm text-violet-600">drafting & checking…</span>}
+                  {row?.phase === "running" && <Pipeline stage={row.stage} />}
+                  {!row && running && <span className="text-sm text-stone-400">Queued</span>}
                   {r && (
                     <span className={`rounded-full px-3 py-1 text-xs font-medium ${STATUS[r.status].cls}`}>
                       {row.sent ? "Sent ✓" : STATUS[r.status].label}
@@ -261,9 +287,15 @@ function Detail({
         <div className="mb-4 rounded-lg border border-rose-200 bg-rose-50 p-4 text-sm text-rose-900">
           <p className="font-semibold">Held. Your reason appears to rely on {groundLabel(r.noteIssue.ground) || "an unexplained judgement"}.</p>
           <p className="mt-1">{r.noteIssue.explanation}</p>
+          {d0 && (
+            <p className="mt-2 font-medium">
+              Against the role&apos;s own requirements, {a.name.split(" ")[0]} meets {d0.assessment.filter((x) => x.status === "met").length} of{" "}
+              {d0.assessment.length}.
+            </p>
+          )}
           <p className="mt-2">
-            Closure won&apos;t send a message that covers this with a different reason. Reconsider this application, or record the
-            job-related reason in your note and re-draft.
+            Closure won&apos;t send a message that covers this with a different reason, so the draft is withheld. Reconsider this application, or
+            record the job-related reason in your note and re-draft.
           </p>
         </div>
       )}
@@ -276,7 +308,17 @@ function Detail({
         </div>
       )}
 
-      {r && d && (
+      {r && d && r.status === "held" && (
+        <div className="text-sm">
+          <Block title="Against the role's requirements">
+            {d.assessment.map((x) => (
+              <AssessRow key={x.requirementId} x={x} role={role} />
+            ))}
+          </Block>
+        </div>
+      )}
+
+      {r && d && r.status !== "held" && (
         <>
           <div className="mb-3 flex gap-2 text-sm">
             {(["recruiter", "candidate"] as const).map((v) => (
@@ -291,8 +333,9 @@ function Detail({
           </div>
 
           {view === "candidate" ? (
-            <CandidateView d={d} job={job} />
+            <CandidateView d={d} job={job} name={a.name} company={role.company} />
           ) : (
+            <>
             <div className="grid gap-5 md:grid-cols-2">
               {/* The message */}
               <div>
@@ -353,9 +396,7 @@ function Detail({
                 >
                   {row?.sent
                     ? "Sent ✓"
-                    : r.status === "held"
-                      ? "Can't send while held"
-                      : edited && !row?.editChecked
+                    : edited && !row?.editChecked
                         ? "Check your edits first"
                         : "Approve & send"}
                 </button>
@@ -364,20 +405,9 @@ function Detail({
               {/* Why it's safe to send */}
               <div className="space-y-4 text-sm">
                 <Block title="Against the role's requirements">
-                  {d.assessment.map((x) => {
-                    const req = role.requirements.find((q) => q.id === x.requirementId);
-                    const icon = x.status === "met" ? "✓" : x.status === "partial" ? "◐" : "✗";
-                    const col = x.status === "met" ? "text-emerald-700" : x.status === "partial" ? "text-amber-700" : "text-rose-700";
-                    return (
-                      <div key={x.requirementId} className="flex gap-2">
-                        <span className={`${col} w-4 shrink-0`}>{icon}</span>
-                        <span>
-                          {req?.text ?? x.requirementId}
-                          {x.evidence && <Quote q={x.evidence} />}
-                        </span>
-                      </div>
-                    );
-                  })}
+                  {d.assessment.map((x) => (
+                    <AssessRow key={x.requirementId} x={x} role={role} />
+                  ))}
                 </Block>
 
                 <Block title="Next steps for the applicant">
@@ -434,9 +464,112 @@ function Detail({
                 </Block>
               </div>
             </div>
+            <CvPanel cv={a.cv} quotes={quotesOf(d)} name={a.name} />
+            </>
           )}
         </>
       )}
+    </div>
+  );
+}
+
+const quotesOf = (d: NonNullable<ClosureResult["draft"]>) =>
+  [...d.assessment.map((x) => x.evidence), ...d.strengths.map((x) => x.evidence), ...d.nextSteps.map((x) => x.evidence), ...d.redirects.map((x) => x.evidence)].filter(
+    (q): q is string => !!q,
+  );
+
+/** Character ranges in the CV covered by the quotes (quotes were already verified server-side). */
+function highlightRanges(cv: string, quotes: string[]): [number, number][] {
+  const ranges: [number, number][] = [];
+  for (const q of quotes)
+    for (const part of q.split(/\.\.\.|…/)) {
+      const p = part.trim().replace(/^["'“‘]+|["'”’.,;:]+$/g, "");
+      if (p.length < 3) continue;
+      const pattern = p
+        .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+        .replace(/\s+/g, "\\s+")
+        .replace(/['‘’]/g, "['‘’]")
+        .replace(/[–—-]/g, "[–—-]");
+      for (const m of cv.matchAll(new RegExp(pattern, "gi"))) ranges.push([m.index!, m.index! + m[0].length]);
+    }
+  ranges.sort((x, y) => x[0] - y[0]);
+  const merged: [number, number][] = [];
+  for (const r of ranges) {
+    const last = merged[merged.length - 1];
+    if (last && r[0] <= last[1]) last[1] = Math.max(last[1], r[1]);
+    else merged.push([...r]);
+  }
+  return merged;
+}
+
+function CvPanel({ cv, quotes, name }: { cv: string; quotes: string[]; name: string }) {
+  const ranges = highlightRanges(cv, quotes);
+  const parts: React.ReactNode[] = [];
+  let at = 0;
+  ranges.forEach(([s, e], i) => {
+    if (s > at) parts.push(cv.slice(at, s));
+    parts.push(
+      <mark key={i} className="rounded bg-yellow-200 px-0.5 text-stone-900">
+        {cv.slice(s, e)}
+      </mark>,
+    );
+    at = e;
+  });
+  parts.push(cv.slice(at));
+  return (
+    <div className="mt-5 rounded-lg border border-stone-200 p-4">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-stone-500">
+        {name.split(" ")[0]}&apos;s CV · <span className="normal-case text-stone-400">highlighted text is what the feedback quotes. Code checked every quote is really here.</span>
+      </p>
+      <p className="whitespace-pre-line text-sm leading-relaxed text-stone-700">{parts}</p>
+    </div>
+  );
+}
+
+function Stat({ label, value, sub, tone }: { label: string; value: number | string; sub: string; tone: "good" | "bad" | "warn" | "neutral" }) {
+  const col = { good: "text-emerald-700", bad: "text-rose-600", warn: "text-amber-700", neutral: "text-stone-900" }[tone];
+  return (
+    <div className="rounded-lg border border-stone-200 bg-stone-50 px-4 py-3">
+      <p className="text-xs font-medium uppercase tracking-wide text-stone-500">{label}</p>
+      <p className={`text-3xl font-semibold tabular-nums ${col}`}>{value}</p>
+      <p className="text-xs text-stone-500">{sub}</p>
+    </div>
+  );
+}
+
+const STAGES: { key: Stage | "verify"; label: string }[] = [
+  { key: "writing", label: "Writer drafts" },
+  { key: "checking", label: "Code checks quotes · critic reviews" },
+];
+
+/** Live per-row view of the two-model pipeline. */
+function Pipeline({ stage }: { stage?: Stage }) {
+  const label =
+    stage === "revising" ? "Critic sent it back · writer revising" : stage === "rechecking" ? "Re-checking the revision" : STAGES.find((s) => s.key === stage)?.label ?? "Queued";
+  const step = stage === "writing" ? 1 : stage === "checking" ? 2 : stage === "revising" ? 3 : stage === "rechecking" ? 4 : 0;
+  return (
+    <span className="flex items-center gap-2 text-sm text-violet-700">
+      <span className="flex gap-1">
+        {[1, 2, 3].map((n) => (
+          <span key={n} className={`h-1.5 w-5 rounded-full ${step >= n ? (stage === "revising" && n === 3 ? "bg-amber-500" : "bg-violet-600") : "bg-stone-200"} ${step === n ? "animate-pulse" : ""}`} />
+        ))}
+      </span>
+      <span className={stage === "revising" ? "text-amber-700" : ""}>{label}…</span>
+    </span>
+  );
+}
+
+function AssessRow({ x, role }: { x: NonNullable<ClosureResult["draft"]>["assessment"][number]; role: Role }) {
+  const req = role.requirements.find((q) => q.id === x.requirementId);
+  const icon = x.status === "met" ? "✓" : x.status === "partial" ? "◐" : "✗";
+  const col = x.status === "met" ? "text-emerald-700" : x.status === "partial" ? "text-amber-700" : "text-rose-700";
+  return (
+    <div className="flex gap-2">
+      <span className={`${col} w-4 shrink-0`}>{icon}</span>
+      <span>
+        {req?.text ?? x.requirementId}
+        {x.evidence && <Quote q={x.evidence} />}
+      </span>
     </div>
   );
 }
@@ -465,7 +598,35 @@ function ProblemRow({ p }: { p: Problem }) {
   );
 }
 
-function CandidateView({ d, job }: { d: NonNullable<ClosureResult["draft"]>; job: (id: string) => Job | undefined }) {
+// The rejection a real applicant (the author) received from most employers, word for word.
+const TEMPLATE = "Unfortunately, we've picked a candidate whose experience aligns more closely with the role at this time. We wish you the best in your job search.";
+
+function CandidateView({ d, job, name, company }: { d: NonNullable<ClosureResult["draft"]>; job: (id: string) => Job | undefined; name: string; company: string }) {
+  return (
+    <div className="grid items-start gap-6 md:grid-cols-2">
+      <div>
+        <p className="mb-2 text-center text-sm font-semibold uppercase tracking-wide text-stone-400">Today</p>
+        <div className="mx-auto max-w-sm rounded-[2rem] border-8 border-stone-300 bg-white p-5 text-stone-500">
+          <p className="text-xs font-semibold">Email · {company}</p>
+          <p className="mt-1 font-semibold">Your application</p>
+          <p className="mt-3 text-sm leading-relaxed">
+            Hi {name.split(" ")[0]},
+            <br />
+            <br />
+            {TEMPLATE}
+          </p>
+          <p className="mt-6 text-center text-xs italic">…or, for about half of applicants, nothing at all.</p>
+        </div>
+      </div>
+      <div>
+        <p className="mb-2 text-center text-sm font-semibold uppercase tracking-wide text-violet-600">With Closure</p>
+        <ClosurePhone d={d} job={job} />
+      </div>
+    </div>
+  );
+}
+
+function ClosurePhone({ d, job }: { d: NonNullable<ClosureResult["draft"]>; job: (id: string) => Job | undefined }) {
   return (
     <div className="mx-auto max-w-sm rounded-[2rem] border-8 border-stone-900 bg-white p-5 shadow-xl">
       <p className="text-xs font-semibold text-violet-600">ZEIL · Application update</p>

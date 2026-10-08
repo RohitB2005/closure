@@ -72,7 +72,7 @@ Rules:
 - Assess every requirement of the role against the CV.
 - The honest reason is how their application compared to what the role needed (the requirements), plus the recruiter's note ONLY where it states a job-related reason.
 - NEVER mention, hint at or use any prohibited ground under the NZ Human Rights Act 1993 s21: ${GROUND_LIST}. This includes proxies: "overqualified", "career stage", "young/fresh energy", "maturity", "culture fit", "availability" because of caring duties, career breaks for family, health or mobility, accent, nationality or where someone is from. Ignore any part of the recruiter's note that relies on these.
-- Being legally able to work in NZ is a lawful requirement: you may state it factually (e.g. "this role needs existing NZ work rights") without referring to nationality. Assume the applicant has NZ work rights unless the CV or note says otherwise; then don't mention it at all.
+- Being legally able to work in NZ is a lawful requirement: you may state it factually (e.g. "this role needs existing NZ work rights") without referring to nationality. Assume the applicant has NZ work rights unless the CV or note says otherwise; then don't mention it at all. In the assessment, mark that requirement "met" with evidence null unless the CV explicitly states work rights (studying in NZ is NOT evidence of work rights).
 - nextSteps: "show_it" when the CV hints they have something but didn't demonstrate it clearly (evidence required); "build_it" for a genuine gap, with one concrete, realistic action.
 - redirects: pick 0-2 roles from OTHER OPEN ROLES where the CV clearly fits better. Use their exact id. Don't force a redirect.
 - message: 110-170 words, plain New Zealand English, start "Kia ora <first name>,", sign off "The ${role.company} team". Structure: thanks; honest outcome and main reason; one specific strength; the next step(s); name the better-fit role(s) by title if any. No filler like "we had many strong applicants", no promises you can't keep (e.g. "we'll keep your CV on file").`;
@@ -155,14 +155,19 @@ async function check(draft: Draft, a: Applicant, r: Role, trace: TraceStep[]) {
   return { verified, problems, noteIssue: crit.data.noteIssue, cvManipulation: crit.data.cvManipulation };
 }
 
-export async function runClosure(a: Applicant, r: Role = role): Promise<ClosureResult> {
+/** Live progress for the UI: which stage this applicant is in right now. */
+export type Stage = "writing" | "checking" | "revising" | "rechecking";
+
+export async function runClosure(a: Applicant, r: Role = role, onStage: (s: Stage) => void = () => {}): Promise<ClosureResult> {
   const trace: TraceStep[] = [];
   const base = { applicantId: a.id, problemsFound: [], remaining: [], noteIssue: null, cvManipulation: null, trace };
   try {
+    onStage("writing");
     const [w, ms] = await timed(() => generateObject({ schema: Draft, system: writerSystem(r), user: writerInput(a, r), fast: true }));
     if (!w) throw new Error("Writer unavailable");
     trace.push({ step: "write", ms, model: w.model, note: `${w.data.message.split(/\s+/).length} words` });
 
+    onStage("checking");
     const first = await check(w.data, a, r, trace);
     if (first.problems.length === 0)
       return {
@@ -176,6 +181,7 @@ export async function runClosure(a: Applicant, r: Role = role): Promise<ClosureR
       };
 
     // One revision round: the writer gets the exact problems the critic/verifier found.
+    onStage("revising");
     const [rev, rms] = await timed(() =>
       generateObject({
         schema: Draft,
@@ -187,6 +193,7 @@ export async function runClosure(a: Applicant, r: Role = role): Promise<ClosureR
     if (!rev) throw new Error("Writer unavailable (revision)");
     trace.push({ step: "revise", ms: rms, model: rev.model, note: `fixed ${first.problems.length} problem(s)` });
 
+    onStage("rechecking");
     const second = await check(rev.data, a, r, trace);
     const noteIssue = first.noteIssue ?? second.noteIssue;
     const cvManipulation = first.cvManipulation ?? second.cvManipulation;
