@@ -17,6 +17,7 @@ type RowState = {
 };
 
 const CONCURRENCY = 4;
+const MANUAL_MINUTES = 8; // assumption for the time-saved estimate: writing one personal, careful rejection by hand
 
 const STATUS: Record<ClosureResult["status"], { label: string; cls: string }> = {
   ready: { label: "Ready to send", cls: "bg-emerald-100 text-emerald-800" },
@@ -91,6 +92,15 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
   const results = Object.values(rows).map((r) => r.result).filter(Boolean) as ClosureResult[];
   const count = (s: ClosureResult["status"]) => results.filter((r) => r.status === s).length;
   const running = Object.values(rows).some((r) => r.phase === "running");
+  // Bulk send only what's safe: checked by the critic, not held, and any edits re-checked.
+  const sendable = Object.entries(rows)
+    .filter(([, r]) => {
+      const st = r.result?.status;
+      const edited = r.result?.draft && r.message !== r.result.draft.message;
+      return !r.sent && (st === "ready" || st === "revised") && (!edited || r.editChecked);
+    })
+    .map(([id]) => id);
+  const sentCount = Object.values(rows).filter((r) => r.sent).length;
   const job = (id: string) => jobs.find((j) => j.id === id);
 
   return (
@@ -142,6 +152,23 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
               <span className="text-amber-700">{count("needs_review")} need review</span>
               <span className="text-rose-700">{count("held")} held</span>
               {elapsed && <span className="text-stone-500">in {(elapsed / 1000).toFixed(0)}s</span>}
+            </div>
+          )}
+          {elapsed && (
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-lg bg-violet-50 px-4 py-3 text-sm">
+              <span className="text-violet-900">
+                {sendable.length + sentCount} of {applicants.length} applicants get specific feedback and a next step instead of silence.
+                Roughly {Math.round((applicants.length * MANUAL_MINUTES) / 60 * 10) / 10}h of writing saved
+                <span className="text-violet-600"> (est. {MANUAL_MINUTES} min each by hand)</span>.
+                {count("held") > 0 && ` ${count("held")} held for you to review your reason.`}
+              </span>
+              <button
+                onClick={() => sendable.forEach((id) => patch(id, { sent: true }))}
+                disabled={sendable.length === 0}
+                className="rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-40"
+              >
+                {sendable.length ? `Send all ${sendable.length} ready` : sentCount ? `${sentCount} sent ✓` : "Nothing ready to send"}
+              </button>
             </div>
           )}
         </section>
