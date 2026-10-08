@@ -164,7 +164,11 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
           <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
             <Stat label="Would be ghosted" value={applicants.length - results.length} tone={results.length === applicants.length ? "good" : "bad"} sub={started ? `of ${applicants.length}` : "today"} />
             <Stat label="Personal feedback ready" value={count("ready") + count("revised")} tone="good" sub={count("revised") ? `${count("revised")} fixed by critic` : "checked by critic"} />
-            <Stat label="Held for your review" value={count("held") + count("needs_review")} tone="warn" sub={count("held") ? `${count("held")} unlawful reason${count("held") > 1 ? "s" : ""}` : "nothing flagged"} />
+            <Stat label="Held for your review" value={count("held") + count("needs_review")} tone="warn" sub={
+              count("held") + count("needs_review") === 0
+                ? "nothing flagged"
+                : [count("held") && `${count("held")} unlawful reason${count("held") > 1 ? "s" : ""}`, count("needs_review") && `${count("needs_review")} to check`].filter(Boolean).join(" · ")
+            } />
             <Stat label="Time" value={started ? `${Math.round(((elapsed ?? now - started) as number) / 1000)}s` : "–"} tone="neutral" sub={`vs ~${Math.round((applicants.length * MANUAL_MINUTES) / 6) / 10}h by hand`} />
           </div>
           {elapsed && (
@@ -375,7 +379,7 @@ function Detail({
                     </button>
                   </div>
                 )}
-                {edited && row?.editChecked && (
+                {(edited || !!row?.editFixed?.length) && row?.editChecked && (
                   <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
                     ✓ Your edited message passed the check.
                     {row.editFixed && row.editFixed.length > 0 && (
@@ -464,7 +468,7 @@ function Detail({
                 </Block>
               </div>
             </div>
-            <CvPanel cv={a.cv} quotes={quotesOf(d)} name={a.name} />
+            <CvPanel cv={a.cv} quotes={quotesOf(d)} name={a.name} manipulation={r.cvManipulation} />
             </>
           )}
         </>
@@ -502,14 +506,24 @@ function highlightRanges(cv: string, quotes: string[]): [number, number][] {
   return merged;
 }
 
-function CvPanel({ cv, quotes, name }: { cv: string; quotes: string[]; name: string }) {
-  const ranges = highlightRanges(cv, quotes);
+function CvPanel({ cv, quotes, name, manipulation }: { cv: string; quotes: string[]; name: string; manipulation?: string | null }) {
+  const ranges = highlightRanges(cv, quotes).map(([s, e]) => [s, e, false] as [number, number, boolean]);
+  // Text aimed at the AI is shown in red so the recruiter sees exactly what was attempted.
+  if (manipulation) {
+    const i = cv.indexOf(manipulation.slice(0, 40));
+    if (i >= 0) {
+      const end = Math.min(cv.length, i + manipulation.length);
+      for (let k = ranges.length - 1; k >= 0; k--) if (ranges[k][0] < end && ranges[k][1] > i) ranges.splice(k, 1);
+      ranges.push([i, end, true]);
+      ranges.sort((x, y) => x[0] - y[0]);
+    }
+  }
   const parts: React.ReactNode[] = [];
   let at = 0;
-  ranges.forEach(([s, e], i) => {
+  ranges.forEach(([s, e, bad], i) => {
     if (s > at) parts.push(cv.slice(at, s));
     parts.push(
-      <mark key={i} className="rounded bg-yellow-200 px-0.5 text-stone-900">
+      <mark key={i} className={`rounded px-0.5 ${bad ? "bg-rose-200 text-rose-900 line-through decoration-rose-500" : "bg-yellow-200 text-stone-900"}`}>
         {cv.slice(s, e)}
       </mark>,
     );
