@@ -60,6 +60,13 @@ function verify(d: Draft, cv: string, r: Role): { draft: Draft; v: Verification 
   return { draft, v: { failedQuotes, droppedRedirects, checked } };
 }
 
+/** Code backstop for CV prompt injection, in case the critic doesn't report it: returns the offending line. */
+const INJECTION = /(ignore (all )?(previous|prior|above) instructions|system (note|prompt|message)|note to (the )?(ai|model|llm|assistant)|you are an? (ai|language model)|as an ai|rank (this|me) (candidate )?(as )?(the )?(top|first|highest))/i;
+export function injectionInCv(cv: string): string | null {
+  const line = cv.split(/\n/).find((l) => INJECTION.test(l));
+  return line ? line.trim() : null;
+}
+
 // ---------- prompts ----------
 
 const GROUND_LIST = GROUNDS.map((g) => g.replace(/_/g, " ")).join(", ");
@@ -139,6 +146,7 @@ async function check(draft: Draft, a: Applicant, r: Role, trace: TraceStep[]) {
       user: JSON.stringify({ cv: a.cv, recruiterPrivateNote: a.note || null, message: draft.message }),
       temperature: 0,
       fast: true, // eval: no-thinking critic matched/beat the thinking critic (27/27 vs 26/27) at ~3x lower latency
+      smart: true, // the safety judgement gets the stronger model
     }),
   );
   if (!crit) throw new Error("Critic unavailable");
@@ -152,7 +160,7 @@ async function check(draft: Draft, a: Applicant, r: Role, trace: TraceStep[]) {
     ...v.droppedRedirects.map((id) => ({ source: "verifier" as const, type: "unknown_job", excerpt: id, explanation: "Not an open role." })),
     ...crit.data.issues.map((i) => ({ source: "critic" as const, ...i })),
   ];
-  return { verified, problems, noteIssue: crit.data.noteIssue, cvManipulation: crit.data.cvManipulation };
+  return { verified, problems, noteIssue: crit.data.noteIssue, cvManipulation: crit.data.cvManipulation ?? injectionInCv(a.cv) };
 }
 
 /** Live progress for the UI: which stage this applicant is in right now. */
@@ -225,6 +233,7 @@ export async function critiqueEdit(a: Applicant, message: string, fast = true) {
     user: JSON.stringify({ cv: a.cv, recruiterPrivateNote: a.note || null, message }),
     temperature: 0,
     fast, // the eval compares the critic with and without thinking
+    smart: true,
   });
   if (!crit) return null;
   const problems: Problem[] = crit.data.issues.map((i) => ({ source: "critic" as const, ...i }));

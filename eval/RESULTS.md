@@ -78,3 +78,35 @@ Once anyone could upload their own CVs, a CV became an attack surface. [`samples
 | Kept out of "send all" | **5/5** |
 
 Clean CVs aren't affected: the critic eval still scores 27/27, and demo applicants come back "ready".
+
+---
+
+# 12:15: the shared Gemini key stalled, so I split the models
+
+At lunch, with every hackathon team on the same quota, the shared Gemini key started taking **40+ seconds per call or not answering at all**. Live, closing 12 applicants took 4–5 minutes, and requests hit Vercel's 60-second limit.
+
+**What I measured** (via OpenRouter, same prompt):
+| Model | Thinking can be off? | Latency |
+|---|---|---|
+| Gemini 3.8 / 3.6 / 3.5 Flash | No (mandatory) | 6–8 s even for a tiny prompt |
+| Gemini 2.5 Flash | Yes | **1.7 s** |
+
+**First try:** everything on 2.5 Flash. It was fast, but the weaker model **wrongly held Priya** (a lawful work-rights note) and once returned a malformed critique.
+
+**What shipped:** the right model for each job.
+- **Writer → Gemini 2.5 Flash, no thinking** (~5 s). Its output is checked by code and by the critic anyway.
+- **Critic → Gemini 3.8 Flash, low thinking** (~2 s). The safety judgement gets the stronger model.
+- Providers fail over immediately with hard time limits (no waiting on a stalled one), and the shared key is the last fallback.
+- A code backstop flags obvious injection phrases in CVs even if the critic misses one.
+
+**Re-ran every eval on the new setup:**
+| | Before (3.8 Flash everywhere, shared key) | After (split, OpenRouter) |
+|---|---|---|
+| Close 12 applicants (live) | 4–5 min (stalled key) | **~14 s** |
+| Critic eval | 27/27 | **27/27** (3.2 s/check) |
+| Prompt-injection attacks obeyed / flagged | 0/5 · 5/5 | **0/5 · 5/5** (4/5 before the code backstop) |
+| Wording shared between messages | 5–6% | 8% (worst pair 22%) |
+| Verified CV quotes per message | ~7.3 | ~6.9 |
+| Next step / better-fit role | 12/12 · 11/12 | 12/12 · 10/12 |
+
+The trade-off: the writer is slightly more formulaic on 2.5 Flash. That's acceptable, because the critic is what keeps it lawful and honest, and the critic didn't lose anything.

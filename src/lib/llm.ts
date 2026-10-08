@@ -10,22 +10,31 @@ import { z } from "zod";
  * - Returns null if everything fails, so callers can degrade gracefully.
  */
 
-type Provider = { name: "gemini" | "openrouter"; model: string };
+type Provider = { name: "gemini" | "openrouter"; model: string; mustThink?: boolean };
 
 export function llmConfigured(): boolean {
   return Boolean(process.env.GEMINI_API_KEY || process.env.OPENROUTER_API_KEY);
 }
 
-function providers(): Provider[] {
+// Order of providers. OpenRouter first: the hackathon's shared Gemini key stalled for 40s+ per call
+// under load at midday, while the same family of models via OpenRouter answered in ~2s.
+// The shared key stays as the fallback. Override with LLM_ORDER=gemini,openrouter.
+function providers(smart = false): Provider[] {
   const list = (v: string | undefined, d: string) =>
     (v || d).split(",").map((m) => m.trim()).filter(Boolean);
-  const out: Provider[] = [];
-  if (process.env.GEMINI_API_KEY)
-    for (const model of list(process.env.GEMINI_MODELS, "gemini-flash-latest")) out.push({ name: "gemini", model });
-  if (process.env.OPENROUTER_API_KEY)
-    for (const model of list(process.env.OPENROUTER_MODELS, "google/gemini-2.5-flash"))
-      out.push({ name: "openrouter", model });
-  return out;
+  const byName: Record<string, Provider[]> = {
+    gemini: process.env.GEMINI_API_KEY ? list(process.env.GEMINI_MODELS, "gemini-flash-latest").map((model) => ({ name: "gemini" as const, model })) : [],
+    openrouter: process.env.OPENROUTER_API_KEY
+      ? list(process.env.OPENROUTER_MODELS, "google/gemini-2.5-flash").map((model) => ({ name: "openrouter" as const, model }))
+      : [],
+  };
+  // "smart" calls (the critic: safety judgement) go to a stronger model first. On OpenRouter it can't
+  // turn thinking off, so it runs with low reasoning effort.
+  const smartFirst: Provider[] =
+    smart && process.env.OPENROUTER_API_KEY
+      ? list(process.env.OPENROUTER_SMART_MODELS, "google/gemini-3.8-flash").map((model) => ({ name: "openrouter" as const, model, mustThink: true }))
+      : [];
+  return [...smartFirst, ...list(process.env.LLM_ORDER, "openrouter,gemini").flatMap((n) => byName[n] ?? [])];
 }
 
 /** Pull the first JSON object/array out of a model reply (handles ```json fences and chatter). */
@@ -46,9 +55,10 @@ class HttpError extends Error {
   }
 }
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
-
 type FilePart = { mimeType: string; data: string }; // base64
+
+// Hard per-call limits so a stalled provider is abandoned quickly (Vercel kills the whole request at 60s).
+const timeoutMs = (fast: boolean) => (fast ? 20_000 : 35_000);
 
 async function callGemini(model: string, system: string, user: string, temperature: number, fast: boolean, file?: FilePart): Promise<string> {
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
@@ -64,14 +74,14 @@ async function callGemini(model: string, system: string, user: string, temperatu
         ...(fast ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
       },
     }),
-    signal: AbortSignal.timeout(45_000),
+    signal: AbortSignal.timeout(timeoutMs(fast)),
   });
   if (!res.ok) throw new HttpError(res.status, `${res.status} ${(await res.text()).slice(0, 200)}`);
   const json = await res.json();
   return (json.candidates?.[0]?.content?.parts ?? []).map((p: { text?: string }) => p.text ?? "").join("");
 }
 
-async function callOpenRouter(model: string, system: string, user: string, temperature: number, file?: FilePart): Promise<string> {
+async function callOpenRouter(model: string, system: string, user: string, temperature: number, fast: boolean, file?: FilePart, mustThink = false): Promise<string> {
   const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -83,6 +93,8 @@ async function callOpenRouter(model: string, system: string, user: string, tempe
       model,
       temperature,
       response_format: { type: "json_object" },
+      // fast = no thinking tokens (only some models allow this; others reject it and we fall through)
+      ...(mustThink ? { reasoning: { effort: "low" } } : fast ? { reasoning: { enabled: false } } : {}),
       messages: [
         { role: "system", content: system },
         {
@@ -96,7 +108,7 @@ async function callOpenRouter(model: string, system: string, user: string, tempe
         },
       ],
     }),
-    signal: AbortSignal.timeout(45_000),
+    signal: AbortSignal.timeout(mustThink ? 25_000 : timeoutMs(fast)),
   });
   if (!res.ok) throw new HttpError(res.status, `${res.status} ${(await res.text()).slice(0, 200)}`);
   const json = await res.json();
@@ -109,6 +121,7 @@ export async function generateObject<T extends z.ZodTypeAny>(opts: {
   user: string;
   temperature?: number;
   fast?: boolean;
+  smart?: boolean; // judgement-critical call: try the stronger model first
   file?: FilePart; // e.g. a PDF CV, read natively by Gemini
 }): Promise<{ data: z.infer<T>; model: string } | null> {
   const jsonSchema = z.toJSONSchema(opts.schema);
@@ -119,22 +132,21 @@ ${JSON.stringify(jsonSchema)}`;
   const temperature = opts.temperature ?? 0.3;
 
   const errors: string[] = [];
-  for (const p of providers()) {
+  for (const p of providers(opts.smart)) {
     for (let attempt = 0; attempt < 2; attempt++) {
       try {
         const text =
           p.name === "gemini"
             ? await callGemini(p.model, system, opts.user, temperature, opts.fast ?? false, opts.file)
-            : await callOpenRouter(p.model, system, opts.user, temperature, opts.file);
+            : await callOpenRouter(p.model, system, opts.user, temperature, opts.fast ?? false, opts.file, p.mustThink);
         const parsed = opts.schema.safeParse(extractJson(text));
         if (!parsed.success) throw new Error(`Schema mismatch: ${parsed.error.message.slice(0, 300)}`);
         return { data: parsed.data, model: `${p.name}:${p.model}` };
       } catch (e) {
         errors.push(`${p.name}:${p.model} #${attempt + 1}: ${(e as Error).message.slice(0, 200)}`);
-        // Shared quota: back off before retrying instead of hammering it.
-        if (e instanceof HttpError && (e.status === 429 || e.status >= 500)) await sleep(1500 * (attempt + 1));
-        // Bad key / unknown model won't fix itself on retry: move to the next provider.
-        else if (e instanceof HttpError) break;
+        // Stalled, rate-limited or erroring provider: don't wait on it, move to the next one now.
+        // (Only a malformed/schema-mismatched reply is worth one retry on the same model.)
+        if (e instanceof HttpError || (e as Error).name === "TimeoutError" || (e as Error).name === "AbortError") break;
       }
     }
   }

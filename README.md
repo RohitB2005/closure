@@ -47,7 +47,7 @@ recruiter clicks "Close role"
        status   (code)    → ready | fixed by critic | needs review | held
 ```
 
-- **Models:** `gemini-flash-latest` (currently Gemini 3.8 Flash) through the Gemini API, with OpenRouter (Gemini models) as an automatic fallback if the shared quota returns a 429. Both writer and critic run with thinking turned off. The eval showed no accuracy loss at about 3× lower latency (see below).
+- **Models:** writer = **Gemini 2.5 Flash** (thinking off, ~5 s); critic = **Gemini 3.8 Flash** (low thinking, ~2 s), because the safety judgement gets the stronger model. Both go through OpenRouter, with the hackathon Gemini key as the last fallback. Each provider has a hard time limit and fails over immediately. Why: at lunch the shared key stalled (40 s+ per call) and closing a role took 5 minutes; the split takes ~14 s for 12 applicants, and every eval was re-run on it ([`eval/RESULTS.md`](eval/RESULTS.md#1215-the-shared-gemini-key-stalled-so-i-split-the-models)).
 - **Strict shapes:** every model reply is JSON validated against a zod schema ([`src/lib/schemas.ts`](src/lib/schemas.ts)). A reply that doesn't match is retried, then the next provider is tried. If everything fails, the row shows "Couldn't draft, try again" and never sends anything unchecked.
 - **The model judges, code decides:** status, quote verification and redirect validation are deterministic ([`src/lib/closure.ts`](src/lib/closure.ts)).
 
@@ -61,7 +61,7 @@ recruiter clicks "Close role"
 
 ## Does it work? (eval)
 
-**Is it personal, or a template?** Compared with the generic rejection I actually received ([`eval/RESULTS.md`](eval/RESULTS.md#writer-eval-is-it-actually-personal)): Closure's 12 messages share **5–6%** of their wording with each other (a template shares 100%), cite **~7 CV facts each, all verified by code**, and **12/12** give a concrete next step.
+**Is it personal, or a template?** Compared with the generic rejection I actually received ([`eval/RESULTS.md`](eval/RESULTS.md#writer-eval-is-it-actually-personal)): Closure's 12 messages share **5–8%** of their wording with each other (a template shares 100%), cite **~7 CV facts each, all verified by code**, and **12/12** give a concrete next step.
 
 **Does the critic catch what it should?** 27 hand-labelled cases run through the real API ([`eval/RESULTS.md`](eval/RESULTS.md)):
 
