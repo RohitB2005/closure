@@ -7,7 +7,11 @@ Built by **Rohit Balaji** (solo) at the ZEIL Hackathon, 9 October 2026.
 
 ## The problem
 
-Most applicants never hear back. Surveys put it at around two in three job seekers being ghosted, and roughly 8 in 10 hiring managers admit to doing it. Those who do hear back usually get a copy-paste template with nothing they can act on. For a marketplace like ZEIL that's a real loss: nearly half of ghosted candidates say they won't apply again. Swipe-to-apply makes applying effortless, so the volume (and the silence) is higher still.
+I'm a third-year software engineering student. I've applied for 50 to 75 roles. About half never replied, and every rejection I did get was the same line, *"we've picked a candidate whose experience aligns more closely with the role"*. Not one told me anything I could act on.
+
+I'm not unusual. Most applicants never hear back. Surveys put it at around two in three job seekers being ghosted, and roughly 8 in 10 hiring managers admit to doing it. Those who do hear back usually get a copy-paste template with nothing they can act on. For a marketplace like ZEIL that's a real loss: nearly half of ghosted candidates say they won't apply again. Swipe-to-apply makes applying effortless, so the volume (and the silence) is higher still.
+
+ZEIL's team told me they can't see this either: whether an applicant hears back happens between the employer and the applicant, so it's invisible to the marketplace in the middle.
 
 Recruiters don't ghost because they don't care. They ghost because writing 147 honest, personal messages takes hours, and a careless reason ("overqualified", "worried about your availability with kids") is a legal risk under the NZ Human Rights Act.
 
@@ -93,6 +97,7 @@ npm run dev   # http://localhost:3000
 ## What's next
 
 - Plug into ZEIL's real applicant flow: the "Close role" action on a listing, and messages delivered in-app with one-swipe apply on redirects.
+- Give ZEIL a metric it can't see today: **closure rate** (the share of applicants who heard back, with a reason) per employer, and use it to reward responsive employers.
 - Post-interview feedback using structured interview notes.
 - Measure what matters: re-application rate of rejected candidates, and recruiter edit rate.
 - A larger eval with cases written by recruiters and employment lawyers.
