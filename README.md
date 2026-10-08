@@ -30,6 +30,8 @@ Before anything can be sent, a second model (the **critic**) checks the message 
 - **If the recruiter's own reason is discriminatory, the message is held.** In early testing the writer, told to ignore a note like "he uses a wheelchair and our office has stairs", invented a plausible-sounding reason to cover for it. Closure will not do that: it holds the message and asks the recruiter to reconsider or record a lawful, job-related reason.
 - **Recruiter edits are re-checked before sending,** with an optional "fix the wording for me" that changes only the flagged words.
 
+**Works on any role (the "Your own role" tab):** paste a real job ad and Gemini extracts the screening requirements for you to edit. Anything that isn't a lawful criterion ("young, energetic team", "native English speaker") is left out, with the reason shown. Then upload PDF CVs: Gemini reads each PDF natively and transcribes it word for word, so every quote can still be verified against the CV. Try it with [`samples/`](samples): a job ad and a PDF CV.
+
 ## How it works
 
 ```
@@ -51,6 +53,7 @@ recruiter clicks "Close role"
 - [`src/lib/closure.ts`](src/lib/closure.ts): the pipeline and prompts
 - [`src/lib/llm.ts`](src/lib/llm.ts): Gemini + OpenRouter calls, zod validation, retry/backoff/fallback
 - [`src/app/CloseRole.tsx`](src/app/CloseRole.tsx): recruiter UI and candidate preview
+- [`src/lib/intake.ts`](src/lib/intake.ts) and [`src/app/BuildRole.tsx`](src/app/BuildRole.tsx): bring your own role (job ad → requirements, PDF → CV text)
 - [`src/app/api/close`](src/app/api/close/route.ts) and [`src/app/api/check`](src/app/api/check/route.ts): API routes
 - [`eval/`](eval): critic eval and results
 
