@@ -44,7 +44,7 @@ export default function App({ role, applicants, jobs }: { role: Role; applicants
       <div className="mx-auto max-w-6xl px-4 py-6">
         {/* Tabs stay mounted (just hidden) so switching tabs mid-demo never loses drafted results. */}
         <div className={mode.kind === "demo" ? "" : "hidden"}>
-          <CloseRole role={role} applicants={applicants} jobs={jobs} />
+          <CloseRole role={role} applicants={applicants} jobs={jobs} guide />
         </div>
         <div className={mode.kind === "how" ? "" : "hidden"}>
           <HowItWorks />

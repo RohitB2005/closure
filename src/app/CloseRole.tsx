@@ -29,7 +29,7 @@ const STATUS: Record<ClosureResult["status"], { label: string; cls: string }> = 
 
 const groundLabel = (g?: string | null) => (g ? g.replace(/_/g, " ") : "");
 
-export default function CloseRole({ role, applicants, jobs }: { role: Role; applicants: Applicant[]; jobs: Job[] }) {
+export default function CloseRole({ role, applicants, jobs, guide = false }: { role: Role; applicants: Applicant[]; jobs: Job[]; guide?: boolean }) {
   const [notes, setNotes] = useState<Record<string, string>>(() => Object.fromEntries(applicants.map((a) => [a.id, a.note])));
   const [rows, setRows] = useState<Record<string, RowState>>({});
   const [open, setOpen] = useState<string | null>(null);
@@ -134,6 +134,22 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
 
   return (
     <div>
+        {guide && (
+          <div className="mb-4 grid gap-2 rounded-xl border border-violet-200 bg-violet-50 p-4 text-sm text-violet-950 md:grid-cols-3">
+            <p>
+              <span className="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-violet-600 text-xs font-bold text-white">1</span>
+              You&apos;re the recruiter. You&apos;ve hired for this role; these 12 weren&apos;t progressed. Click <b>Close role</b>.
+            </p>
+            <p>
+              <span className="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-violet-600 text-xs font-bold text-white">2</span>
+              Click any applicant to open their feedback. Try <b>Aroha</b> (normal), <b>Ahmed</b> (held), <b>Sam</b> (edit the message).
+            </p>
+            <p>
+              <span className="mr-1.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-violet-600 text-xs font-bold text-white">3</span>
+              In an open applicant, switch to <b>What they see</b> to compare with today&apos;s template rejection.
+            </p>
+          </div>
+        )}
         {/* Role being closed */}
         <section className="rounded-xl border border-stone-200 bg-white p-5">
           <div className="flex flex-wrap items-start justify-between gap-4">
@@ -213,6 +229,7 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
                       {row.sent ? "Sent ✓" : STATUS[r.status].label}
                     </span>
                   )}
+                  <span className={`text-stone-400 transition-transform ${isOpen ? "rotate-90" : ""}`}>›</span>
                 </button>
                 {isOpen && (
                   <Detail
