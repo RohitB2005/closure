@@ -97,6 +97,7 @@ npm run dev   # http://localhost:3000
 ## What I didn't write
 
 - **Pre-event starter (my own, written 8 Oct before the challenge was known):** the Next.js + Tailwind scaffold, the original `generateObject` helper (since rewritten for Gemini), and part of the sample job data.
+- **Demo video:** the screen recording is a real, unedited run of the live site, driven by a Playwright script for clean pacing. The narration and face are mine.
 - **Built with Claude Code** as a coding assistant. I made and can explain the decisions; Claude wrote much of the code with me.
 - Demo applicants, CVs and jobs are fictional. Statistics in "The problem" come from public surveys (Resume Genius / CV Genius, HR Reporter).
 - Libraries: Next.js, React, Tailwind CSS, zod.
