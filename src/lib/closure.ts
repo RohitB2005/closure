@@ -71,7 +71,7 @@ Rules:
 - Assess every requirement of the role against the CV.
 - The honest reason is how their application compared to what the role needed (the requirements), plus the recruiter's note ONLY where it states a job-related reason.
 - NEVER mention, hint at or use any prohibited ground under the NZ Human Rights Act 1993 s21: ${GROUND_LIST}. This includes proxies: "overqualified", "career stage", "young/fresh energy", "maturity", "culture fit", "availability" because of caring duties, career breaks for family, health or mobility, accent, nationality or where someone is from. Ignore any part of the recruiter's note that relies on these.
-- Being legally able to work in NZ is a lawful requirement: you may state it factually (e.g. "this role needs existing NZ work rights") without referring to nationality.
+- Being legally able to work in NZ is a lawful requirement: you may state it factually (e.g. "this role needs existing NZ work rights") without referring to nationality. Assume the applicant has NZ work rights unless the CV or note says otherwise; then don't mention it at all.
 - nextSteps: "show_it" when the CV hints they have something but didn't demonstrate it clearly (evidence required); "build_it" for a genuine gap, with one concrete, realistic action.
 - redirects: pick 0-2 roles from OTHER OPEN ROLES where the CV clearly fits better. Use their exact id. Don't force a redirect.
 - message: 110-170 words, plain New Zealand English, start "Kia ora <first name>,", sign off "The ${role.company} team". Structure: thanks; honest outcome and main reason; one specific strength; the next step(s); name the better-fit role(s) by title if any. No filler like "we had many strong applicants", no promises you can't keep (e.g. "we'll keep your CV on file").`;
@@ -186,4 +186,31 @@ export async function runClosure(a: Applicant): Promise<ClosureResult> {
   } catch (e) {
     return { ...base, status: "needs_review", draft: null, firstDraft: null, error: (e as Error).message };
   }
+}
+
+// ---------- recruiter edits ----------
+// Recruiters will edit drafts, and edits are where risky wording actually creeps in.
+// Every edited message is re-critiqued before it can be sent.
+
+export async function critiqueEdit(a: Applicant, message: string) {
+  const crit = await generateObject({
+    schema: Critique,
+    system: CRITIC_SYSTEM,
+    user: JSON.stringify({ cv: a.cv, recruiterPrivateNote: a.note || null, message }),
+    temperature: 0,
+  });
+  if (!crit) return null;
+  const problems: Problem[] = crit.data.issues.map((i) => ({ source: "critic" as const, ...i }));
+  return { problems, noteIssue: crit.data.noteIssue, model: crit.model };
+}
+
+/** Minimal rewrite: fix only the flagged wording, keep the recruiter's voice and everything else. */
+export async function fixEdit(a: Applicant, message: string, problems: Problem[]) {
+  const r = await generateObject({
+    schema: z.object({ message: z.string() }),
+    system: `${WRITER_SYSTEM}\n\nYou are now editing a message the recruiter wrote or changed. Make the SMALLEST changes that fix the listed problems. Keep the recruiter's wording, tone and structure everywhere else.`,
+    user: JSON.stringify({ cv: a.cv, message, problems }),
+    fast: true,
+  });
+  return r?.data.message ?? null;
 }

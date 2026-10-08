@@ -4,7 +4,17 @@ import { useState } from "react";
 import type { Applicant, Job, Role } from "@/lib/schemas";
 import type { ClosureResult, Problem } from "@/lib/closure";
 
-type RowState = { phase: "idle" | "running" | "done"; result?: ClosureResult; sent?: boolean };
+type RowState = {
+  phase: "idle" | "running" | "done";
+  result?: ClosureResult;
+  sent?: boolean;
+  // recruiter edits: an edited message must be re-checked by the critic before it can be sent
+  message?: string;
+  checking?: boolean;
+  editProblems?: Problem[];
+  editFixed?: Problem[];
+  editChecked?: boolean;
+};
 
 const CONCURRENCY = 4;
 
@@ -33,10 +43,35 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
         body: JSON.stringify({ applicantId: id, note: notes[id] }),
       });
       const result: ClosureResult = await res.json();
-      setRows((r) => ({ ...r, [id]: { phase: "done", result } }));
+      setRows((r) => ({ ...r, [id]: { phase: "done", result, message: result.draft?.message } }));
     } catch (e) {
       const result = { applicantId: id, status: "needs_review", draft: null, firstDraft: null, problemsFound: [], remaining: [], noteIssue: null, trace: [], error: (e as Error).message } as ClosureResult;
       setRows((r) => ({ ...r, [id]: { phase: "done", result } }));
+    }
+  }
+
+  const patch = (id: string, p: Partial<RowState>) => setRows((r) => ({ ...r, [id]: { ...r[id], ...p } }));
+
+  async function checkEdit(id: string, fix: boolean) {
+    const row = rows[id];
+    patch(id, { checking: true });
+    try {
+      const res = await fetch("/api/check", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ applicantId: id, note: notes[id], message: row.message, fix }),
+      });
+      const j = await res.json();
+      if (!res.ok) throw new Error(j.error);
+      patch(id, {
+        checking: false,
+        message: j.message,
+        editProblems: j.problems,
+        editFixed: fix ? j.fixed : row.editFixed,
+        editChecked: j.problems.length === 0,
+      });
+    } catch {
+      patch(id, { checking: false });
     }
   }
 
@@ -141,7 +176,9 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
                     setNote={(v) => setNotes((n) => ({ ...n, [a.id]: v }))}
                     row={row}
                     rerun={() => runOne(a.id)}
-                    send={() => setRows((s) => ({ ...s, [a.id]: { ...s[a.id], sent: true } }))}
+                    send={() => patch(a.id, { sent: true })}
+                    edit={(m) => patch(a.id, { message: m, editChecked: false, editProblems: undefined })}
+                    checkEdit={(fix) => checkEdit(a.id, fix)}
                     role={role}
                     job={job}
                   />
@@ -162,6 +199,8 @@ function Detail({
   row,
   rerun,
   send,
+  edit,
+  checkEdit,
   role,
   job,
 }: {
@@ -171,12 +210,18 @@ function Detail({
   row?: RowState;
   rerun: () => void;
   send: () => void;
+  edit: (m: string) => void;
+  checkEdit: (fix: boolean) => void;
   role: Role;
   job: (id: string) => Job | undefined;
 }) {
   const [view, setView] = useState<"recruiter" | "candidate">("recruiter");
   const r = row?.result;
-  const d = r?.draft;
+  const d0 = r?.draft;
+  // What the candidate sees is always the current (possibly edited) message.
+  const d = d0 && row?.message !== undefined ? { ...d0, message: row.message } : d0;
+  const edited = !!d0 && row?.message !== d0.message;
+  const canSend = r?.status !== "held" && !row?.sent && (!edited || row?.editChecked);
 
   return (
     <div className="border-t border-stone-100 px-4 pb-5 pt-4">
@@ -209,7 +254,7 @@ function Detail({
         </div>
       )}
 
-      {d && (
+      {r && d && (
         <>
           <div className="mb-3 flex gap-2 text-sm">
             {(["recruiter", "candidate"] as const).map((v) => (
@@ -232,14 +277,65 @@ function Detail({
                 <div className="rounded-lg border border-stone-200 bg-stone-50 p-4">
                   <p className="text-xs text-stone-500">Subject</p>
                   <p className="mb-3 font-medium">{d.subject}</p>
-                  <p className="whitespace-pre-line text-sm leading-relaxed">{d.message}</p>
+                  <textarea
+                    value={d.message}
+                    onChange={(e) => edit(e.target.value)}
+                    rows={14}
+                    className="w-full resize-y rounded border border-transparent bg-transparent text-sm leading-relaxed hover:border-stone-300 focus:border-violet-400 focus:bg-white focus:outline-none"
+                  />
+                  <p className="text-xs text-stone-400">You can edit this. Edits are re-checked before sending.</p>
                 </div>
+
+                {edited && !row?.editChecked && (
+                  <button
+                    onClick={() => checkEdit(false)}
+                    disabled={row?.checking}
+                    className="mt-3 w-full rounded-lg border border-violet-300 bg-violet-50 px-4 py-2 font-medium text-violet-800 hover:bg-violet-100 disabled:opacity-50"
+                  >
+                    {row?.checking ? "Checking…" : "Check my edits"}
+                  </button>
+                )}
+                {row?.editProblems && row.editProblems.length > 0 && (
+                  <div className="mt-3 space-y-2 rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm">
+                    <p className="font-medium text-amber-900">Your edit needs another look:</p>
+                    {row.editProblems.map((p, i) => (
+                      <ProblemRow key={i} p={p} />
+                    ))}
+                    <button
+                      onClick={() => checkEdit(true)}
+                      disabled={row.checking}
+                      className="w-full rounded-lg bg-amber-600 px-4 py-2 font-medium text-white hover:bg-amber-700 disabled:opacity-50"
+                    >
+                      {row.checking ? "Fixing…" : "Fix the wording for me"}
+                    </button>
+                  </div>
+                )}
+                {edited && row?.editChecked && (
+                  <div className="mt-3 rounded-lg border border-emerald-200 bg-emerald-50 p-3 text-sm text-emerald-900">
+                    ✓ Your edited message passed the check.
+                    {row.editFixed && row.editFixed.length > 0 && (
+                      <div className="mt-2 space-y-2">
+                        <p className="text-xs font-semibold uppercase">Fixed in your edit</p>
+                        {row.editFixed.map((p, i) => (
+                          <ProblemRow key={i} p={p} />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
                 <button
                   onClick={send}
-                  disabled={r.status === "held" || row?.sent}
+                  disabled={!canSend}
                   className="mt-3 w-full rounded-lg bg-emerald-600 px-4 py-2 font-medium text-white hover:bg-emerald-700 disabled:opacity-40"
                 >
-                  {row?.sent ? "Sent ✓" : r.status === "held" ? "Can't send while held" : "Approve & send"}
+                  {row?.sent
+                    ? "Sent ✓"
+                    : r.status === "held"
+                      ? "Can't send while held"
+                      : edited && !row?.editChecked
+                        ? "Check your edits first"
+                        : "Approve & send"}
                 </button>
               </div>
 
