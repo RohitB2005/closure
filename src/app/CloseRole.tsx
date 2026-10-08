@@ -17,7 +17,7 @@ type RowState = {
   editChecked?: boolean;
 };
 
-const CONCURRENCY = 6;
+const CONCURRENCY = 12; // own OpenRouter quota (not the shared key), so the whole batch can run at once
 const MANUAL_MINUTES = 8; // assumption for the time-saved estimate: writing one personal, careful rejection by hand
 
 const STATUS: Record<ClosureResult["status"], { label: string; cls: string }> = {
