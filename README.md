@@ -2,7 +2,7 @@
 
 **Closure helps recruiters give every rejected applicant honest, specific, lawful feedback and a next step, in one click.**
 
-Live: **https://closure-mu.vercel.app** (no login: click *Close role*)
+Live: **https://closure-mu.vercel.app** (no login). Tabs: *Demo role* (click **Close role**), *Your own role* (paste any job ad, upload PDF CVs), *How it works* (pipeline and eval numbers).
 Built by **Rohit Balaji** (solo) at the ZEIL Hackathon, 9 October 2026.
 
 ## The problem
