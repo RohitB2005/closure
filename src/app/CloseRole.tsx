@@ -38,15 +38,15 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
   async function runOne(id: string) {
     setRows((r) => ({ ...r, [id]: { phase: "running" } }));
     try {
-      const res = await fetch("/api/close", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role, applicant: applicants.find((a) => a.id === id), note: notes[id] }),
-      });
+      const body = JSON.stringify({ role, applicant: applicants.find((a) => a.id === id), note: notes[id] });
+      const post = () => fetch("/api/close", { method: "POST", headers: { "Content-Type": "application/json" }, body });
+      // One automatic retry: cold starts and the shared Gemini quota occasionally fail a single request.
+      let res = await post().catch(() => null);
+      if (!res || res.status >= 500) res = await post();
       const result: ClosureResult = await res.json();
       setRows((r) => ({ ...r, [id]: { phase: "done", result, message: result.draft?.message } }));
     } catch (e) {
-      const result = { applicantId: id, status: "needs_review", draft: null, firstDraft: null, problemsFound: [], remaining: [], noteIssue: null, trace: [], error: (e as Error).message } as ClosureResult;
+      const result = { applicantId: id, status: "needs_review", draft: null, firstDraft: null, problemsFound: [], remaining: [], noteIssue: null, cvManipulation: null, trace: [], error: (e as Error).message } as ClosureResult;
       setRows((r) => ({ ...r, [id]: { phase: "done", result } }));
     }
   }
@@ -265,6 +265,14 @@ function Detail({
             Closure won&apos;t send a message that covers this with a different reason. Reconsider this application, or record the
             job-related reason in your note and re-draft.
           </p>
+        </div>
+      )}
+
+      {r?.cvManipulation && (
+        <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          <p className="font-semibold">This CV contains instructions aimed at AI screening. They were ignored.</p>
+          <p className="mt-1 italic">“{r.cvManipulation}”</p>
+          <p className="mt-1">The message below is based only on the applicant&apos;s actual experience. You may want to consider this when reviewing.</p>
         </div>
       )}
 
