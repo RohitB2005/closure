@@ -56,7 +56,9 @@ recruiter clicks "Close role"
 
 ## Does it work? (eval)
 
-27 hand-labelled cases run through the real API ([`eval/RESULTS.md`](eval/RESULTS.md)):
+**Is it personal, or a template?** Compared with the generic rejection I actually received ([`eval/RESULTS.md`](eval/RESULTS.md#writer-eval-is-it-actually-personal)): Closure's 12 messages share **5–6%** of their wording with each other (a template shares 100%), cite **~7 CV facts each, all verified by code**, and **12/12** give a concrete next step.
+
+**Does the critic catch what it should?** 27 hand-labelled cases run through the real API ([`eval/RESULTS.md`](eval/RESULTS.md)):
 
 | | Critic with thinking | Critic without thinking |
 |---|---|---|
@@ -65,7 +67,7 @@ recruiter clicks "Close role"
 
 **The change it caused:** we had assumed the critic needed thinking to catch subtle proxies. It didn't, and the thinking version was *over*-cautious: it stripped a helpful returners-programme suggestion from a candidate who had disclosed her own career break. So the critic now runs without thinking.
 
-Run it yourself: `npm run dev`, then `node eval/run.mjs` (or `node eval/run.mjs https://closure-mu.vercel.app`).
+Run it yourself: `npm run dev`, then `node eval/run.mjs` (critic) and `node eval/writer.mjs` (personalisation) (or `node eval/run.mjs https://closure-mu.vercel.app`).
 
 ## Run it locally
 

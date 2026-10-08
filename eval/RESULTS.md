@@ -35,3 +35,23 @@ We had assumed the critic needed "thinking" to catch subtle proxies, and it ran 
 - 27 cases written by one person is a smoke test, not proof. The next step would be cases written by recruiters and employment lawyers, plus cases that fail in practice.
 - The eval tests the critic, not the writer. Across the 12 demo applicants the writer produced no prohibited-ground wording on its own. The real risk came from recruiter notes and edits, which is what the critic guards.
 - "Clean" labels are judgement calls, such as the returners-programme case above.
+
+---
+
+# Writer eval: is it actually personal?
+
+**The claim being tested:** Closure's feedback is *not* a template with the name swapped. The baseline is the real rejection a student actually received (`"Unfortunately, we've picked a candidate whose experience aligns more closely with the role at this time…"`), which every applicant gets word for word.
+
+[`writer.mjs`](writer.mjs) drafts all 12 demo applicants through the real `POST /api/close` and measures the messages. Greeting, sign-off and role name are stripped first, since every message is meant to share those.
+
+| | Generic template | Closure (3 runs) |
+|---|---|---|
+| Wording shared between two messages (average) | 100% | **5–6%** |
+| Wording shared by the most similar pair | 100% | 13–19% |
+| CV facts cited, each verified by code as word-for-word in the CV | 0 | **~7.3 per message** |
+| Gives a concrete next step | 0/12 | **12/12** |
+| Points to a better-fit open role | 0/12 | 11/12 |
+
+The one message without a redirect: no open role was a clearly better fit, and the writer is told not to force one.
+
+**A metric that didn't hold up:** I also tried to score whether each message is "clearly about its own applicant" by matching words that only appear in that person's CV. It moved between 9/12 and 12/12 across runs. Exact-phrase matching misses paraphrase ("your FlatMate project"), and word matching is thrown by details that also appear in job ads (e.g. "patient-facing"). Reading the messages shows they are specific, but this heuristic is too crude to quote as a number, so it isn't one of the headline results.
