@@ -1,6 +1,6 @@
 import { applicants, jobs, role } from "@/lib/closure";
-import CloseRole from "./CloseRole";
+import App from "./App";
 
 export default function Home() {
-  return <CloseRole role={role} applicants={applicants} jobs={jobs} />;
+  return <App role={role} applicants={applicants} jobs={jobs} />;
 }

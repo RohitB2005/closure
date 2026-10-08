@@ -14,7 +14,8 @@ import applicantsData from "@/data/applicants.json";
 export const role = Role.parse(roleData);
 export const jobs = z.array(Job).parse(jobsData);
 export const applicants = z.array(Applicant).parse(applicantsData);
-const otherJobs = jobs.filter((j) => j.id !== role.id);
+/** Open roles a candidate could be redirected to: everything on the marketplace except the role being closed. */
+const otherJobs = (r: Role) => jobs.filter((j) => j.id !== r.id);
 
 // ---------- verification (deterministic) ----------
 
@@ -37,7 +38,7 @@ export function quoteInCv(quote: string, cv: string): boolean {
 
 export type Verification = { failedQuotes: string[]; droppedRedirects: string[]; checked: number };
 
-function verify(d: Draft, cv: string): { draft: Draft; v: Verification } {
+function verify(d: Draft, cv: string, r: Role): { draft: Draft; v: Verification } {
   const failedQuotes: string[] = [];
   let checked = 0;
   const ok = (q: string | null) => {
@@ -47,7 +48,7 @@ function verify(d: Draft, cv: string): { draft: Draft; v: Verification } {
     if (!good) failedQuotes.push(q);
     return good;
   };
-  const known = new Map(otherJobs.map((j) => [j.id, j]));
+  const known = new Map(otherJobs(r).map((j) => [j.id, j]));
   const droppedRedirects = d.redirects.filter((r) => !known.has(r.jobId)).map((r) => r.jobId);
   const draft: Draft = {
     ...d,
@@ -63,7 +64,7 @@ function verify(d: Draft, cv: string): { draft: Draft; v: Verification } {
 
 const GROUND_LIST = GROUNDS.map((g) => g.replace(/_/g, " ")).join(", ");
 
-const WRITER_SYSTEM = `You write feedback for job applicants who were not progressed past the CV screen, on behalf of the hiring company, for a New Zealand jobs marketplace.
+const writerSystem = (role: Role) => `You write feedback for job applicants who were not progressed past the CV screen, on behalf of the hiring company, for a New Zealand jobs marketplace.
 The applicant would otherwise be ghosted or get a generic template. Your message must be honest, specific to THIS person, kind, and useful: it must leave them with a clear next step.
 
 Rules:
@@ -87,12 +88,12 @@ Report every real problem in the MESSAGE:
 
 Separately, review the recruiter's PRIVATE NOTE (not sent to the applicant). If the note relies on a prohibited ground, or gives an unexplained "fit" judgement, set noteIssue so a human reviews the decision. Otherwise noteIssue is null.`;
 
-function writerInput(a: Applicant) {
+function writerInput(a: Applicant, role: Role) {
   return JSON.stringify({
     role: { title: role.title, company: role.company, description: role.description, requirements: role.requirements },
     recruiterNote: a.note || null,
     applicant: { name: a.name, cv: a.cv },
-    otherOpenRoles: otherJobs.map((j) => ({ id: j.id, title: j.title, company: j.company, location: j.location, skills: j.skills, description: j.description })),
+    otherOpenRoles: otherJobs(role).map((j) => ({ id: j.id, title: j.title, company: j.company, location: j.location, skills: j.skills, description: j.description })),
   });
 }
 
@@ -121,8 +122,8 @@ async function timed<T>(fn: () => Promise<T>): Promise<[T, number]> {
   return [r, Date.now() - t];
 }
 
-async function check(draft: Draft, a: Applicant, trace: TraceStep[]) {
-  const { draft: verified, v } = verify(draft, a.cv);
+async function check(draft: Draft, a: Applicant, r: Role, trace: TraceStep[]) {
+  const { draft: verified, v } = verify(draft, a.cv, r);
   trace.push({
     step: "verify",
     ms: 0,
@@ -147,31 +148,31 @@ async function check(draft: Draft, a: Applicant, trace: TraceStep[]) {
   return { verified, problems, noteIssue: crit.data.noteIssue };
 }
 
-export async function runClosure(a: Applicant): Promise<ClosureResult> {
+export async function runClosure(a: Applicant, r: Role = role): Promise<ClosureResult> {
   const trace: TraceStep[] = [];
   const base = { applicantId: a.id, problemsFound: [], remaining: [], noteIssue: null, trace };
   try {
-    const [w, ms] = await timed(() => generateObject({ schema: Draft, system: WRITER_SYSTEM, user: writerInput(a), fast: true }));
+    const [w, ms] = await timed(() => generateObject({ schema: Draft, system: writerSystem(r), user: writerInput(a, r), fast: true }));
     if (!w) throw new Error("Writer unavailable");
     trace.push({ step: "write", ms, model: w.model, note: `${w.data.message.split(/\s+/).length} words` });
 
-    const first = await check(w.data, a, trace);
+    const first = await check(w.data, a, r, trace);
     if (first.problems.length === 0)
       return { ...base, status: first.noteIssue ? "held" : "ready", draft: first.verified, firstDraft: w.data, noteIssue: first.noteIssue, trace };
 
     // One revision round: the writer gets the exact problems the critic/verifier found.
-    const [r, rms] = await timed(() =>
+    const [rev, rms] = await timed(() =>
       generateObject({
         schema: Draft,
-        system: WRITER_SYSTEM,
+        system: writerSystem(r),
         fast: true,
-        user: `${writerInput(a)}\n\nYOUR PREVIOUS DRAFT:\n${JSON.stringify(w.data)}\n\nA reviewer found these problems. Fix every one, keep everything else that was good:\n${JSON.stringify(first.problems)}`,
+        user: `${writerInput(a, r)}\n\nYOUR PREVIOUS DRAFT:\n${JSON.stringify(w.data)}\n\nA reviewer found these problems. Fix every one, keep everything else that was good:\n${JSON.stringify(first.problems)}`,
       }),
     );
-    if (!r) throw new Error("Writer unavailable (revision)");
-    trace.push({ step: "revise", ms: rms, model: r.model, note: `fixed ${first.problems.length} problem(s)` });
+    if (!rev) throw new Error("Writer unavailable (revision)");
+    trace.push({ step: "revise", ms: rms, model: rev.model, note: `fixed ${first.problems.length} problem(s)` });
 
-    const second = await check(r.data, a, trace);
+    const second = await check(rev.data, a, r, trace);
     const noteIssue = first.noteIssue ?? second.noteIssue;
     return {
       ...base,
@@ -207,12 +208,12 @@ export async function critiqueEdit(a: Applicant, message: string, fast = true) {
 }
 
 /** Minimal rewrite: fix only the flagged wording, keep the recruiter's voice and everything else. */
-export async function fixEdit(a: Applicant, message: string, problems: Problem[]) {
-  const r = await generateObject({
+export async function fixEdit(a: Applicant, message: string, problems: Problem[], r: Role = role) {
+  const out = await generateObject({
     schema: z.object({ message: z.string() }),
-    system: `${WRITER_SYSTEM}\n\nYou are now editing a message the recruiter wrote or changed. Make the SMALLEST changes that fix the listed problems. Keep the recruiter's wording, tone and structure everywhere else.`,
+    system: `${writerSystem(r)}\n\nYou are now editing a message the recruiter wrote or changed. Make the SMALLEST changes that fix the listed problems. Keep the recruiter's wording, tone and structure everywhere else.`,
     user: JSON.stringify({ cv: a.cv, message, problems }),
     fast: true,
   });
-  return r?.data.message ?? null;
+  return out?.data.message ?? null;
 }

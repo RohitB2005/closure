@@ -41,7 +41,7 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
       const res = await fetch("/api/close", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ applicantId: id, note: notes[id] }),
+        body: JSON.stringify({ role, applicant: applicants.find((a) => a.id === id), note: notes[id] }),
       });
       const result: ClosureResult = await res.json();
       setRows((r) => ({ ...r, [id]: { phase: "done", result, message: result.draft?.message } }));
@@ -60,7 +60,7 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
       const res = await fetch("/api/check", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ applicantId: id, note: notes[id], message: row.message, fix }),
+        body: JSON.stringify({ role, applicant: applicants.find((a) => a.id === id), note: notes[id], message: row.message, fix }),
       });
       const j = await res.json();
       if (!res.ok) throw new Error(j.error);
@@ -104,20 +104,7 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
   const job = (id: string) => jobs.find((j) => j.id === id);
 
   return (
-    <main className="min-h-screen bg-stone-50 text-stone-900">
-      <header className="border-b border-stone-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
-          <div className="flex items-baseline gap-3">
-            <span className="text-xl font-bold tracking-tight">
-              Closure<span className="text-violet-600">.</span>
-            </span>
-            <span className="text-sm text-stone-500">Every applicant hears back, with a reason and a next step.</span>
-          </div>
-          <span className="text-xs text-stone-400">Recruiter view</span>
-        </div>
-      </header>
-
-      <div className="mx-auto max-w-6xl px-4 py-6">
+    <div>
         {/* Role being closed */}
         <section className="rounded-xl border border-stone-200 bg-white p-5">
           <div className="flex flex-wrap items-start justify-between gap-4">
@@ -125,16 +112,17 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
               <p className="text-xs font-medium uppercase tracking-wide text-violet-600">Closing role</p>
               <h1 className="text-2xl font-semibold">{role.title}</h1>
               <p className="text-sm text-stone-600">
-                {role.company} · {role.location} · {role.workType} · {role.applicantCount} applicants
+                {role.company} · {role.location} · {role.workType}
+                {role.applicantCount > 0 && ` · ${role.applicantCount} applicants`}
               </p>
-              <p className="mt-1 text-sm text-emerald-700">✓ {role.hired}</p>
+              {role.hired && <p className="mt-1 text-sm text-emerald-700">✓ {role.hired}</p>}
             </div>
             <button
               onClick={closeRole}
               disabled={running}
               className="rounded-lg bg-violet-600 px-5 py-3 font-medium text-white shadow-sm hover:bg-violet-700 disabled:opacity-50"
             >
-              {running ? "Drafting…" : `Close role: draft feedback for ${applicants.length} applicants`}
+              {running ? "Drafting…" : `Close role: draft feedback for ${applicants.length} applicant${applicants.length > 1 ? "s" : ""}`}
             </button>
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
@@ -214,8 +202,7 @@ export default function CloseRole({ role, applicants, jobs }: { role: Role; appl
             );
           })}
         </section>
-      </div>
-    </main>
+    </div>
   );
 }
 

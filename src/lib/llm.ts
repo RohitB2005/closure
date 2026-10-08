@@ -48,13 +48,15 @@ class HttpError extends Error {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-async function callGemini(model: string, system: string, user: string, temperature: number, fast: boolean): Promise<string> {
+type FilePart = { mimeType: string; data: string }; // base64
+
+async function callGemini(model: string, system: string, user: string, temperature: number, fast: boolean, file?: FilePart): Promise<string> {
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: "POST",
     headers: { "x-goog-api-key": process.env.GEMINI_API_KEY!, "Content-Type": "application/json" },
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: system }] },
-      contents: [{ role: "user", parts: [{ text: user }] }],
+      contents: [{ role: "user", parts: [...(file ? [{ inline_data: { mime_type: file.mimeType, data: file.data } }] : []), { text: user }] }],
       generationConfig: {
         temperature,
         responseMimeType: "application/json",
@@ -69,7 +71,7 @@ async function callGemini(model: string, system: string, user: string, temperatu
   return (json.candidates?.[0]?.content?.parts ?? []).map((p: { text?: string }) => p.text ?? "").join("");
 }
 
-async function callOpenRouter(model: string, system: string, user: string, temperature: number): Promise<string> {
+async function callOpenRouter(model: string, system: string, user: string, temperature: number, file?: FilePart): Promise<string> {
   const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -83,7 +85,15 @@ async function callOpenRouter(model: string, system: string, user: string, tempe
       response_format: { type: "json_object" },
       messages: [
         { role: "system", content: system },
-        { role: "user", content: user },
+        {
+          role: "user",
+          content: file
+            ? [
+                { type: "file", file: { filename: "upload.pdf", file_data: `data:${file.mimeType};base64,${file.data}` } },
+                { type: "text", text: user },
+              ]
+            : user,
+        },
       ],
     }),
     signal: AbortSignal.timeout(45_000),
@@ -99,6 +109,7 @@ export async function generateObject<T extends z.ZodTypeAny>(opts: {
   user: string;
   temperature?: number;
   fast?: boolean;
+  file?: FilePart; // e.g. a PDF CV, read natively by Gemini
 }): Promise<{ data: z.infer<T>; model: string } | null> {
   const jsonSchema = z.toJSONSchema(opts.schema);
   const system = `${opts.system}
@@ -113,8 +124,8 @@ ${JSON.stringify(jsonSchema)}`;
       try {
         const text =
           p.name === "gemini"
-            ? await callGemini(p.model, system, opts.user, temperature, opts.fast ?? false)
-            : await callOpenRouter(p.model, system, opts.user, temperature);
+            ? await callGemini(p.model, system, opts.user, temperature, opts.fast ?? false, opts.file)
+            : await callOpenRouter(p.model, system, opts.user, temperature, opts.file);
         const parsed = opts.schema.safeParse(extractJson(text));
         if (!parsed.success) throw new Error(`Schema mismatch: ${parsed.error.message.slice(0, 300)}`);
         return { data: parsed.data, model: `${p.name}:${p.model}` };
