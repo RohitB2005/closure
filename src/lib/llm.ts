@@ -48,14 +48,19 @@ class HttpError extends Error {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-async function callGemini(model: string, system: string, user: string, temperature: number): Promise<string> {
+async function callGemini(model: string, system: string, user: string, temperature: number, fast: boolean): Promise<string> {
   const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: "POST",
     headers: { "x-goog-api-key": process.env.GEMINI_API_KEY!, "Content-Type": "application/json" },
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: system }] },
       contents: [{ role: "user", parts: [{ text: user }] }],
-      generationConfig: { temperature, responseMimeType: "application/json" },
+      generationConfig: {
+        temperature,
+        responseMimeType: "application/json",
+        // fast = no "thinking" tokens: ~3-4x lower latency, used where speed matters more than deliberation.
+        ...(fast ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
+      },
     }),
     signal: AbortSignal.timeout(45_000),
   });
@@ -93,6 +98,7 @@ export async function generateObject<T extends z.ZodTypeAny>(opts: {
   system: string;
   user: string;
   temperature?: number;
+  fast?: boolean;
 }): Promise<{ data: z.infer<T>; model: string } | null> {
   const jsonSchema = z.toJSONSchema(opts.schema);
   const system = `${opts.system}
@@ -107,7 +113,7 @@ ${JSON.stringify(jsonSchema)}`;
       try {
         const text =
           p.name === "gemini"
-            ? await callGemini(p.model, system, opts.user, temperature)
+            ? await callGemini(p.model, system, opts.user, temperature, opts.fast ?? false)
             : await callOpenRouter(p.model, system, opts.user, temperature);
         const parsed = opts.schema.safeParse(extractJson(text));
         if (!parsed.success) throw new Error(`Schema mismatch: ${parsed.error.message.slice(0, 300)}`);

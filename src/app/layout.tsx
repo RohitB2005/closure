@@ -3,8 +3,8 @@ import "./globals.css";
 
 // System fonts on purpose: no network font fetch, so builds work on any venue Wi-Fi.
 export const metadata: Metadata = {
-  title: "Job Match",
-  description: "AI job matching with explained results",
+  title: "Closure",
+  description: "Every applicant hears back, with a reason and a next step.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

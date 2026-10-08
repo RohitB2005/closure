@@ -1,0 +1,20 @@
+{
+  "id": "j1",
+  "title": "Junior Frontend Developer",
+  "company": "Kauri Labs",
+  "location": "Auckland CBD",
+  "workType": "Full-time",
+  "salaryRange": "$65k–$75k",
+  "skills": ["React", "TypeScript", "CSS", "Git"],
+  "description": "Build customer-facing web features in React and TypeScript with a small product team. Mentoring provided.",
+  "requirements": [
+    { "id": "r1", "text": "Has built web interfaces with React", "kind": "must" },
+    { "id": "r2", "text": "Writes TypeScript (or strong modern JavaScript)", "kind": "must" },
+    { "id": "r3", "text": "Comfortable with CSS and responsive layouts", "kind": "must" },
+    { "id": "r4", "text": "Uses Git and has worked in a team codebase", "kind": "must" },
+    { "id": "r5", "text": "Has shipped something real users use (job, internship or project)", "kind": "nice" },
+    { "id": "r6", "text": "Legally able to work in New Zealand", "kind": "must" }
+  ],
+  "hired": "Hired: a candidate with 1 year of commercial React + TypeScript experience at a SaaS startup.",
+  "applicantCount": 147
+}

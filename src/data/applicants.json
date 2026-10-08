@@ -1,0 +1,74 @@
+[
+  {
+    "id": "a1",
+    "name": "Aroha Ngata",
+    "note": "Good projects but we went with someone with commercial React experience.",
+    "cv": "Aroha Ngata — Auckland\nBSc Computer Science, University of Auckland (2025).\nProjects: Built 'FlatMate', a React + TypeScript app for splitting flat bills, used by 40 students. Built a personal portfolio site with responsive CSS grid layouts.\nExperience: Summer intern, Pōhutukawa Digital (3 months, 2024) — fixed bugs in a Vue codebase and wrote unit tests.\nSkills: React, TypeScript, Python, Git, CSS, Jest.\nOther: Volunteer tutor for first-year programming."
+  },
+  {
+    "id": "a2",
+    "name": "Sam Patel",
+    "note": "",
+    "cv": "Sam Patel — Henderson, Auckland\nCareer changer. 26 years in retail management, most recently Regional Manager for a 12-store chain, leading 80 staff.\nCompleted Dev Academy Aotearoa web development bootcamp (2026).\nBootcamp projects: Team project building a stock-tracking dashboard in React and JavaScript; used Git with pull requests in a team of four.\nSkills: JavaScript, React, HTML, CSS, Git, Excel, team leadership, budgeting.\nCurrently learning TypeScript through online courses."
+  },
+  {
+    "id": "a3",
+    "name": "Mere Thompson",
+    "note": "Strong-ish but worried about her availability with young kids at home.",
+    "cv": "Mere Thompson — Mt Albert, Auckland\nFrontend developer returning to work after a career break (2021–2025) to care for my children.\nExperience: Frontend Developer, Tui Software (2017–2021) — built AngularJS dashboards, maintained the company style guide in SCSS.\nRecent: Rebuilt my local kindergarten's website in React (2025), responsive and accessible.\nSkills: JavaScript, AngularJS, React (recent), SCSS, CSS, Git, accessibility (WCAG).\nAvailable full-time."
+  },
+  {
+    "id": "a4",
+    "name": "Daniel Kim",
+    "note": "",
+    "cv": "Daniel Kim — Auckland CBD\nBackend developer, 3 years.\nExperience: Software Engineer, Harbour Payments (2023–now) — Java and Spring Boot microservices, PostgreSQL, REST APIs, on-call rotation.\nSkills: Java, Spring Boot, SQL, PostgreSQL, Docker, Git, AWS.\nI'd like to move into frontend work and have started a React course.\nBEng Software, AUT (2022)."
+  },
+  {
+    "id": "a5",
+    "name": "Priya Sharma",
+    "note": "Strong, but she'd need visa sponsorship and we can't sponsor right now.",
+    "cv": "Priya Sharma — Auckland\nMaster of Information Technology student, University of Auckland (finishing Nov 2026). Currently on a student visa.\nExperience: Frontend Developer Intern, Mumbai fintech startup (2023–2024) — built React + TypeScript components for a payments dashboard used by 10,000 merchants.\nProjects: Open-source contributions to a React UI component library (12 merged PRs).\nSkills: React, TypeScript, Next.js, Tailwind CSS, Git, Jest."
+  },
+  {
+    "id": "a6",
+    "name": "Liam O'Connor",
+    "note": "",
+    "cv": "Liam O'Connor — Ponsonby, Auckland\nBarista and café all-rounder, 4 years.\nExperience: Senior Barista, Little Bird Café (2022–now) — trained 6 new baristas, handled opening and closing, cash-up and stock orders. Barista, Kōkako (2020–2022).\nSkills: Coffee making, latte art, customer service, cash handling, rostering.\nInterested in getting into tech one day."
+  },
+  {
+    "id": "a7",
+    "name": "Jess Walker",
+    "note": "More of a designer than a developer.",
+    "cv": "Jess Walker — Grey Lynn, Auckland\nUI/UX designer, 2 years.\nExperience: Product Designer, Fern Studio (2024–now) — designed onboarding flows in Figma for a fintech app, ran 15 user interviews, built a design system.\nSkills: Figma, user research, prototyping, design systems, HTML, CSS.\nSome front-end: I hand-off to developers and can build static pages in HTML and CSS.\nBDes, Massey University (2023)."
+  },
+  {
+    "id": "a8",
+    "name": "Tane Wiremu",
+    "note": "",
+    "cv": "Tane Wiremu — Manukau, Auckland\nIT support technician, 2 years.\nExperience: Helpdesk Analyst, Southern DHB contractor (2024–now) — resolve 30+ tickets a day, set up laptops, manage Microsoft 365 accounts. Built a simple internal FAQ page in HTML.\nSkills: Windows, Microsoft 365, networking basics, customer service, HTML.\nCertificate in IT Essentials, MIT (2023)."
+  },
+  {
+    "id": "a9",
+    "name": "Chloe Martin",
+    "note": "Went with someone with React production experience.",
+    "cv": "Chloe Martin — Wellington (relocating to Auckland)\nFrontend developer, 2 years.\nExperience: Frontend Developer, Rimu Health (2024–now) — build patient-facing features in Vue 3 and TypeScript, responsive layouts in Tailwind CSS, code review in GitHub.\nSkills: Vue 3, TypeScript, JavaScript, Tailwind CSS, CSS, Git, Cypress.\nBSc Computer Science, Victoria University of Wellington (2023)."
+  },
+  {
+    "id": "a10",
+    "name": "Ahmed Hassan",
+    "note": "Great on paper but he uses a wheelchair and our office has stairs, so probably not a fit.",
+    "cv": "Ahmed Hassan — Takapuna, Auckland\nFrontend developer with a focus on accessibility. As a wheelchair user, I care about building products everyone can use.\nExperience: Junior Developer, Kowhai Agency (2025–now, contract ending) — React and TypeScript sites for 5 clients, audited and fixed WCAG issues.\nSkills: React, TypeScript, CSS, Git, accessibility (WCAG 2.2), screen-reader testing.\nBSc Computer Science, AUT (2024)."
+  },
+  {
+    "id": "a11",
+    "name": "Grace Lee",
+    "note": "Way too young for this.",
+    "cv": "Grace Lee — Epsom, Auckland\nYear 13 student at Epsom Girls Grammar (age 17), finishing school in November.\nSelf-taught developer: built a React app that tracks school sports results, used by my school's sports department.\nSkills: JavaScript, React, HTML, CSS, Git (GitHub).\nNCEA Level 3 Digital Technologies (Excellence). Looking for full-time work or an apprenticeship from December."
+  },
+  {
+    "id": "a12",
+    "name": "Ben Carter",
+    "note": "Not a culture fit.",
+    "cv": "Ben Carter — Remuera, Auckland\nJunior developer, 1 year.\nExperience: Graduate Developer, Totara Tech (2025–now) — React and TypeScript features for an HR platform, pair programming, Git flow.\nSkills: React, TypeScript, CSS, Git, Storybook.\nBSc Computer Science, University of Canterbury (2024)."
+  }
+]

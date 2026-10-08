@@ -1,10 +1,283 @@
 [
-  {"id":"j1","title":"Junior Frontend Developer","company":"Kauri Labs","location":"Auckland CBD","workType":"Full-time","salaryRange":"$65k–$75k","skills":["React","TypeScript","CSS","Git"],"description":"Build customer-facing web features in React and TypeScript with a small product team. Mentoring provided."},
-  {"id":"j2","title":"Barista","company":"Flat White Co.","location":"Ponsonby, Auckland","workType":"Part-time","salaryRange":"$25–$27/hr","skills":["Coffee making","Customer service","Cash handling"],"description":"Busy café looking for a friendly barista for weekday mornings. Latte art a plus."},
-  {"id":"j3","title":"Warehouse Operator","company":"SouthLink Logistics","location":"East Tamaki, Auckland","workType":"Full-time","salaryRange":"$26–$29/hr","skills":["Forklift licence","Inventory","Health and safety"],"description":"Pick, pack and dispatch orders. Forklift licence (F endorsement) required. Rotating shifts."},
-  {"id":"j4","title":"Registered Nurse – Medical Ward","company":"Te Whatu Ora (example)","location":"Hamilton","workType":"Full-time","salaryRange":"$80k–$100k","skills":["Nursing registration","Patient care","Medication administration","Teamwork"],"description":"Provide high-quality patient care on a busy medical ward. NZ nursing registration required."},
-  {"id":"j5","title":"Data Analyst","company":"Pūtea Finance","location":"Wellington","workType":"Full-time","salaryRange":"$85k–$100k","skills":["SQL","Python","Power BI","Stakeholder communication"],"description":"Turn customer and transaction data into dashboards and insights for leadership."},
-  {"id":"j6","title":"Retail Sales Assistant","company":"Southern Outfitters","location":"Newmarket, Auckland","workType":"Casual","salaryRange":"$24–$25/hr","skills":["Customer service","POS systems","Visual merchandising"],"description":"Help customers find the right gear, run the till and keep the store looking great. Weekend availability needed."},
-  {"id":"j7","title":"Software Engineering Intern","company":"Harbour AI","location":"Auckland (hybrid)","workType":"Internship","salaryRange":"$30/hr","skills":["Python","TypeScript","LLM APIs","Git"],"description":"10-week summer internship building AI features into a recruitment product."},
-  {"id":"j8","title":"Electrician","company":"Bright Spark Electrical","location":"Christchurch","workType":"Full-time","salaryRange":"$38–$45/hr","skills":["Electrical registration","Residential wiring","Health and safety"],"description":"Residential and light commercial electrical work. Must hold NZ electrical registration."}
+ {
+  "id": "j1",
+  "title": "Junior Frontend Developer",
+  "company": "Kauri Labs",
+  "location": "Auckland CBD",
+  "workType": "Full-time",
+  "salaryRange": "$65k–$75k",
+  "skills": [
+   "React",
+   "TypeScript",
+   "CSS",
+   "Git"
+  ],
+  "description": "Build customer-facing web features in React and TypeScript with a small product team. Mentoring provided."
+ },
+ {
+  "id": "j2",
+  "title": "Barista",
+  "company": "Flat White Co.",
+  "location": "Ponsonby, Auckland",
+  "workType": "Part-time",
+  "salaryRange": "$25–$27/hr",
+  "skills": [
+   "Coffee making",
+   "Customer service",
+   "Cash handling"
+  ],
+  "description": "Busy café looking for a friendly barista for weekday mornings. Latte art a plus."
+ },
+ {
+  "id": "j3",
+  "title": "Warehouse Operator",
+  "company": "SouthLink Logistics",
+  "location": "East Tamaki, Auckland",
+  "workType": "Full-time",
+  "salaryRange": "$26–$29/hr",
+  "skills": [
+   "Forklift licence",
+   "Inventory",
+   "Health and safety"
+  ],
+  "description": "Pick, pack and dispatch orders. Forklift licence (F endorsement) required. Rotating shifts."
+ },
+ {
+  "id": "j4",
+  "title": "Registered Nurse – Medical Ward",
+  "company": "Te Whatu Ora (example)",
+  "location": "Hamilton",
+  "workType": "Full-time",
+  "salaryRange": "$80k–$100k",
+  "skills": [
+   "Nursing registration",
+   "Patient care",
+   "Medication administration",
+   "Teamwork"
+  ],
+  "description": "Provide high-quality patient care on a busy medical ward. NZ nursing registration required."
+ },
+ {
+  "id": "j5",
+  "title": "Data Analyst",
+  "company": "Pūtea Finance",
+  "location": "Wellington",
+  "workType": "Full-time",
+  "salaryRange": "$85k–$100k",
+  "skills": [
+   "SQL",
+   "Python",
+   "Power BI",
+   "Stakeholder communication"
+  ],
+  "description": "Turn customer and transaction data into dashboards and insights for leadership."
+ },
+ {
+  "id": "j6",
+  "title": "Retail Sales Assistant",
+  "company": "Southern Outfitters",
+  "location": "Newmarket, Auckland",
+  "workType": "Casual",
+  "salaryRange": "$24–$25/hr",
+  "skills": [
+   "Customer service",
+   "POS systems",
+   "Visual merchandising"
+  ],
+  "description": "Help customers find the right gear, run the till and keep the store looking great. Weekend availability needed."
+ },
+ {
+  "id": "j7",
+  "title": "Software Engineering Intern",
+  "company": "Harbour AI",
+  "location": "Auckland (hybrid)",
+  "workType": "Internship",
+  "salaryRange": "$30/hr",
+  "skills": [
+   "Python",
+   "TypeScript",
+   "LLM APIs",
+   "Git"
+  ],
+  "description": "10-week summer internship building AI features into a recruitment product."
+ },
+ {
+  "id": "j8",
+  "title": "Electrician",
+  "company": "Bright Spark Electrical",
+  "location": "Christchurch",
+  "workType": "Full-time",
+  "salaryRange": "$38–$45/hr",
+  "skills": [
+   "Electrical registration",
+   "Residential wiring",
+   "Health and safety"
+  ],
+  "description": "Residential and light commercial electrical work. Must hold NZ electrical registration."
+ },
+ {
+  "id": "j9",
+  "title": "Backend Developer (Java)",
+  "company": "Kererū Bank",
+  "location": "Auckland CBD",
+  "workType": "Full-time",
+  "salaryRange": "$95k–$115k",
+  "skills": [
+   "Java",
+   "Spring Boot",
+   "SQL",
+   "Git"
+  ],
+  "description": "Build and run payment services in Java/Spring. Interest in full-stack work welcome."
+ },
+ {
+  "id": "j10",
+  "title": "UI/UX Designer",
+  "company": "Harakeke Studio",
+  "location": "Auckland (hybrid)",
+  "workType": "Full-time",
+  "salaryRange": "$75k–$90k",
+  "skills": [
+   "Figma",
+   "User research",
+   "Prototyping",
+   "Design systems"
+  ],
+  "description": "Own user research and design for a growing B2B product. HTML/CSS skills a bonus."
+ },
+ {
+  "id": "j11",
+  "title": "IT Support Technician",
+  "company": "Manaaki Health",
+  "location": "Manukau, Auckland",
+  "workType": "Full-time",
+  "salaryRange": "$60k–$70k",
+  "skills": [
+   "Windows",
+   "Microsoft 365",
+   "Customer service",
+   "Networking"
+  ],
+  "description": "Tier 2 support for 600 staff, with a path into systems or web roles."
+ },
+ {
+  "id": "j12",
+  "title": "Frontend Developer (Vue)",
+  "company": "Pūriri Software",
+  "location": "Auckland CBD",
+  "workType": "Full-time",
+  "salaryRange": "$80k–$95k",
+  "skills": [
+   "Vue",
+   "TypeScript",
+   "CSS",
+   "Git"
+  ],
+  "description": "Vue 3 + TypeScript product team, relocation support available."
+ },
+ {
+  "id": "j13",
+  "title": "Café Supervisor",
+  "company": "Flat White Co.",
+  "location": "Ponsonby, Auckland",
+  "workType": "Full-time",
+  "salaryRange": "$28–$31/hr",
+  "skills": [
+   "Coffee making",
+   "Rostering",
+   "Customer service",
+   "Cash handling"
+  ],
+  "description": "Run the floor, train new baristas and manage stock and rosters."
+ },
+ {
+  "id": "j14",
+  "title": "Junior QA Tester",
+  "company": "Kauri Labs",
+  "location": "Auckland CBD",
+  "workType": "Full-time",
+  "salaryRange": "$58k–$65k",
+  "skills": [
+   "Testing",
+   "Attention to detail",
+   "JavaScript",
+   "Git"
+  ],
+  "description": "Manual and automated testing of web apps. Great first step into software teams."
+ },
+ {
+  "id": "j15",
+  "title": "Accessibility Engineer",
+  "company": "Tōtara Government Digital",
+  "location": "Wellington or remote (NZ)",
+  "workType": "Full-time",
+  "salaryRange": "$85k–$100k",
+  "skills": [
+   "Accessibility",
+   "WCAG",
+   "React",
+   "Screen-reader testing"
+  ],
+  "description": "Make government services accessible. Fully remote option, accessible offices."
+ },
+ {
+  "id": "j16",
+  "title": "Frontend Developer (returners programme)",
+  "company": "Kōwhai Software",
+  "location": "Auckland (hybrid)",
+  "workType": "Full-time",
+  "salaryRange": "$80k–$92k",
+  "skills": [
+   "JavaScript",
+   "React",
+   "CSS",
+   "Git"
+  ],
+  "description": "Paid 12-week returners programme for developers coming back from a career break. Flexible hours."
+ },
+ {
+  "id": "j17",
+  "title": "Software Apprentice",
+  "company": "Rātā Digital",
+  "location": "Auckland CBD",
+  "workType": "Full-time",
+  "salaryRange": "$50k–$55k",
+  "skills": [
+   "JavaScript",
+   "HTML",
+   "CSS",
+   "Willingness to learn"
+  ],
+  "description": "Two-year paid apprenticeship for school leavers, with study and mentoring. Starts January."
+ },
+ {
+  "id": "j18",
+  "title": "Customer Success Lead",
+  "company": "Rimu Retail Tech",
+  "location": "Auckland (hybrid)",
+  "workType": "Full-time",
+  "salaryRange": "$85k–$100k",
+  "skills": [
+   "Team leadership",
+   "Retail operations",
+   "Customer service",
+   "Excel"
+  ],
+  "description": "Lead onboarding for retail clients of a POS software company. Retail background essential, technical curiosity a plus."
+ },
+ {
+  "id": "j19",
+  "title": "Frontend Developer (visa sponsorship available)",
+  "company": "Pōhutukawa Payments",
+  "location": "Auckland CBD",
+  "workType": "Full-time",
+  "salaryRange": "$80k–$95k",
+  "skills": [
+   "React",
+   "TypeScript",
+   "CSS",
+   "Git"
+  ],
+  "description": "Payments dashboard team. Accredited employer: we sponsor work visas."
+ }
 ]

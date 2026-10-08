@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-/** Shared shapes for the jobs domain. Edit freely once the challenge is known. */
+/** Shared shapes for Closure. Data files are validated against these at load time. */
 
 export const Job = z.object({
   id: z.string(),
@@ -14,38 +14,96 @@ export const Job = z.object({
 });
 export type Job = z.infer<typeof Job>;
 
-export const Candidate = z.object({
-  id: z.string(),
-  name: z.string(),
-  location: z.string(),
-  headline: z.string(),
-  yearsExperience: z.number(),
-  skills: z.array(z.string()),
-  preferences: z.object({
-    workTypes: z.array(z.string()),
-    locations: z.array(z.string()),
-  }),
-  summary: z.string(),
+export const Requirement = z.object({ id: z.string(), text: z.string(), kind: z.enum(["must", "nice"]) });
+export const Role = Job.extend({
+  requirements: z.array(Requirement),
+  hired: z.string(),
+  applicantCount: z.number(),
 });
-export type Candidate = z.infer<typeof Candidate>;
+export type Role = z.infer<typeof Role>;
 
-/** What the AI returns when it reads a CV / free text. */
-export const ExtractedProfile = z.object({
-  name: z.string().describe("Full name, or 'Unknown'"),
-  headline: z.string().describe("One-line professional headline"),
-  location: z.string().describe("City/region, or 'Unknown'"),
-  yearsExperience: z.number().describe("Best estimate of years of relevant experience"),
-  skills: z.array(z.string()).describe("Concrete skills, tools and qualifications"),
-  summary: z.string().describe("2 sentence plain-English summary"),
-});
-export type ExtractedProfile = z.infer<typeof ExtractedProfile>;
+export const Applicant = z.object({ id: z.string(), name: z.string(), note: z.string(), cv: z.string() });
+export type Applicant = z.infer<typeof Applicant>;
 
-/** One explained match. Reasons must be grounded in the job/candidate text. */
-export const MatchResult = z.object({
-  jobId: z.string(),
-  score: z.number().min(0).max(100),
-  reasons: z.array(z.string()).describe("Why this is a good match, citing specific skills/preferences"),
-  gaps: z.array(z.string()).describe("Missing skills or mismatches the candidate should know about"),
+/** Prohibited grounds of discrimination, NZ Human Rights Act 1993 s21. */
+export const GROUNDS = [
+  "sex",
+  "marital_status",
+  "religious_belief",
+  "ethical_belief",
+  "colour",
+  "race",
+  "ethnic_or_national_origins",
+  "disability",
+  "age",
+  "political_opinion",
+  "employment_status",
+  "family_status",
+  "sexual_orientation",
+] as const;
+export const Ground = z.enum(GROUNDS);
+
+const evidence = z
+  .string()
+  .describe("EXACT verbatim substring copied from the CV (3-12 words). Never paraphrase.");
+
+/** What the writer model returns: the structured reasoning AND the message built from it. */
+export const Draft = z.object({
+  assessment: z
+    .array(
+      z.object({
+        requirementId: z.string(),
+        status: z.enum(["met", "partial", "not_shown"]),
+        evidence: evidence.nullable().describe("Verbatim CV quote supporting the status, or null if nothing in the CV"),
+      }),
+    )
+    .describe("One entry per role requirement"),
+  strengths: z
+    .array(z.object({ point: z.string(), evidence }))
+    .min(1)
+    .max(2)
+    .describe("Genuine, specific strengths of this application"),
+  nextSteps: z
+    .array(
+      z.object({
+        kind: z
+          .enum(["show_it", "build_it"])
+          .describe("show_it = CV hints they have it but didn't show it clearly; build_it = a genuine gap"),
+        requirementId: z.string(),
+        advice: z.string().describe("One concrete, realistic action"),
+        evidence: evidence.nullable().describe("Required for show_it: the CV text that hints at the skill"),
+      }),
+    )
+    .min(1)
+    .max(3),
+  redirects: z
+    .array(
+      z.object({
+        jobId: z.string(),
+        why: z.string().describe("Why they fit this role better, in one sentence"),
+        evidence,
+      }),
+    )
+    .max(2)
+    .describe("0-2 other open roles from the list where this person clearly fits better. Empty if none fit."),
+  subject: z.string(),
+  message: z.string().describe("The email to the applicant, 110-170 words"),
 });
-export const MatchResponse = z.object({ matches: z.array(MatchResult) });
-export type MatchResult = z.infer<typeof MatchResult>;
+export type Draft = z.infer<typeof Draft>;
+
+export const Critique = z.object({
+  issues: z.array(
+    z.object({
+      type: z.enum(["protected_ground", "unsupported_claim", "generic", "harsh", "false_promise"]),
+      ground: Ground.nullable().describe("Which prohibited ground, if type is protected_ground"),
+      excerpt: z.string().describe("The exact problematic words from the message"),
+      explanation: z.string(),
+      fix: z.string().describe("How to fix it"),
+    }),
+  ),
+  noteIssue: z
+    .object({ ground: Ground.nullable(), explanation: z.string() })
+    .nullable()
+    .describe("Set if the recruiter's private note relies on a prohibited ground or an unexplained 'fit' judgement"),
+});
+export type Critique = z.infer<typeof Critique>;
