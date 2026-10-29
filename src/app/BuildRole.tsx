@@ -39,10 +39,10 @@ export default function BuildRole({ onReady }: { onReady: (role: Role, applicant
     setReadingAd(false);
   }
 
-  async function addPdfs(files: FileList) {
+  async function addPdfs(files: File[]) {
     setError(null);
     await Promise.all(
-      Array.from(files).map(async (f) => {
+      files.map(async (f) => {
         setReading((r) => [...r, f.name]);
         try {
           if (f.size > 3_000_000) throw new Error(`${f.name} is over 3MB`);
@@ -131,7 +131,18 @@ export default function BuildRole({ onReady }: { onReady: (role: Role, applicant
         <label className="mt-3 flex cursor-pointer flex-col items-center rounded-lg border-2 border-dashed border-stone-300 p-5 text-sm text-stone-600 hover:border-violet-400">
           <span className="font-medium">Upload PDF CVs</span>
           <span className="text-xs text-stone-400">Gemini reads each PDF and transcribes it word for word</span>
-          <input type="file" accept="application/pdf" multiple className="hidden" onChange={(e) => e.target.files && addPdfs(e.target.files)} />
+          <input
+            type="file"
+            accept="application/pdf"
+            multiple
+            className="hidden"
+            onChange={(e) => {
+              // Copy the files, then clear the input so picking the same PDF again still fires onChange.
+              const files = Array.from(e.target.files ?? []);
+              e.target.value = "";
+              addPdfs(files);
+            }}
+          />
         </label>
         {reading.map((n) => (
           <p key={n} className="mt-1 animate-pulse text-sm text-violet-600">

@@ -159,7 +159,7 @@ async function check(draft: Draft, a: Applicant, r: Role, trace: TraceStep[]) {
   const problems: Problem[] = [
     ...ids.map((x) => ({ source: "verifier" as const, type: "internal_id_in_message", excerpt: x, explanation: "Internal IDs mean nothing to the applicant: name the role by its title.", fix: "Remove the ID." })),
     ...links.map((l) => ({ source: "verifier" as const, type: "link_in_message", excerpt: l, explanation: "Messages never contain links." })),
-    ...v.failedQuotes.map((q) => ({ source: "verifier" as const, type: "quote_not_in_cv", excerpt: q, explanation: "This 'evidence' is not in the CV." })),
+    ...[...new Set(v.failedQuotes)].map((q) => ({ source: "verifier" as const, type: "quote_not_in_cv", excerpt: q, explanation: "This 'evidence' is not in the CV." })),
     ...v.droppedRedirects.map((id) => ({ source: "verifier" as const, type: "unknown_job", excerpt: id, explanation: "Not an open role." })),
     ...crit.data.issues.map((i) => ({ source: "critic" as const, ...i })),
   ];
