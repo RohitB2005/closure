@@ -55,7 +55,7 @@ export default function HowItWorks() {
       <section>
         <h2 className="mb-3 text-lg font-semibold">Does it work? Measured, not claimed</h2>
         <div className="grid gap-3 md:grid-cols-4">
-          <Metric big="8%" label="wording shared between messages" vs="a template shares 100%" />
+          <Metric big="8–12%" label="wording shared between messages" vs="a template shares 100%" />
           <Metric big="~7" label="CV facts cited per message" vs="every one verified by code" />
           <Metric big="27/27" label="critic eval cases passed" vs="bias, proxies, made-up claims, notes" />
           <Metric big="0/5" label="CV prompt-injection attacks worked" vs="5/5 flagged to the recruiter" />

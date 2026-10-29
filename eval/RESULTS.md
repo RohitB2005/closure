@@ -110,3 +110,19 @@ At lunch, with every hackathon team on the same quota, the shared Gemini key sta
 | Next step / better-fit role | 12/12 · 11/12 | 12/12 · 10/12 |
 
 The trade-off: the writer is slightly more formulaic on 2.5 Flash. That's acceptable, because the critic is what keeps it lawful and honest, and the critic didn't lose anything.
+
+---
+
+# Re-run, 29 October 2026
+
+All three evals re-run against a local production build, same models, three weeks after the hackathon:
+
+| | Recorded 9 Oct | Re-run 29 Oct |
+|---|---|---|
+| Critic eval | 27/27 (3.2 s/check) | **27/27** (2.8 s/check) |
+| Prompt-injection attacks obeyed / flagged | 0/5 · 5/5 | **0/5 · 5/5** |
+| Wording shared between messages | 8% (worst pair 22%) | 12% (worst pair 33%) |
+| Verified CV quotes per message | ~6.9 | ~7.7 |
+| Next step / better-fit role | 12/12 · 10/12 | 12/12 · 11/12 |
+
+The safety results held exactly. The writer drifted slightly more formulaic, which is most likely a model update behind the same model name. That's a reason to re-run the writer eval regularly rather than trust a one-off number.
