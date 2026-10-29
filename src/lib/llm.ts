@@ -1,3 +1,4 @@
+import { AsyncLocalStorage } from "node:async_hooks";
 import { z } from "zod";
 
 /**
@@ -12,9 +13,23 @@ import { z } from "zod";
 
 type Provider = { name: "gemini" | "openrouter"; model: string; mustThink?: boolean };
 
-export function llmConfigured(): boolean {
-  return Boolean(process.env.GEMINI_API_KEY || process.env.OPENROUTER_API_KEY);
+// Bring your own key: a visitor's OpenRouter key arrives in a request header and is used for that
+// request only (never stored or logged). AsyncLocalStorage carries it to every call the request makes,
+// so the pipeline code doesn't have to pass it around. Without one, the server's env key is used.
+export const KEY_HEADER = "x-openrouter-key";
+const requestKey = new AsyncLocalStorage<string | undefined>();
+
+export function withUserKey<T>(req: Request, fn: () => T): T {
+  return requestKey.run(req.headers.get(KEY_HEADER)?.trim() || undefined, fn);
 }
+
+const openRouterKey = () => requestKey.getStore() || process.env.OPENROUTER_API_KEY;
+
+export function llmConfigured(): boolean {
+  return Boolean(process.env.GEMINI_API_KEY || openRouterKey());
+}
+
+export const NO_KEY = "Add your OpenRouter API key (top right) to run this live.";
 
 // Order of providers. OpenRouter first: the hackathon's shared Gemini key stalled for 40s+ per call
 // under load at midday, while the same family of models via OpenRouter answered in ~2s.
@@ -24,14 +39,14 @@ function providers(smart = false): Provider[] {
     (v || d).split(",").map((m) => m.trim()).filter(Boolean);
   const byName: Record<string, Provider[]> = {
     gemini: process.env.GEMINI_API_KEY ? list(process.env.GEMINI_MODELS, "gemini-flash-latest").map((model) => ({ name: "gemini" as const, model })) : [],
-    openrouter: process.env.OPENROUTER_API_KEY
+    openrouter: openRouterKey()
       ? list(process.env.OPENROUTER_MODELS, "google/gemini-2.5-flash").map((model) => ({ name: "openrouter" as const, model }))
       : [],
   };
   // "smart" calls (the critic: safety judgement) go to a stronger model first. On OpenRouter it can't
   // turn thinking off, so it runs with low reasoning effort.
   const smartFirst: Provider[] =
-    smart && process.env.OPENROUTER_API_KEY
+    smart && openRouterKey()
       ? list(process.env.OPENROUTER_SMART_MODELS, "google/gemini-3.8-flash").map((model) => ({ name: "openrouter" as const, model, mustThink: true }))
       : [];
   return [...smartFirst, ...list(process.env.LLM_ORDER, "openrouter,gemini").flatMap((n) => byName[n] ?? [])];
@@ -85,7 +100,7 @@ async function callOpenRouter(model: string, system: string, user: string, tempe
   const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+      Authorization: `Bearer ${openRouterKey()}`,
       "Content-Type": "application/json",
       "X-Title": "closure",
     },

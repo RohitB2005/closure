@@ -1,0 +1,2072 @@
+{
+ "recordedAt": "2026-10-29",
+ "note": "A real, unedited run of the demo role, replayed when a visitor has no API key.",
+ "results": [
+  {
+   "applicantId": "a1",
+   "problemsFound": [],
+   "remaining": [],
+   "noteIssue": null,
+   "cvManipulation": null,
+   "trace": [
+    {
+     "step": "write",
+     "ms": 4231,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "151 words"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "10/10 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 13231,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    }
+   ],
+   "status": "ready",
+   "draft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "React + TypeScript app for splitting flat bills"
+     },
+     {
+      "requirementId": "r2",
+      "status": "met",
+      "evidence": "React + TypeScript app for splitting flat bills"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "responsive CSS grid layouts"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "Skills: React, TypeScript, Python, Git, CSS, Jest"
+     },
+     {
+      "requirementId": "r5",
+      "status": "partial",
+      "evidence": "used by 40 students"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have practical experience building a React and TypeScript application.",
+      "evidence": "Built 'FlatMate', a React + TypeScript app"
+     },
+     {
+      "point": "You have experience with responsive web design.",
+      "evidence": "personal portfolio site with responsive CSS grid layouts"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r5",
+      "advice": "Seek out opportunities to contribute to open-source projects or take on freelance work to gain commercial experience shipping features to real users.",
+      "evidence": "used by 40 students"
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j7",
+      "why": "Your skills in React, TypeScript, and Git are a strong match for this internship role.",
+      "evidence": "React, TypeScript, Python, Git, CSS, Jest"
+     },
+     {
+      "jobId": "j14",
+      "why": "Your attention to detail and experience with Jest could be a great fit for a QA role.",
+      "evidence": "fixed bugs in a Vue codebase and wrote unit tests"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Aroha,\n\nThank you for applying for the Junior Frontend Developer role at Kauri Labs. We appreciate you sharing your CV with us.\n\nWhile your 'FlatMate' project in React and TypeScript was impressive, we decided to move forward with candidates who demonstrated more commercial experience building and shipping features for real users. This was the main difference in your application compared to others.\n\nWe were particularly impressed by your initiative in building a personal portfolio site with responsive CSS grid layouts, showing a solid grasp of frontend fundamentals.\n\nTo strengthen your applications for future junior developer roles, focus on gaining more commercial experience. Consider contributing to open-source projects or seeking freelance opportunities to build and ship features for real users.\n\nYou might also be a strong fit for the Software Engineering Intern role at Harbour AI or the Junior QA Tester role here at Kauri Labs. \n\nThe Kauri Labs team"
+   },
+   "firstDraft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "React + TypeScript app for splitting flat bills"
+     },
+     {
+      "requirementId": "r2",
+      "status": "met",
+      "evidence": "React + TypeScript app for splitting flat bills"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "responsive CSS grid layouts"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "Skills: React, TypeScript, Python, Git, CSS, Jest"
+     },
+     {
+      "requirementId": "r5",
+      "status": "partial",
+      "evidence": "used by 40 students"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have practical experience building a React and TypeScript application.",
+      "evidence": "Built 'FlatMate', a React + TypeScript app"
+     },
+     {
+      "point": "You have experience with responsive web design.",
+      "evidence": "personal portfolio site with responsive CSS grid layouts"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r5",
+      "advice": "Seek out opportunities to contribute to open-source projects or take on freelance work to gain commercial experience shipping features to real users.",
+      "evidence": "used by 40 students"
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j7",
+      "why": "Your skills in React, TypeScript, and Git are a strong match for this internship role.",
+      "evidence": "React, TypeScript, Python, Git, CSS, Jest"
+     },
+     {
+      "jobId": "j14",
+      "why": "Your attention to detail and experience with Jest could be a great fit for a QA role.",
+      "evidence": "fixed bugs in a Vue codebase and wrote unit tests"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Aroha,\n\nThank you for applying for the Junior Frontend Developer role at Kauri Labs. We appreciate you sharing your CV with us.\n\nWhile your 'FlatMate' project in React and TypeScript was impressive, we decided to move forward with candidates who demonstrated more commercial experience building and shipping features for real users. This was the main difference in your application compared to others.\n\nWe were particularly impressed by your initiative in building a personal portfolio site with responsive CSS grid layouts, showing a solid grasp of frontend fundamentals.\n\nTo strengthen your applications for future junior developer roles, focus on gaining more commercial experience. Consider contributing to open-source projects or seeking freelance opportunities to build and ship features for real users.\n\nYou might also be a strong fit for the Software Engineering Intern role at Harbour AI or the Junior QA Tester role here at Kauri Labs. \n\nThe Kauri Labs team"
+   }
+  },
+  {
+   "applicantId": "a2",
+   "problemsFound": [],
+   "remaining": [],
+   "noteIssue": null,
+   "cvManipulation": null,
+   "trace": [
+    {
+     "step": "write",
+     "ms": 4479,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "154 words"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "10/10 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 1554,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    }
+   ],
+   "status": "ready",
+   "draft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "stock-tracking dashboard in React and JavaScript"
+     },
+     {
+      "requirementId": "r2",
+      "status": "partial",
+      "evidence": "Currently learning TypeScript through online courses"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "Skills: JavaScript, React, HTML, CSS, Git"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "used Git with pull requests in a team of four"
+     },
+     {
+      "requirementId": "r5",
+      "status": "partial",
+      "evidence": "Team project building a stock-tracking dashboard"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have recent experience building web interfaces with React.",
+      "evidence": "Team project building a stock-tracking dashboard in React"
+     },
+     {
+      "point": "You have strong experience in team leadership and operations from your previous career.",
+      "evidence": "Regional Manager for a 12-store chain, leading 80 staff"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "show_it",
+      "requirementId": "r2",
+      "advice": "Add a small project to your CV that demonstrates your TypeScript skills.",
+      "evidence": "Currently learning TypeScript through online courses"
+     },
+     {
+      "kind": "show_it",
+      "requirementId": "r5",
+      "advice": "For your bootcamp project, clarify if it's publicly available or how real users interacted with it.",
+      "evidence": "Team project building a stock-tracking dashboard"
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j18",
+      "why": "Your extensive retail management and leadership experience would be highly valuable in this role.",
+      "evidence": "26 years in retail management, most recently Regional Manager"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Sam,\n\nThanks for applying for the Junior Frontend Developer role at Kauri Labs. We've reviewed your CV carefully.\n\nWhile your React and Git experience from Dev Academy is a great start, we're looking for stronger demonstrated TypeScript skills and evidence of shipping a project to real users for this role. Your CV mentions you are \"Currently learning TypeScript through online courses\", which is positive, but we need to see it in action.\n\nYour background as a \"Regional Manager for a 12-store chain, leading 80 staff\" shows impressive leadership and operational skills. To strengthen your application for frontend roles, consider adding a small project to your CV that demonstrates your TypeScript skills. Also, clarify how real users interacted with your bootcamp project.\n\nYour skills might be a great fit for the Customer Success Lead role at Rimu Retail Tech. We wish you all the best for your job search.\n\nThe Kauri Labs team"
+   },
+   "firstDraft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "stock-tracking dashboard in React and JavaScript"
+     },
+     {
+      "requirementId": "r2",
+      "status": "partial",
+      "evidence": "Currently learning TypeScript through online courses"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "Skills: JavaScript, React, HTML, CSS, Git"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "used Git with pull requests in a team of four"
+     },
+     {
+      "requirementId": "r5",
+      "status": "partial",
+      "evidence": "Team project building a stock-tracking dashboard"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have recent experience building web interfaces with React.",
+      "evidence": "Team project building a stock-tracking dashboard in React"
+     },
+     {
+      "point": "You have strong experience in team leadership and operations from your previous career.",
+      "evidence": "Regional Manager for a 12-store chain, leading 80 staff"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "show_it",
+      "requirementId": "r2",
+      "advice": "Add a small project to your CV that demonstrates your TypeScript skills.",
+      "evidence": "Currently learning TypeScript through online courses"
+     },
+     {
+      "kind": "show_it",
+      "requirementId": "r5",
+      "advice": "For your bootcamp project, clarify if it's publicly available or how real users interacted with it.",
+      "evidence": "Team project building a stock-tracking dashboard"
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j18",
+      "why": "Your extensive retail management and leadership experience would be highly valuable in this role.",
+      "evidence": "26 years in retail management, most recently Regional Manager"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Sam,\n\nThanks for applying for the Junior Frontend Developer role at Kauri Labs. We've reviewed your CV carefully.\n\nWhile your React and Git experience from Dev Academy is a great start, we're looking for stronger demonstrated TypeScript skills and evidence of shipping a project to real users for this role. Your CV mentions you are \"Currently learning TypeScript through online courses\", which is positive, but we need to see it in action.\n\nYour background as a \"Regional Manager for a 12-store chain, leading 80 staff\" shows impressive leadership and operational skills. To strengthen your application for frontend roles, consider adding a small project to your CV that demonstrates your TypeScript skills. Also, clarify how real users interacted with your bootcamp project.\n\nYour skills might be a great fit for the Customer Success Lead role at Rimu Retail Tech. We wish you all the best for your job search.\n\nThe Kauri Labs team"
+   }
+  },
+  {
+   "applicantId": "a3",
+   "problemsFound": [
+    {
+     "source": "verifier",
+     "type": "quote_not_in_cv",
+     "excerpt": "responsive and accessible. Skills: SCSS, CSS",
+     "explanation": "This 'evidence' is not in the CV."
+    },
+    {
+     "source": "verifier",
+     "type": "quote_not_in_cv",
+     "excerpt": "maintained the company style guide in SCSS. Skills: Git",
+     "explanation": "This 'evidence' is not in the CV."
+    },
+    {
+     "source": "verifier",
+     "type": "quote_not_in_cv",
+     "excerpt": "Frontend developer returning to work after a career break (2021–2025) to care for my children. Rebuilt my local kindergarten's website in React",
+     "explanation": "This 'evidence' is not in the CV."
+    },
+    {
+     "source": "critic",
+     "type": "protected_ground",
+     "ground": "family_status",
+     "excerpt": "We noticed your background might be a great fit for the Frontend Developer (returners programme) at Kōwhai Software. It's designed for developers returning from a career break.",
+     "explanation": "Referencing her return from a career break points to caring responsibilities and family status, which are protected grounds under the Human Rights Act 1993.",
+     "fix": "Remove the unsolicited suggestion about the returners programme or focus feedback strictly on technical requirements."
+    }
+   ],
+   "remaining": [
+    {
+     "source": "verifier",
+     "type": "quote_not_in_cv",
+     "excerpt": "Skills: Git",
+     "explanation": "This 'evidence' is not in the CV."
+    },
+    {
+     "source": "verifier",
+     "type": "quote_not_in_cv",
+     "excerpt": "Skills: SCSS, CSS, Git",
+     "explanation": "This 'evidence' is not in the CV."
+    }
+   ],
+   "noteIssue": {
+    "ground": "family_status",
+    "explanation": "The recruiter expresses concern about the applicant's availability due to having young kids at home, which directly discriminates based on family status under the Human Rights Act 1993."
+   },
+   "cvManipulation": null,
+   "trace": [
+    {
+     "step": "write",
+     "ms": 4141,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "126 words"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "5/9 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 3244,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "1 issue(s)"
+    },
+    {
+     "step": "revise",
+     "ms": 3536,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "fixed 4 problem(s)"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "7/9 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 2343,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    }
+   ],
+   "status": "held",
+   "draft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "Rebuilt my local kindergarten's website in React"
+     },
+     {
+      "requirementId": "r2",
+      "status": "partial",
+      "evidence": "Skills: JavaScript, AngularJS, React (recent)"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "responsive and accessible."
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": null
+     },
+     {
+      "requirementId": "r5",
+      "status": "met",
+      "evidence": "Rebuilt my local kindergarten's website in React"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "Strong recent React experience demonstrated through a personal project.",
+      "evidence": "Rebuilt my local kindergarten's website in React"
+     },
+     {
+      "point": "Solid understanding of CSS and responsive design principles.",
+      "evidence": "responsive and accessible."
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "show_it",
+      "requirementId": "r2",
+      "advice": "Showcase your TypeScript skills more explicitly, perhaps with a link to a project using it.",
+      "evidence": "Skills: JavaScript, AngularJS, React (recent)"
+     }
+    ],
+    "redirects": [],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Mere,\n\nThanks for your application for the Junior Frontend Developer role at Kauri Labs. We appreciate you taking the time to apply.\n\nWhile your CV shows strong recent React experience, particularly with rebuilding your local kindergarten's website, we're looking for more explicit evidence of TypeScript in a team context for this role. Your experience with CSS and responsive design is a real strength.\n\nTo strengthen future applications, consider showcasing your TypeScript skills more explicitly, perhaps with a link to a project using it. This would help demonstrate your proficiency in modern JavaScript development.\n\nYour skills might also be a good fit for the Frontend Developer (Vue) role at Pūriri Software.\n\nThe Kauri Labs team"
+   },
+   "firstDraft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "Rebuilt my local kindergarten's website in React"
+     },
+     {
+      "requirementId": "r2",
+      "status": "partial",
+      "evidence": "Skills: JavaScript, AngularJS, React (recent)"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "responsive and accessible. Skills: SCSS, CSS"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "maintained the company style guide in SCSS. Skills: Git"
+     },
+     {
+      "requirementId": "r5",
+      "status": "met",
+      "evidence": "Rebuilt my local kindergarten's website in React"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "Strong recent React experience demonstrated through a personal project.",
+      "evidence": "Rebuilt my local kindergarten's website in React"
+     },
+     {
+      "point": "Solid understanding of CSS and responsive design principles.",
+      "evidence": "responsive and accessible. Skills: SCSS, CSS"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "show_it",
+      "requirementId": "r2",
+      "advice": "Showcase your TypeScript skills more explicitly, perhaps with a link to a project using it.",
+      "evidence": "Skills: JavaScript, AngularJS, React (recent)"
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j16",
+      "why": "Your recent React project and career break make you a strong fit for a returners programme.",
+      "evidence": "Frontend developer returning to work after a career break (2021–2025) to care for my children. Rebuilt my local kindergarten's website in React"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Mere,\n\nThanks for your application for the Junior Frontend Developer role at Kauri Labs. We appreciate you taking the time to apply.\n\nWhile your CV shows strong recent React experience, particularly with rebuilding your local kindergarten's website, we're looking for more explicit evidence of TypeScript in a team context for this role. Your experience with CSS and responsive design is a real strength.\n\nTo strengthen future applications, consider showcasing your TypeScript skills more explicitly, perhaps with a link to a project using it. This would help demonstrate your proficiency in modern JavaScript development.\n\nWe noticed your background might be a great fit for the Frontend Developer (returners programme) at Kōwhai Software. It's designed for developers returning from a career break.\n\nThe Kauri Labs team"
+   }
+  },
+  {
+   "applicantId": "a4",
+   "problemsFound": [],
+   "remaining": [],
+   "noteIssue": null,
+   "cvManipulation": null,
+   "trace": [
+    {
+     "step": "write",
+     "ms": 4645,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "141 words"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "6/6 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 1568,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    }
+   ],
+   "status": "ready",
+   "draft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r2",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r3",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "Git"
+     },
+     {
+      "requirementId": "r5",
+      "status": "partial",
+      "evidence": "Software Engineer, Harbour Payments (2023–now)"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have professional experience as a Software Engineer.",
+      "evidence": "Software Engineer, Harbour Payments (2023–now)"
+     },
+     {
+      "point": "You have experience with Git in a team environment.",
+      "evidence": "Git"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "show_it",
+      "requirementId": "r1",
+      "advice": "Create a small project using React and host it online, then link to it in your CV.",
+      "evidence": "started a React course"
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r2",
+      "advice": "Focus on TypeScript in your React course or personal projects to build strong modern JavaScript skills.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r3",
+      "advice": "Practice building responsive layouts with CSS in your personal projects.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j9",
+      "why": "Your backend experience with Java and Spring Boot is a strong match for this role.",
+      "evidence": "Java and Spring Boot microservices"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Daniel,\n\nThank you for applying for the Junior Frontend Developer role at Kauri Labs. We appreciate you taking the time to submit your CV.\n\nWhile your CV shows strong backend development experience, particularly with Java and Spring Boot, it didn't clearly demonstrate the frontend skills we need for this role, such as building web interfaces with React or writing TypeScript. We did note your mention of starting a React course, which is a great step.\n\nTo strengthen your application for frontend roles, we recommend building a small React project that showcases your skills in React, TypeScript, and responsive CSS layouts. You could host it online and include a link in your CV.\n\nYour skills might be a great fit for the Backend Developer (Java) role at Kererū Bank. We encourage you to check it out.\n\nThe Kauri Labs team"
+   },
+   "firstDraft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r2",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r3",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "Git"
+     },
+     {
+      "requirementId": "r5",
+      "status": "partial",
+      "evidence": "Software Engineer, Harbour Payments (2023–now)"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have professional experience as a Software Engineer.",
+      "evidence": "Software Engineer, Harbour Payments (2023–now)"
+     },
+     {
+      "point": "You have experience with Git in a team environment.",
+      "evidence": "Git"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "show_it",
+      "requirementId": "r1",
+      "advice": "Create a small project using React and host it online, then link to it in your CV.",
+      "evidence": "started a React course"
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r2",
+      "advice": "Focus on TypeScript in your React course or personal projects to build strong modern JavaScript skills.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r3",
+      "advice": "Practice building responsive layouts with CSS in your personal projects.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j9",
+      "why": "Your backend experience with Java and Spring Boot is a strong match for this role.",
+      "evidence": "Java and Spring Boot microservices"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Daniel,\n\nThank you for applying for the Junior Frontend Developer role at Kauri Labs. We appreciate you taking the time to submit your CV.\n\nWhile your CV shows strong backend development experience, particularly with Java and Spring Boot, it didn't clearly demonstrate the frontend skills we need for this role, such as building web interfaces with React or writing TypeScript. We did note your mention of starting a React course, which is a great step.\n\nTo strengthen your application for frontend roles, we recommend building a small React project that showcases your skills in React, TypeScript, and responsive CSS layouts. You could host it online and include a link in your CV.\n\nYour skills might be a great fit for the Backend Developer (Java) role at Kererū Bank. We encourage you to check it out.\n\nThe Kauri Labs team"
+   }
+  },
+  {
+   "applicantId": "a5",
+   "problemsFound": [],
+   "remaining": [],
+   "noteIssue": null,
+   "cvManipulation": null,
+   "trace": [
+    {
+     "step": "write",
+     "ms": 3947,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "135 words"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "9/9 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 2501,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    }
+   ],
+   "status": "ready",
+   "draft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "built React + TypeScript components"
+     },
+     {
+      "requirementId": "r2",
+      "status": "met",
+      "evidence": "React + TypeScript components"
+     },
+     {
+      "requirementId": "r3",
+      "status": "partial",
+      "evidence": "Tailwind CSS"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "Git, Jest"
+     },
+     {
+      "requirementId": "r5",
+      "status": "met",
+      "evidence": "payments dashboard used by 10,000 merchants"
+     },
+     {
+      "requirementId": "r6",
+      "status": "not_shown",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "Strong practical experience with React and TypeScript in a commercial setting.",
+      "evidence": "built React + TypeScript components for a payments dashboard"
+     },
+     {
+      "point": "Experience contributing to open-source projects demonstrates initiative and collaboration.",
+      "evidence": "Open-source contributions to a React UI component library"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "show_it",
+      "requirementId": "r3",
+      "advice": "Showcase your CSS and responsive layout skills more explicitly in your portfolio or CV.",
+      "evidence": "Tailwind CSS"
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j19",
+      "why": "This role specifically mentions visa sponsorship, which aligns with your current situation.",
+      "evidence": "Frontend Developer Intern, Mumbai fintech startup"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Priya,\n\nThank you for your application for the Junior Frontend Developer role at Kauri Labs. We've reviewed your CV carefully.\n\nWhile your experience building React and TypeScript components for a payments dashboard is very strong, this role requires existing work rights in New Zealand, which we understand you don't currently have. Unfortunately, we are not able to offer visa sponsorship at this time.\n\nWe were particularly impressed by your commercial experience as a Frontend Developer Intern and your open-source contributions. To strengthen future applications, consider explicitly demonstrating your CSS and responsive layout skills.\n\nWe noticed that Pōhutukawa Payments has a 'Frontend Developer (visa sponsorship available)' role open that might be a better fit for your skills and current situation. We wish you all the best with your job search.\n\nThe Kauri Labs team"
+   },
+   "firstDraft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "built React + TypeScript components"
+     },
+     {
+      "requirementId": "r2",
+      "status": "met",
+      "evidence": "React + TypeScript components"
+     },
+     {
+      "requirementId": "r3",
+      "status": "partial",
+      "evidence": "Tailwind CSS"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "Git, Jest"
+     },
+     {
+      "requirementId": "r5",
+      "status": "met",
+      "evidence": "payments dashboard used by 10,000 merchants"
+     },
+     {
+      "requirementId": "r6",
+      "status": "not_shown",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "Strong practical experience with React and TypeScript in a commercial setting.",
+      "evidence": "built React + TypeScript components for a payments dashboard"
+     },
+     {
+      "point": "Experience contributing to open-source projects demonstrates initiative and collaboration.",
+      "evidence": "Open-source contributions to a React UI component library"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "show_it",
+      "requirementId": "r3",
+      "advice": "Showcase your CSS and responsive layout skills more explicitly in your portfolio or CV.",
+      "evidence": "Tailwind CSS"
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j19",
+      "why": "This role specifically mentions visa sponsorship, which aligns with your current situation.",
+      "evidence": "Frontend Developer Intern, Mumbai fintech startup"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Priya,\n\nThank you for your application for the Junior Frontend Developer role at Kauri Labs. We've reviewed your CV carefully.\n\nWhile your experience building React and TypeScript components for a payments dashboard is very strong, this role requires existing work rights in New Zealand, which we understand you don't currently have. Unfortunately, we are not able to offer visa sponsorship at this time.\n\nWe were particularly impressed by your commercial experience as a Frontend Developer Intern and your open-source contributions. To strengthen future applications, consider explicitly demonstrating your CSS and responsive layout skills.\n\nWe noticed that Pōhutukawa Payments has a 'Frontend Developer (visa sponsorship available)' role open that might be a better fit for your skills and current situation. We wish you all the best with your job search.\n\nThe Kauri Labs team"
+   }
+  },
+  {
+   "applicantId": "a6",
+   "problemsFound": [
+    {
+     "source": "critic",
+     "type": "harsh",
+     "ground": null,
+     "excerpt": "Your experience as a \"Senior Barista\" and with \"rostering\" might be a great fit for the Café Supervisor or Barista roles at Flat White Co. We encourage you to check them out.",
+     "explanation": "Redirecting an applicant applying for a junior tech role back to hospitality jobs can come across as condescending or patronising, especially when quoting their current title back at them.",
+     "fix": "Remove the unsolicited suggestion to apply for hospitality jobs at another company, and focus purely on constructive advice for tech roles."
+    }
+   ],
+   "remaining": [],
+   "noteIssue": null,
+   "cvManipulation": null,
+   "trace": [
+    {
+     "step": "write",
+     "ms": 4798,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "142 words"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "4/4 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 2437,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "1 issue(s)"
+    },
+    {
+     "step": "revise",
+     "ms": 2773,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "fixed 1 problem(s)"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "2/2 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 1930,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    }
+   ],
+   "status": "revised",
+   "draft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r2",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r3",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r4",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r5",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "Strong customer service experience",
+      "evidence": "customer service, cash handling"
+     },
+     {
+      "point": "Experience training new team members",
+      "evidence": "trained 6 new baristas"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r1",
+      "advice": "Start building small web projects using React and publish them on GitHub.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r2",
+      "advice": "Learn TypeScript fundamentals, perhaps through an online course or tutorial.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r4",
+      "advice": "Familiarise yourself with Git for version control and try collaborating on a project.",
+      "evidence": null
+     }
+    ],
+    "redirects": [],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Liam,\n\nThanks for your application for the Junior Frontend Developer role at Kauri Labs. We appreciate you taking the time to apply.\n\nWhile your CV shows excellent customer service skills and experience training new team members, it doesn't demonstrate the specific technical skills we need for this role, such as building web interfaces with React or writing TypeScript. Your CV stated \"Interested in getting into tech one day\", but didn't provide evidence of this.\n\nTo strengthen future applications for developer roles, we recommend building some small web projects with React and TypeScript, and publishing them on GitHub. This will help you show your skills.\n\nThe Kauri Labs team"
+   },
+   "firstDraft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r2",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r3",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r4",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r5",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "Strong customer service experience",
+      "evidence": "customer service, cash handling"
+     },
+     {
+      "point": "Experience training new team members",
+      "evidence": "trained 6 new baristas"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r1",
+      "advice": "Start building small web projects using React and publish them on GitHub.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r2",
+      "advice": "Learn TypeScript fundamentals, perhaps through an online course or tutorial.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r4",
+      "advice": "Familiarise yourself with Git for version control and try collaborating on a project.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j13",
+      "why": "Your experience in training staff and managing operations aligns well with a supervisor role.",
+      "evidence": "trained 6 new baristas, handled opening and closing, cash-up and stock orders"
+     },
+     {
+      "jobId": "j2",
+      "why": "Your extensive barista experience and latte art skills are a great fit for this role.",
+      "evidence": "Senior Barista, Little Bird Café (2022–now) — trained 6 new baristas"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Liam,\n\nThanks for your application for the Junior Frontend Developer role at Kauri Labs. We appreciate you taking the time to apply.\n\nWhile your CV shows excellent customer service skills and experience training new team members, it doesn't demonstrate the specific technical skills we need for this role, such as building web interfaces with React or writing TypeScript. Your CV stated \"Interested in getting into tech one day\", but didn't provide evidence of this.\n\nTo strengthen future applications for developer roles, we recommend building some small web projects with React and TypeScript, and publishing them on GitHub. This will help you show your skills.\n\nYour experience as a \"Senior Barista\" and with \"rostering\" might be a great fit for the Café Supervisor or Barista roles at Flat White Co. We encourage you to check them out.\n\nThe Kauri Labs team"
+   }
+  },
+  {
+   "applicantId": "a7",
+   "problemsFound": [],
+   "remaining": [],
+   "noteIssue": null,
+   "cvManipulation": null,
+   "trace": [
+    {
+     "step": "write",
+     "ms": 4444,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "123 words"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "5/5 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 6080,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    }
+   ],
+   "status": "ready",
+   "draft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r2",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r3",
+      "status": "partial",
+      "evidence": "build static pages in HTML and CSS"
+     },
+     {
+      "requirementId": "r4",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r5",
+      "status": "partial",
+      "evidence": "designed onboarding flows in Figma"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "Strong UI/UX design background",
+      "evidence": "UI/UX designer, 2 years"
+     },
+     {
+      "point": "Experience with design systems",
+      "evidence": "built a design system"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r1",
+      "advice": "Build a small project using React and host it online to demonstrate your skills.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r2",
+      "advice": "Learn TypeScript fundamentals and apply them in your React projects.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r4",
+      "advice": "Contribute to an open-source project or collaborate on a team project using Git.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j10",
+      "why": "Your CV shows strong experience in UI/UX design, user research, and design systems, which aligns well with this role.",
+      "evidence": "Product Designer, Fern Studio (2024–now) — designed onboarding flows"
+     }
+    ],
+    "subject": "Your application to Kauri Labs",
+    "message": "Kia ora Jess,\n\nThanks for your application for the Junior Frontend Developer role at Kauri Labs. We're not progressing your application at this time, as the role requires more demonstrated experience with React and TypeScript development.\n\nYour CV highlights strong UI/UX design skills, including experience designing onboarding flows and building a design system. This is a great foundation, and we can see your interest in front-end development through your HTML and CSS skills.\n\nTo strengthen your developer applications, we recommend building a small project in React and TypeScript to showcase your coding abilities. Also, gaining experience with Git in a team setting would be beneficial.\n\nYou might be a great fit for the UI/UX Designer role at Harakeke Studio, which is currently open."
+   },
+   "firstDraft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r2",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r3",
+      "status": "partial",
+      "evidence": "build static pages in HTML and CSS"
+     },
+     {
+      "requirementId": "r4",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r5",
+      "status": "partial",
+      "evidence": "designed onboarding flows in Figma"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "Strong UI/UX design background",
+      "evidence": "UI/UX designer, 2 years"
+     },
+     {
+      "point": "Experience with design systems",
+      "evidence": "built a design system"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r1",
+      "advice": "Build a small project using React and host it online to demonstrate your skills.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r2",
+      "advice": "Learn TypeScript fundamentals and apply them in your React projects.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r4",
+      "advice": "Contribute to an open-source project or collaborate on a team project using Git.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j10",
+      "why": "Your CV shows strong experience in UI/UX design, user research, and design systems, which aligns well with this role.",
+      "evidence": "Product Designer, Fern Studio (2024–now) — designed onboarding flows"
+     }
+    ],
+    "subject": "Your application to Kauri Labs",
+    "message": "Kia ora Jess,\n\nThanks for your application for the Junior Frontend Developer role at Kauri Labs. We're not progressing your application at this time, as the role requires more demonstrated experience with React and TypeScript development.\n\nYour CV highlights strong UI/UX design skills, including experience designing onboarding flows and building a design system. This is a great foundation, and we can see your interest in front-end development through your HTML and CSS skills.\n\nTo strengthen your developer applications, we recommend building a small project in React and TypeScript to showcase your coding abilities. Also, gaining experience with Git in a team setting would be beneficial.\n\nYou might be a great fit for the UI/UX Designer role at Harakeke Studio, which is currently open."
+   }
+  },
+  {
+   "applicantId": "a8",
+   "problemsFound": [],
+   "remaining": [],
+   "noteIssue": null,
+   "cvManipulation": null,
+   "trace": [
+    {
+     "step": "write",
+     "ms": 4505,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "140 words"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "4/4 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 1833,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    }
+   ],
+   "status": "ready",
+   "draft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r2",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r3",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r4",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r5",
+      "status": "partial",
+      "evidence": "Built a simple internal FAQ page in HTML"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have experience in IT support, which often involves problem-solving and user interaction.",
+      "evidence": "IT support technician, 2 years."
+     },
+     {
+      "point": "You have some foundational web development skills, demonstrated by building an internal FAQ page.",
+      "evidence": "Built a simple internal FAQ page in HTML."
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r1",
+      "advice": "Focus on learning React fundamentals and building a few small projects to demonstrate your skills.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r2",
+      "advice": "Learn TypeScript or modern JavaScript beyond basic HTML, as this is a core requirement for frontend roles.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r4",
+      "advice": "Gain experience using Git for version control and collaborating on a codebase, perhaps through open-source contributions or team projects.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j11",
+      "why": "Your IT support experience and basic web skills align well with this role's requirements and potential for growth.",
+      "evidence": "IT support technician, 2 years."
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Tane,\n\nThanks for your application for the Junior Frontend Developer role at Kauri Labs. We appreciate you taking the time to apply.\n\nWhile your CV shows good experience in IT support and some basic HTML, it didn't demonstrate the specific React and TypeScript skills we need for this role. For example, we couldn't see evidence of building web interfaces with React or using Git in a team codebase.\n\nWe were impressed by your experience as an \"IT support technician, 2 years.\" and that you've \"Built a simple internal FAQ page in HTML.\"\n\nTo strengthen your application for future frontend roles, we recommend focusing on building projects with React and TypeScript. You might also consider applying for the IT Support Technician role at Manaaki Health, which seems like a great fit for your current skills.\n\nThe Kauri Labs team"
+   },
+   "firstDraft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r2",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r3",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r4",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r5",
+      "status": "partial",
+      "evidence": "Built a simple internal FAQ page in HTML"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have experience in IT support, which often involves problem-solving and user interaction.",
+      "evidence": "IT support technician, 2 years."
+     },
+     {
+      "point": "You have some foundational web development skills, demonstrated by building an internal FAQ page.",
+      "evidence": "Built a simple internal FAQ page in HTML."
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r1",
+      "advice": "Focus on learning React fundamentals and building a few small projects to demonstrate your skills.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r2",
+      "advice": "Learn TypeScript or modern JavaScript beyond basic HTML, as this is a core requirement for frontend roles.",
+      "evidence": null
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r4",
+      "advice": "Gain experience using Git for version control and collaborating on a codebase, perhaps through open-source contributions or team projects.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j11",
+      "why": "Your IT support experience and basic web skills align well with this role's requirements and potential for growth.",
+      "evidence": "IT support technician, 2 years."
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Tane,\n\nThanks for your application for the Junior Frontend Developer role at Kauri Labs. We appreciate you taking the time to apply.\n\nWhile your CV shows good experience in IT support and some basic HTML, it didn't demonstrate the specific React and TypeScript skills we need for this role. For example, we couldn't see evidence of building web interfaces with React or using Git in a team codebase.\n\nWe were impressed by your experience as an \"IT support technician, 2 years.\" and that you've \"Built a simple internal FAQ page in HTML.\"\n\nTo strengthen your application for future frontend roles, we recommend focusing on building projects with React and TypeScript. You might also consider applying for the IT Support Technician role at Manaaki Health, which seems like a great fit for your current skills.\n\nThe Kauri Labs team"
+   }
+  },
+  {
+   "applicantId": "a9",
+   "problemsFound": [
+    {
+     "source": "verifier",
+     "type": "quote_not_in_cv",
+     "excerpt": "responsive layouts in Tailwind CSS, CSS",
+     "explanation": "This 'evidence' is not in the CV."
+    },
+    {
+     "source": "verifier",
+     "type": "quote_not_in_cv",
+     "excerpt": "TypeScript, JavaScript, Tailwind CSS, CSS, Git. BSc Computer Science",
+     "explanation": "This 'evidence' is not in the CV."
+    }
+   ],
+   "remaining": [],
+   "noteIssue": null,
+   "cvManipulation": null,
+   "trace": [
+    {
+     "step": "write",
+     "ms": 4383,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "129 words"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "6/8 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 2474,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    },
+    {
+     "step": "revise",
+     "ms": 5028,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "fixed 2 problem(s)"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "8/8 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 2485,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    }
+   ],
+   "status": "revised",
+   "draft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r2",
+      "status": "met",
+      "evidence": "TypeScript, JavaScript"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "responsive layouts in Tailwind CSS"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "code review in GitHub. Skills: Vue 3, TypeScript, JavaScript, Tailwind CSS, CSS, Git"
+     },
+     {
+      "requirementId": "r5",
+      "status": "met",
+      "evidence": "Frontend Developer, Rimu Health (2024–now) — build patient-facing features"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have recent experience building user-facing features in a professional setting.",
+      "evidence": "Frontend Developer, Rimu Health (2024–now) — build patient-facing features"
+     },
+     {
+      "point": "Your skills in TypeScript, CSS, and Git are clearly demonstrated.",
+      "evidence": "TypeScript, JavaScript, Tailwind CSS, CSS, Git"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r1",
+      "advice": "Build a small project in React to demonstrate your skills, as this role specifically requires React experience.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j12",
+      "why": "Your experience with Vue 3 and TypeScript aligns perfectly with this role's requirements.",
+      "evidence": "build patient-facing features in Vue 3 and TypeScript"
+     },
+     {
+      "jobId": "j7",
+      "why": "Your TypeScript and Git skills, combined with your Computer Science degree, would be a strong fit for this internship.",
+      "evidence": "TypeScript, JavaScript, Tailwind CSS, CSS, Git"
+     }
+    ],
+    "subject": "Your application to Kauri Labs",
+    "message": "Kia ora Chloe,\n\nThanks for your application for the Junior Frontend Developer role at Kauri Labs. We've reviewed your CV and wanted to give you some specific feedback.\n\nWhile your experience at Rimu Health building patient-facing features and your strong skills in TypeScript, CSS, and Git are impressive, this particular role required experience with React. Your CV showed strong Vue 3 experience, but not React.\n\nTo strengthen your applications for React roles, we recommend building a small personal project in React to clearly demonstrate your skills in that framework.\n\nWe noticed your skills align very well with the Frontend Developer (Vue) role at Pūriri Software and the Software Engineering Intern role at Harbour AI. You can find more details about these on our jobs marketplace.\n\nThe Kauri Labs team"
+   },
+   "firstDraft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "not_shown",
+      "evidence": null
+     },
+     {
+      "requirementId": "r2",
+      "status": "met",
+      "evidence": "TypeScript, JavaScript"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "responsive layouts in Tailwind CSS, CSS"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "code review in GitHub. Skills: Vue 3, TypeScript, JavaScript, Tailwind CSS, CSS, Git"
+     },
+     {
+      "requirementId": "r5",
+      "status": "met",
+      "evidence": "Frontend Developer, Rimu Health (2024–now) — build patient-facing features"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have recent experience building user-facing features in a professional setting.",
+      "evidence": "Frontend Developer, Rimu Health (2024–now) — build patient-facing features"
+     },
+     {
+      "point": "Your skills in TypeScript, CSS, and Git are clearly demonstrated.",
+      "evidence": "TypeScript, JavaScript, Tailwind CSS, CSS, Git"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r1",
+      "advice": "Build a small project in React to demonstrate your skills, as this role specifically requires React experience.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j12",
+      "why": "Your experience with Vue 3 and TypeScript aligns perfectly with this role's requirements.",
+      "evidence": "build patient-facing features in Vue 3 and TypeScript"
+     },
+     {
+      "jobId": "j7",
+      "why": "Your TypeScript and Git skills, combined with your Computer Science degree, would be a strong fit for this internship.",
+      "evidence": "TypeScript, JavaScript, Tailwind CSS, CSS, Git. BSc Computer Science"
+     }
+    ],
+    "subject": "Your application to Kauri Labs",
+    "message": "Kia ora Chloe,\n\nThanks for your application for the Junior Frontend Developer role at Kauri Labs. We've reviewed your CV and wanted to give you some specific feedback.\n\nWhile your experience at Rimu Health building patient-facing features and your strong skills in TypeScript, CSS, and Git are impressive, this particular role required experience with React. Your CV showed strong Vue 3 experience, but not React.\n\nTo strengthen your applications for React roles, we recommend building a small personal project in React to clearly demonstrate your skills in that framework.\n\nWe noticed your skills align very well with the Frontend Developer (Vue) role at Pūriri Software and the Software Engineering Intern role at Harbour AI. You can find more details about these on our jobs marketplace.\n\nThe Kauri Labs team"
+   }
+  },
+  {
+   "applicantId": "a10",
+   "problemsFound": [],
+   "remaining": [],
+   "noteIssue": {
+    "ground": "disability",
+    "explanation": "The recruiter's note explicitly considers the candidate's disability ('he uses a wheelchair and our office has stairs, so probably not a fit') as a reason not to progress the application, which is unlawful discrimination under the NZ Human Rights Act 1993 s21."
+   },
+   "cvManipulation": null,
+   "trace": [
+    {
+     "step": "write",
+     "ms": 4079,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "127 words"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "8/8 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 2156,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    }
+   ],
+   "status": "held",
+   "draft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "React and TypeScript sites for 5 clients"
+     },
+     {
+      "requirementId": "r2",
+      "status": "met",
+      "evidence": "React and TypeScript sites for 5 clients"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "Skills: React, TypeScript, CSS, Git"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "Skills: React, TypeScript, CSS, Git"
+     },
+     {
+      "requirementId": "r5",
+      "status": "met",
+      "evidence": "Junior Developer, Kowhai Agency (2025–now, contract ending)"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "Strong experience with React and TypeScript in a professional setting",
+      "evidence": "React and TypeScript sites for 5 clients"
+     },
+     {
+      "point": "A clear focus on accessibility in web development",
+      "evidence": "focus on accessibility. As a wheelchair user"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r1",
+      "advice": "Consider building a personal project that showcases a complex React feature from scratch to demonstrate independent problem-solving.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j15",
+      "why": "Your strong focus on accessibility and experience with WCAG and screen-reader testing aligns perfectly with this role.",
+      "evidence": "audited and fixed WCAG issues. Skills: React, TypeScript, CSS, Git, accessibility (WCAG 2.2), screen-reader testing."
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Ahmed,\n\nThank you for applying for the Junior Frontend Developer role at Kauri Labs. We appreciate you sharing your CV with us.\n\nWhile your CV shows excellent experience with React and TypeScript at Kowhai Agency, we've decided not to progress your application at this time. We were looking for candidates who demonstrated more independent project work alongside their professional experience.\n\nWe were particularly impressed by your focus on accessibility and your experience with WCAG and screen-reader testing. To strengthen future applications, consider building a personal project that showcases a complex React feature from scratch.\n\nYour skills and passion for accessibility might be a great fit for the Accessibility Engineer role at Tōtara Government Digital. We encourage you to explore that opportunity.\n\nThe Kauri Labs team"
+   },
+   "firstDraft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "React and TypeScript sites for 5 clients"
+     },
+     {
+      "requirementId": "r2",
+      "status": "met",
+      "evidence": "React and TypeScript sites for 5 clients"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "Skills: React, TypeScript, CSS, Git"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "Skills: React, TypeScript, CSS, Git"
+     },
+     {
+      "requirementId": "r5",
+      "status": "met",
+      "evidence": "Junior Developer, Kowhai Agency (2025–now, contract ending)"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "Strong experience with React and TypeScript in a professional setting",
+      "evidence": "React and TypeScript sites for 5 clients"
+     },
+     {
+      "point": "A clear focus on accessibility in web development",
+      "evidence": "focus on accessibility. As a wheelchair user"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r1",
+      "advice": "Consider building a personal project that showcases a complex React feature from scratch to demonstrate independent problem-solving.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j15",
+      "why": "Your strong focus on accessibility and experience with WCAG and screen-reader testing aligns perfectly with this role.",
+      "evidence": "audited and fixed WCAG issues. Skills: React, TypeScript, CSS, Git, accessibility (WCAG 2.2), screen-reader testing."
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Ahmed,\n\nThank you for applying for the Junior Frontend Developer role at Kauri Labs. We appreciate you sharing your CV with us.\n\nWhile your CV shows excellent experience with React and TypeScript at Kowhai Agency, we've decided not to progress your application at this time. We were looking for candidates who demonstrated more independent project work alongside their professional experience.\n\nWe were particularly impressed by your focus on accessibility and your experience with WCAG and screen-reader testing. To strengthen future applications, consider building a personal project that showcases a complex React feature from scratch.\n\nYour skills and passion for accessibility might be a great fit for the Accessibility Engineer role at Tōtara Government Digital. We encourage you to explore that opportunity.\n\nThe Kauri Labs team"
+   }
+  },
+  {
+   "applicantId": "a11",
+   "problemsFound": [],
+   "remaining": [],
+   "noteIssue": {
+    "ground": "age",
+    "explanation": "The recruiter's private note ('Way too young for this.') explicitly rejects or assesses the applicant based on age, which is a prohibited ground of discrimination under s21(1)(i) of the NZ Human Rights Act 1993."
+   },
+   "cvManipulation": null,
+   "trace": [
+    {
+     "step": "write",
+     "ms": 4524,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "126 words"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "10/10 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 3253,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    }
+   ],
+   "status": "held",
+   "draft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "built a React app"
+     },
+     {
+      "requirementId": "r2",
+      "status": "partial",
+      "evidence": "Skills: JavaScript, React"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "HTML, CSS"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "Git (GitHub)"
+     },
+     {
+      "requirementId": "r5",
+      "status": "met",
+      "evidence": "used by my school's sports department"
+     },
+     {
+      "requirementId": "r6",
+      "status": "not_shown",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have practical experience building a React application that is used by real users.",
+      "evidence": "built a React app that tracks school sports results, used by my school's sports department"
+     },
+     {
+      "point": "You have a strong foundation in core web technologies and version control.",
+      "evidence": "Skills: JavaScript, React, HTML, CSS, Git (GitHub)"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "show_it",
+      "requirementId": "r2",
+      "advice": "Showcase your TypeScript skills in a project or provide examples of modern JavaScript.",
+      "evidence": "Skills: JavaScript, React"
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r6",
+      "advice": "Ensure your CV clearly states your legal eligibility to work in New Zealand.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j17",
+      "why": "Your self-taught development and school leaver status make you a strong fit for an apprenticeship.",
+      "evidence": "Self-taught developer: built a React app"
+     },
+     {
+      "jobId": "j14",
+      "why": "Your attention to detail and JavaScript skills would be valuable in a Junior QA Tester role.",
+      "evidence": "Skills: JavaScript, React, HTML, CSS"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Grace,\n\nThank you for your application for the Junior Frontend Developer role at Kauri Labs. We appreciate you taking the time to apply.\n\nWhile your CV showed excellent initiative in building a React app used by your school, we're looking for more demonstrated experience with TypeScript for this specific role. Your self-taught development and practical project are real strengths.\n\nTo strengthen future applications, consider adding a project that clearly demonstrates your TypeScript skills. Also, ensure your CV explicitly states your legal eligibility to work in New Zealand.\n\nWe noticed your CV also aligns well with the Software Apprentice role at Rātā Digital and the Junior QA Tester role at Kauri Labs. These might be a great next step for you.\n\nThe Kauri Labs team"
+   },
+   "firstDraft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "built a React app"
+     },
+     {
+      "requirementId": "r2",
+      "status": "partial",
+      "evidence": "Skills: JavaScript, React"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "HTML, CSS"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "Git (GitHub)"
+     },
+     {
+      "requirementId": "r5",
+      "status": "met",
+      "evidence": "used by my school's sports department"
+     },
+     {
+      "requirementId": "r6",
+      "status": "not_shown",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have practical experience building a React application that is used by real users.",
+      "evidence": "built a React app that tracks school sports results, used by my school's sports department"
+     },
+     {
+      "point": "You have a strong foundation in core web technologies and version control.",
+      "evidence": "Skills: JavaScript, React, HTML, CSS, Git (GitHub)"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "show_it",
+      "requirementId": "r2",
+      "advice": "Showcase your TypeScript skills in a project or provide examples of modern JavaScript.",
+      "evidence": "Skills: JavaScript, React"
+     },
+     {
+      "kind": "build_it",
+      "requirementId": "r6",
+      "advice": "Ensure your CV clearly states your legal eligibility to work in New Zealand.",
+      "evidence": null
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j17",
+      "why": "Your self-taught development and school leaver status make you a strong fit for an apprenticeship.",
+      "evidence": "Self-taught developer: built a React app"
+     },
+     {
+      "jobId": "j14",
+      "why": "Your attention to detail and JavaScript skills would be valuable in a Junior QA Tester role.",
+      "evidence": "Skills: JavaScript, React, HTML, CSS"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Grace,\n\nThank you for your application for the Junior Frontend Developer role at Kauri Labs. We appreciate you taking the time to apply.\n\nWhile your CV showed excellent initiative in building a React app used by your school, we're looking for more demonstrated experience with TypeScript for this specific role. Your self-taught development and practical project are real strengths.\n\nTo strengthen future applications, consider adding a project that clearly demonstrates your TypeScript skills. Also, ensure your CV explicitly states your legal eligibility to work in New Zealand.\n\nWe noticed your CV also aligns well with the Software Apprentice role at Rātā Digital and the Junior QA Tester role at Kauri Labs. These might be a great next step for you.\n\nThe Kauri Labs team"
+   }
+  },
+  {
+   "applicantId": "a12",
+   "problemsFound": [],
+   "remaining": [],
+   "noteIssue": {
+    "ground": null,
+    "explanation": "The private note states 'Not a culture fit' without explanation or objective job-related criteria, which creates a risk of subjective bias or proxy discrimination."
+   },
+   "cvManipulation": null,
+   "trace": [
+    {
+     "step": "write",
+     "ms": 4002,
+     "model": "openrouter:google/gemini-2.5-flash",
+     "note": "140 words"
+    },
+    {
+     "step": "verify",
+     "ms": 0,
+     "note": "10/10 quotes found in CV"
+    },
+    {
+     "step": "critique",
+     "ms": 2190,
+     "model": "openrouter:google/gemini-3.8-flash",
+     "note": "no issues"
+    }
+   ],
+   "status": "held",
+   "draft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "React and TypeScript features"
+     },
+     {
+      "requirementId": "r2",
+      "status": "met",
+      "evidence": "React and TypeScript features"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "Skills: React, TypeScript, CSS"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "pair programming, Git flow"
+     },
+     {
+      "requirementId": "r5",
+      "status": "met",
+      "evidence": "HR platform"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have practical experience building web features with React and TypeScript.",
+      "evidence": "React and TypeScript features for an HR platform"
+     },
+     {
+      "point": "You have experience working in a team environment using Git.",
+      "evidence": "pair programming, Git flow"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r3",
+      "advice": "Consider adding a portfolio link to your CV to showcase your responsive layouts and CSS skills visually.",
+      "evidence": "Skills: React, TypeScript, CSS"
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j7",
+      "why": "Your React and TypeScript skills would be a great fit for this internship.",
+      "evidence": "React and TypeScript features"
+     },
+     {
+      "jobId": "j14",
+      "why": "Your development background could be a strong asset in a Junior QA Tester role.",
+      "evidence": "Junior developer, 1 year"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Ben,\n\nThanks for your application for the Junior Frontend Developer role at Kauri Labs. We've reviewed your CV carefully.\n\nWhile your CV shows solid experience with React and TypeScript features for an HR platform, and you're clearly comfortable with Git flow, we've decided not to progress your application at this time. We were looking for candidates who demonstrated a stronger portfolio of responsive layouts and CSS skills.\n\nTo strengthen your applications for future frontend roles, consider adding a portfolio link to your CV to visually showcase your responsive layouts and CSS work. This would clearly demonstrate your abilities.\n\nWe think your skills might be a great fit for the Software Engineering Intern role at Harbour AI or the Junior QA Tester role at Kauri Labs. You can find more details on our careers page.\n\nThe Kauri Labs team"
+   },
+   "firstDraft": {
+    "assessment": [
+     {
+      "requirementId": "r1",
+      "status": "met",
+      "evidence": "React and TypeScript features"
+     },
+     {
+      "requirementId": "r2",
+      "status": "met",
+      "evidence": "React and TypeScript features"
+     },
+     {
+      "requirementId": "r3",
+      "status": "met",
+      "evidence": "Skills: React, TypeScript, CSS"
+     },
+     {
+      "requirementId": "r4",
+      "status": "met",
+      "evidence": "pair programming, Git flow"
+     },
+     {
+      "requirementId": "r5",
+      "status": "met",
+      "evidence": "HR platform"
+     },
+     {
+      "requirementId": "r6",
+      "status": "met",
+      "evidence": null
+     }
+    ],
+    "strengths": [
+     {
+      "point": "You have practical experience building web features with React and TypeScript.",
+      "evidence": "React and TypeScript features for an HR platform"
+     },
+     {
+      "point": "You have experience working in a team environment using Git.",
+      "evidence": "pair programming, Git flow"
+     }
+    ],
+    "nextSteps": [
+     {
+      "kind": "build_it",
+      "requirementId": "r3",
+      "advice": "Consider adding a portfolio link to your CV to showcase your responsive layouts and CSS skills visually.",
+      "evidence": "Skills: React, TypeScript, CSS"
+     }
+    ],
+    "redirects": [
+     {
+      "jobId": "j7",
+      "why": "Your React and TypeScript skills would be a great fit for this internship.",
+      "evidence": "React and TypeScript features"
+     },
+     {
+      "jobId": "j14",
+      "why": "Your development background could be a strong asset in a Junior QA Tester role.",
+      "evidence": "Junior developer, 1 year"
+     }
+    ],
+    "subject": "Update on your Junior Frontend Developer application at Kauri Labs",
+    "message": "Kia ora Ben,\n\nThanks for your application for the Junior Frontend Developer role at Kauri Labs. We've reviewed your CV carefully.\n\nWhile your CV shows solid experience with React and TypeScript features for an HR platform, and you're clearly comfortable with Git flow, we've decided not to progress your application at this time. We were looking for candidates who demonstrated a stronger portfolio of responsive layouts and CSS skills.\n\nTo strengthen your applications for future frontend roles, consider adding a portfolio link to your CV to visually showcase your responsive layouts and CSS work. This would clearly demonstrate your abilities.\n\nWe think your skills might be a great fit for the Software Engineering Intern role at Harbour AI or the Junior QA Tester role at Kauri Labs. You can find more details on our careers page.\n\nThe Kauri Labs team"
+   }
+  }
+ ]
+}

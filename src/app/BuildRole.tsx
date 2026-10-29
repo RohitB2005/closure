@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Applicant, Role } from "@/lib/schemas";
+import { keyHeaders } from "./ApiKey";
 
 type Dropped = { text: string; reason: string };
 
@@ -14,7 +15,17 @@ const toBase64 = (f: File) =>
   });
 
 /** Bring your own role: paste a job ad, review the screening requirements, add applicants (PDF or text). */
-export default function BuildRole({ onReady }: { onReady: (role: Role, applicants: Applicant[]) => void }) {
+export default function BuildRole({
+  onReady,
+  apiKey,
+  live,
+  requireKey,
+}: {
+  onReady: (role: Role, applicants: Applicant[]) => void;
+  apiKey: string | null;
+  live: boolean;
+  requireKey: () => boolean;
+}) {
   const [ad, setAd] = useState("");
   const [role, setRole] = useState<Role | null>(null);
   const [dropped, setDropped] = useState<Dropped[]>([]);
@@ -25,10 +36,11 @@ export default function BuildRole({ onReady }: { onReady: (role: Role, applicant
   const [error, setError] = useState<string | null>(null);
 
   async function readAd() {
+    if (!requireKey()) return;
     setReadingAd(true);
     setError(null);
     try {
-      const res = await fetch("/api/role", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ jobAd: ad }) });
+      const res = await fetch("/api/role", { method: "POST", headers: { "Content-Type": "application/json", ...keyHeaders(apiKey) }, body: JSON.stringify({ jobAd: ad }) });
       const j = await res.json();
       if (!res.ok) throw new Error(j.error);
       setRole(j.role);
@@ -40,13 +52,14 @@ export default function BuildRole({ onReady }: { onReady: (role: Role, applicant
   }
 
   async function addPdfs(files: File[]) {
+    if (!requireKey()) return;
     setError(null);
     await Promise.all(
       files.map(async (f) => {
         setReading((r) => [...r, f.name]);
         try {
           if (f.size > 3_000_000) throw new Error(`${f.name} is over 3MB`);
-          const res = await fetch("/api/cv", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pdfBase64: await toBase64(f) }) });
+          const res = await fetch("/api/cv", { method: "POST", headers: { "Content-Type": "application/json", ...keyHeaders(apiKey) }, body: JSON.stringify({ pdfBase64: await toBase64(f) }) });
           const j = await res.json();
           if (!res.ok) throw new Error(j.error);
           setApps((a) => [...a, { id: `u${Date.now()}${Math.random().toString(36).slice(2, 6)}`, name: j.name, cv: j.cv, note: "" }]);
@@ -69,6 +82,15 @@ export default function BuildRole({ onReady }: { onReady: (role: Role, applicant
 
   return (
     <div className="space-y-6">
+      {!live && (
+        <p className="rounded-lg bg-stone-100 px-3 py-2 text-sm text-stone-600">
+          This tab runs the models live on your role and CVs, so it needs{" "}
+          <button onClick={requireKey} className="text-violet-700 underline">
+            your OpenRouter API key
+          </button>
+          .
+        </p>
+      )}
       {/* 1. Job ad */}
       <section className="rounded-xl border border-stone-200 bg-white p-5">
         <p className="text-xs font-medium uppercase tracking-wide text-violet-600">Step 1 · The role</p>

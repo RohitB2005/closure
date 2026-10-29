@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Applicant, Job, Role } from "@/lib/schemas";
 import type { ClosureResult, Problem, Stage } from "@/lib/closure";
+import { keyHeaders } from "./ApiKey";
 
 type RowState = {
   phase: "idle" | "running" | "done";
@@ -27,9 +28,39 @@ const STATUS: Record<ClosureResult["status"], { label: string; cls: string }> = 
   held: { label: "Held: check your reason", cls: "bg-rose-100 text-rose-800" },
 };
 
+const failed = (id: string): ClosureResult => ({
+  applicantId: id,
+  status: "needs_review",
+  draft: null,
+  firstDraft: null,
+  problemsFound: [],
+  remaining: [],
+  noteIssue: null,
+  cvManipulation: null,
+  trace: [],
+});
+
 const groundLabel = (g?: string | null) => (g ? g.replace(/_/g, " ") : "");
 
-export default function CloseRole({ role, applicants, jobs, guide = false }: { role: Role; applicants: Applicant[]; jobs: Job[]; guide?: boolean }) {
+export default function CloseRole({
+  role,
+  applicants,
+  jobs,
+  guide = false,
+  recorded,
+  apiKey,
+  live,
+  requireKey,
+}: {
+  role: Role;
+  applicants: Applicant[];
+  jobs: Job[];
+  guide?: boolean;
+  recorded?: ClosureResult[]; // a real run of the demo role, replayed when there's no API key
+  apiKey: string | null;
+  live: boolean;
+  requireKey: () => boolean;
+}) {
   const [notes, setNotes] = useState<Record<string, string>>(() => Object.fromEntries(applicants.map((a) => [a.id, a.note])));
   const [rows, setRows] = useState<Record<string, RowState>>({});
   const [open, setOpen] = useState<string | null>(null);
@@ -41,7 +72,7 @@ export default function CloseRole({ role, applicants, jobs, guide = false }: { r
     const body = JSON.stringify({ role, applicant: applicants.find((a) => a.id === id), note: notes[id], stream: true });
     // Streams {stage} lines while the pipeline runs, then {result}.
     const attempt = async (): Promise<ClosureResult> => {
-      const res = await fetch("/api/close", { method: "POST", headers: { "Content-Type": "application/json" }, body });
+      const res = await fetch("/api/close", { method: "POST", headers: { "Content-Type": "application/json", ...keyHeaders(apiKey) }, body });
       if (!res.ok || !res.body) throw new Error(`HTTP ${res.status}`);
       const reader = res.body.getReader();
       const dec = new TextDecoder();
@@ -67,20 +98,40 @@ export default function CloseRole({ role, applicants, jobs, guide = false }: { r
       const result = await attempt().catch(attempt);
       setRows((r) => ({ ...r, [id]: { phase: "done", result, message: result.draft?.message } }));
     } catch (e) {
-      const result = { applicantId: id, status: "needs_review", draft: null, firstDraft: null, problemsFound: [], remaining: [], noteIssue: null, cvManipulation: null, trace: [], error: (e as Error).message } as ClosureResult;
+      const result = { ...failed(id), error: (e as Error).message };
       setRows((r) => ({ ...r, [id]: { phase: "done", result } }));
     }
+  }
+
+  /** Plays back a recorded result, stage by stage, with the timings measured when it was recorded. */
+  async function replayOne(id: string) {
+    const rec = recorded?.find((r) => r.applicantId === id);
+    const original = applicants.find((a) => a.id === id)?.note;
+    if (!rec || notes[id] !== original) {
+      const error = "The note was changed, so the recording doesn't apply. Add your API key to draft it live";
+      setRows((r) => ({ ...r, [id]: { phase: "done", result: { ...failed(id), error } } }));
+      return;
+    }
+    let critiques = 0;
+    for (const t of rec.trace) {
+      const stage: Stage | null = t.step === "write" ? "writing" : t.step === "revise" ? "revising" : t.step === "critique" ? (critiques++ ? "rechecking" : "checking") : null;
+      if (!stage) continue;
+      setRows((r) => ({ ...r, [id]: { phase: "running", stage } }));
+      await new Promise((ok) => setTimeout(ok, t.ms));
+    }
+    setRows((r) => ({ ...r, [id]: { phase: "done", result: rec, message: rec.draft?.message } }));
   }
 
   const patch = (id: string, p: Partial<RowState>) => setRows((r) => ({ ...r, [id]: { ...r[id], ...p } }));
 
   async function checkEdit(id: string, fix: boolean) {
+    if (!requireKey()) return;
     const row = rows[id];
     patch(id, { checking: true });
     try {
       const res = await fetch("/api/check", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...keyHeaders(apiKey) },
         body: JSON.stringify({ role, applicant: applicants.find((a) => a.id === id), note: notes[id], message: row.message, fix }),
       });
       const j = await res.json();
@@ -106,13 +157,15 @@ export default function CloseRole({ role, applicants, jobs, guide = false }: { r
   }, [started, elapsed]);
 
   async function closeRole() {
+    const replay = !live && !!recorded;
+    if (!replay && !requireKey()) return;
     const t = Date.now();
     setStarted(t);
     setElapsed(null);
     const queue = applicants.map((a) => a.id);
     await Promise.all(
       Array.from({ length: CONCURRENCY }, async () => {
-        while (queue.length) await runOne(queue.shift()!);
+        while (queue.length) await (replay ? replayOne : runOne)(queue.shift()!);
       }),
     );
     setElapsed(Date.now() - t);
@@ -177,6 +230,16 @@ export default function CloseRole({ role, applicants, jobs, guide = false }: { r
             </span>
           ))}
         </div>
+        {!live && recorded && (
+          <p className="mt-4 rounded-lg bg-stone-100 px-3 py-2 text-sm text-stone-600">
+            <span className="font-medium text-stone-800">No API key, so Close role replays a recorded run:</span> a real, unedited run from 29 Oct 2026, with
+            its measured timings.{" "}
+            <button onClick={requireKey} className="text-violet-700 underline">
+              Add your OpenRouter key
+            </button>{" "}
+            to run it live, re-draft or check edits.
+          </p>
+        )}
         <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
           <Stat label="Would be ghosted" value={applicants.length - results.length} tone={results.length === applicants.length ? "good" : "bad"} sub={started ? `of ${applicants.length}` : "today"} />
           <Stat label="Personal feedback ready" value={count("ready") + count("revised")} tone="good" sub={count("revised") ? `${count("revised")} fixed by critic` : "checked by critic"} />
@@ -237,7 +300,7 @@ export default function CloseRole({ role, applicants, jobs, guide = false }: { r
                   note={notes[a.id]}
                   setNote={(v) => setNotes((n) => ({ ...n, [a.id]: v }))}
                   row={row}
-                  rerun={() => runOne(a.id)}
+                  rerun={() => requireKey() && runOne(a.id)}
                   send={() => patch(a.id, { sent: true })}
                   edit={(m) => patch(a.id, { message: m, editChecked: false, editProblems: undefined })}
                   checkEdit={(fix) => checkEdit(a.id, fix)}

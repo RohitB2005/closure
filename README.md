@@ -2,7 +2,9 @@
 
 **Closure helps recruiters give every rejected applicant honest, specific, lawful feedback and a next step, in one click.**
 
-**Live demo: [closure-mu.vercel.app](https://closure-mu.vercel.app)** (no login)
+**Live demo: [closure-mu.vercel.app](https://closure-mu.vercel.app)** · **Demo video: [youtu.be/C7jo7JYMlrM](https://youtu.be/C7jo7JYMlrM)**
+
+No login and no key needed to look around: without an API key, the demo replays a real recorded run. Add your own [OpenRouter key](https://openrouter.ai/keys) (top right) to run everything live.
 
 Built solo by **Rohit Balaji** in one day at **ZEIL's AI Hackathon (October 2026)**, where it placed in the top 5.
 
@@ -36,7 +38,7 @@ A human approves every message.
 
 The app has three tabs:
 
-- **Demo role:** a Junior Frontend Developer role with 12 fictional applicants. Click **Close role**, then open **Aroha** (a normal case), **Ahmed** (held: the note relies on disability) or **Sam** (add "overqualified for our young team" to the message and click **Check my edits**). Switch to **What they see** to compare with a typical template rejection.
+- **Demo role:** a Junior Frontend Developer role with 12 fictional applicants. Click **Close role**, then open **Aroha** (a normal case), **Ahmed** (held: the note relies on disability) or **Sam** (add "overqualified for our young team" to the message and click **Check my edits**; this runs live, so it needs a key). Switch to **What they see** to compare with a typical template rejection.
 - **Your own role:** paste any job ad. Closure extracts the screening requirements, which you can edit, and leaves out anything that isn't a lawful criterion ("young, energetic team", "native English speaker") with the reason shown. Then upload PDF CVs or paste CV text. Sample files are in [`samples/`](samples).
 - **How it works:** the pipeline and eval numbers.
 
@@ -63,6 +65,8 @@ recruiter clicks "Close role"
 
 **PDF CVs** are read natively by Gemini and transcribed verbatim, so every quote can still be verified against the text.
 
+**Bring your own key.** The public site has no API key of its own. A visitor's OpenRouter key is kept in their browser tab, checked with one tiny call, and sent with each request. The server uses it for that request only, carried through the pipeline with `AsyncLocalStorage`, and never stores or logs it. Without a key, **Close role** on the demo replays a real, unedited run ([`src/data/demo-run.json`](src/data/demo-run.json)) with its measured timings, clearly labelled. Anything that needs a live model asks for a key. When running locally, the key in `.env` is used instead.
+
 ### Key files
 
 | Path | What's there |
@@ -83,7 +87,7 @@ recruiter clicks "Close role"
 - **Gemini 2.5 Flash / 3.8 Flash** via **OpenRouter** (Gemini API as fallback)
 - Deployed on **Vercel**
 
-No database: the demo keeps all state in the browser, and "send" is simulated.
+No database: the demo keeps all state in the browser, and "send" is simulated. The public deployment needs no API key of its own (see "Bring your own key").
 
 ## Does it work?
 
@@ -130,7 +134,7 @@ node eval/attack.mjs    # prompt-injection CV
 
 - **Built with Claude Code** as a coding assistant. I made and can explain every decision; Claude wrote much of the code with me.
 - The Next.js + Tailwind scaffold and the original `generateObject` helper came from my own starter, written the night before the hackathon (before the challenge was known).
-- The demo video is a real, unedited run of the live site, driven by a Playwright script for clean pacing.
+- The [demo video](https://youtu.be/C7jo7JYMlrM) (my hackathon submission) is a real, unedited run of the live site, driven by a Playwright script for clean pacing. The narration is mine.
 - Demo applicants, CVs and companies are fictional. Statistics in "The problem" come from public surveys (Resume Genius / CV Genius, HR Reporter).
 
 ## What's next
