@@ -7,7 +7,7 @@ import applicantsData from "@/data/applicants.json";
 
 /**
  * The Closure pipeline, per applicant:
- *   write (Gemini) -> verify (code) + critique (Gemini) -> [revise once] -> ready | needs_review
+ *   write (Gemini) -> verify (code) + critique (Gemini) -> [revise once] -> ready | revised | needs_review | held
  * The model writes and judges; code checks every quote and job ID, and code decides the status.
  */
 

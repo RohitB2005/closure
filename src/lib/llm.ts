@@ -2,9 +2,9 @@ import { z } from "zod";
 
 /**
  * One function for every LLM call: generateObject({ schema, system, user }).
- * - Primary: Gemini API (the hackathon key), JSON mode + response schema.
- * - Fallback: OpenRouter (Gemini models) if Gemini is rate-limited or down, so a live demo
- *   doesn't die on the shared quota.
+ * - Primary: OpenRouter (Gemini models). "smart" calls try a stronger model first.
+ * - Fallback: the Gemini API directly (JSON mode), if a key is set. Order is configurable
+ *   with LLM_ORDER, so a live demo doesn't die on one provider's quota.
  * - Every reply is VALIDATED with zod. A reply that doesn't match the schema counts as a failure
  *   and is retried, then the next provider/model is tried.
  * - Returns null if everything fails, so callers can degrade gracefully.
