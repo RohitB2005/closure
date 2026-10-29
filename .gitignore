@@ -40,9 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# hackathon brief/handbook (not part of the project)
+# hackathon materials and local working notes (not part of the project)
 HackathonBriefPage.pdf
 Handbook.pdf
-.DS_Store
+CLAUDE.md
 DEMO_SCRIPT.md
 video/
