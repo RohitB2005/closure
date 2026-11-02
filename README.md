@@ -6,7 +6,7 @@
 
 No login and no key needed to look around: without an API key, the demo replays a real recorded run. Add your own [OpenRouter key](https://openrouter.ai/keys) (top right) to run everything live.
 
-Built solo by **Rohit Balaji** in one day at **ZEIL's AI Hackathon (October 2026)**, where it placed in the top 5.
+Built solo by **Rohit Balaji** in one day at **ZEIL's AI Hackathon (October 2026)**, where it was named one of ZEIL's five hackathon winners and earned me an AI internship at ZEIL.
 
 ## The problem
 
