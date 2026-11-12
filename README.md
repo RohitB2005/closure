@@ -8,6 +8,10 @@ No login and no key needed to look around: without an API key, the demo replays 
 
 Built solo by **Rohit Balaji** in one day at **ZEIL's AI Hackathon (October 2026)**, where it was named one of ZEIL's five hackathon winners and earned me an AI internship at ZEIL.
 
+<a href="https://youtu.be/C7jo7JYMlrM"><img src="docs/images/role-closed.jpg" alt="Closure after closing the demo role: 0 applicants ghosted, 8 personal messages ready, 4 held for review, with the applicant list below" width="100%"></a>
+
+<sub>One click closes the demo role: 8 personal messages ready, 4 held because the reason was unlawful, and nobody ghosted. Click the image to watch the demo video.</sub>
+
 ## The problem
 
 I'm a third-year software engineering student. I've applied for 50 to 75 roles. About half never replied, and every rejection I did get was the same line: *"we've picked a candidate whose experience aligns more closely with the role"*. Not one told me anything I could act on.
